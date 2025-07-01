@@ -14,11 +14,11 @@ function Header() {
       </Link>
 
       <nav className={styles.nav}>
-        <Link to="/group-buy" className={location.pathname.startsWith('/group-buy') ? styles.active : ''}>
-          상품둘러보기
-        </Link>
         <Link to="/chat" className={location.pathname.startsWith('/chat') ? styles.active : ''}>
           채팅방
+        </Link>
+        <Link to="/community" className={location.pathname.startsWith('/chat') ? styles.active : ''}>
+          커뮤니티
         </Link>
         <Link to="/mypage" className={location.pathname.startsWith('/mypage') ? styles.active : ''}>
           마이페이지
