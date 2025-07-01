@@ -40,8 +40,8 @@ const Footer = () => {
         </div>
 
         <div className={styles.right}>
-          <p>Portiony 사업자 정보</p>
-          <p>대표자: 팀 포셔니</p>
+          <p>Portiony 정보</p>
+          <p>대표자: 박지현</p>
           <p>EMAIL: thotemily@naver.com</p>
         </div>
       </div>

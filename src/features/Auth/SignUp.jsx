@@ -1,4 +1,3 @@
-// src/features/Auth/SignUpTerms.jsx
 import React from 'react';
 import styles from './SignUp.module.css';
 import backIcon from '../../assets/chevron-left.svg';
