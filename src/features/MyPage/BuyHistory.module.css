@@ -1,0 +1,26 @@
+.container {
+  margin: 20px 65px 0 65px;
+  min-height: 600px;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 35px;
+}
+
+.dropdownWrapper {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  align-items: flex-start;
+}
+
+.content {
+  margin-top: 60px;
+}
+
+.empty {
+  color: #999;
+  font-size: 16px;
+}
