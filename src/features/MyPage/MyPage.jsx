@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import MyPageHeader from '../../components/MyPage/MyPageHeader';
 import MyPageTabs from '../../components/MyPage/MyPageTabs';
-import BuyHistory from './BuyHistory';
-import SellHistory from './SellHistory';
-import Reviews from './Reviews';
-import Likes from './Likes';
-import Inquiries from './Inquiries';
+import BuyHistory from './BuyHistory/BuyHistory';
+import SellHistory from './SellHistory/SellHistory';
+import Reviews from './Reviews/Reviews';
+import Likes from './Likes/Likes';
+import Inquiries from './Inquiries/Inquiries';
 
 function MyPage() {
   const [selectedTab, setSelectedTab] = useState('buy');
@@ -25,7 +25,7 @@ function MyPage() {
     <div>
       <MyPageHeader />
       <MyPageTabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
-      <div style={{ padding: '35px 65px 0 65px' }}>
+      <div>
         {renderContent()}
       </div>
     </div>

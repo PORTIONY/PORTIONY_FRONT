@@ -19,23 +19,33 @@ export default function Dropdown({ options, selected, setSelected, placeholder }
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // 너비 자동 조정
+  // 너비 자동 조정 - 제목과 옵션 모두 고려
   useEffect(() => {
     if (!containerRef.current || !buttonRef.current) return;
+    
     const measurer = document.createElement('div');
     measurer.style.position = 'absolute';
     measurer.style.visibility = 'hidden';
     measurer.style.whiteSpace = 'nowrap';
     measurer.style.font = window.getComputedStyle(buttonRef.current).font;
+    
+    // 옵션들 측정
     options.forEach(text => {
       const span = document.createElement('span');
       span.textContent = text;
       measurer.appendChild(span);
     });
+    
+    // 현재 선택된 값(제목)도 측정
+    const titleSpan = document.createElement('span');
+    titleSpan.textContent = selected || placeholder;
+    measurer.appendChild(titleSpan);
+    
     document.body.appendChild(measurer);
 
     const maxTextWidth = Array.from(measurer.children)
       .reduce((max, el) => Math.max(max, el.getBoundingClientRect().width), 0);
+    
     document.body.removeChild(measurer);
 
     const style = window.getComputedStyle(buttonRef.current);
@@ -43,9 +53,10 @@ export default function Dropdown({ options, selected, setSelected, placeholder }
     const border  = parseFloat(style.borderLeftWidth) + parseFloat(style.borderRightWidth);
     const gap     = 8;
     const iconW   = 18;
+    
     containerRef.current.style.width =
       Math.ceil(maxTextWidth + padding + border + gap + iconW) + 'px';
-  }, [options]);
+  }, [options, selected, placeholder]); // selected와 placeholder도 의존성에 추가
 
   const handleSelect = option => {
     setSelected(option);

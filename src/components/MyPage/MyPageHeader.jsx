@@ -4,7 +4,12 @@ import profile from '../../assets/Ellipse 23.png';
 import questionIcon from '../../assets/question-icon.svg';
 
 function MyPageHeader() {
-  const potionyPercent = 62.5;
+  const potionyPercent = 62.5; // 예시 퍼센트
+
+  const gradientStyle = {
+    background: `conic-gradient(#fff ${potionyPercent}%, #000 ${potionyPercent}% 100%)`
+    // #fff 채움, 나머지 #000 배경
+  };
 
   return (
     <div className={styles.container}>
@@ -13,18 +18,19 @@ function MyPageHeader() {
 
         <div className={styles.infoBox}>
           <p className={styles.name}>박지현</p>
-          <p className={styles.history}>누적 거래 횟수 : 12회 (구매 0회 / 판매 5회)</p>
+          <p className={styles.history}>
+            누적 거래 횟수 : 12회 (구매 0회 / 판매 5회)
+          </p>
 
           <div className={styles.potionyWrapper}>
             <div className={styles.potionyBox}>
               <span>나의 포셔니는</span>
-              <div className={styles.moonContainer}>
-                <div className={styles.moonBase}></div>
-                <div
-                  className={styles.moonFill}
-                  style={{ transform: `scaleX(${potionyPercent / 100})` }}
-                ></div>
-              </div>
+
+              <div
+                className={styles.progressCircle}
+                style={gradientStyle}
+              />
+
               <span className={styles.percent}>{potionyPercent}%</span>
             </div>
 

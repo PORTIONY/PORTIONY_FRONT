@@ -46,10 +46,6 @@
     cursor: pointer;
   }
   
-  .arrow.rotated {
-    transform: rotate(180deg);
-  }
-  
   .dropdownMenu {
     position: absolute;
     top: 100%;
