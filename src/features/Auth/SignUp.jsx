@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import SignupTerms from './SignupTerms';
-import SignupForms from './SignupForms';
-import SignupLocation from './SignupLocation';
-import SignupSurvey from './SignupSurvey';
-import SignupDone from './SignupDone';
+import SignupTerms from './Signup/SignupTerms';
+import SignupForms from './Signup/SignupForms';
+import SignupLocation from './Signup/SignupLocation';
+import SignupSurvey from './Signup/SignupSurvey';
+import SignupDone from './Signup/SignupDone';
 
 
 const Signup = () => {
@@ -17,10 +17,10 @@ const Signup = () => {
       {step === 1 && <SignupTerms onNext={goToNextStep} />}
       {step === 2 && <SignupForms onNext={goToNextStep} onBack={goToBeforeStep} />}
       {step === 3 && <SignupLocation onNext={goToNextStep} onBack={goToBeforeStep} />}
-      {step === 4 && <SignupSurvey onBack={goToBeforeStep} />}
+      {step === 4 && <SignupSurvey onNext={goToNextStep} onBack={goToBeforeStep} />}
       {step === 5 && <SignupDone />}
     </div>
   );
 };
 
-export default SignUp;
+export default Signup;

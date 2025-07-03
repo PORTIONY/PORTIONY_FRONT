@@ -43,7 +43,7 @@
     aspect-ratio: 1/1;
 
     border-radius: 127px;
-    background: url(<path-to-image>) lightgray 50% / cover no-repeat;
+    background: url('../../../assets/profile-image.svg') lightgray 50% / cover no-repeat;
 }
 
 /* 프사설정버튼 */

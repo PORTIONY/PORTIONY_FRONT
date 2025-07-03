@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import back from '../../assets/chevron-left.svg';
-import location from '../../assets/location.svg';
+import back from '../../../assets/chevron-left.svg';
+import location from '../../../assets/location.svg';
 import styles from './SignupLocation.module.css';
-import search from '../../assets/search.svg';
+import search from '../../../assets/search.svg';
 
 function SignupLocation({ onNext, onBack }) {
     const [searchTerm, setSearchTerm] = useState('');
@@ -95,14 +95,13 @@ function SignupLocation({ onNext, onBack }) {
                         type="text"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        placeholder="동명(읍, 면)으로 검색 (ex. 서초동)">
-                    
-                        <img 
-                            src = {search}
-                            alt='검색'
-                            className = {styles.searchIcon}
-                            onClick = {() => handleSearch()} />
-                    </input>
+                        placeholder="동명(읍, 면)으로 검색 (ex. 서초동)"
+                        className={styles.searchInput} />
+                    <img 
+                        src = {search}
+                        alt='검색'
+                        className = {styles.searchIcon}
+                        onClick = {() => handleSearch()} />
                 </div>
             </div>
 

@@ -2,11 +2,13 @@ import React, { useState, useRef } from 'react';
 import styles from './SignupForms.module.css';
 import { useNavigate } from 'react-router-dom';
 
-import back from '../../assets/chevron-left.svg';
-import requiredIcon from '../../assets/required.svg';
-import close from '../../assets/x.svg';
+import profileImage from '../../../assets/profile-image.svg'
+import back from '../../../assets/chevron-left.svg';
+import requiredIcon from '../../../assets/required.svg';
+import close from '../../../assets/x.svg';
 
-const domainOptions = ['직접 입력', 'gmail.com', 'naver.com', 'hanmail.net'];
+const domainOptions = ['직접 입력', 'gmail.com', 'naver.com', 
+                      'daum.net', 'hanmail.net'];
 
 function SignupForms({ onNext, onBack }) {
   const [profileImage, setProfileImage] = useState(null);
@@ -40,13 +42,14 @@ function SignupForms({ onNext, onBack }) {
     }
   };
 
-  //프로필사진 삭제 기능구현 시
-  //const removeProfileImage = () => setProfileImage(null);
+  const removeProfileImage = () => setProfileImage(null);
 
   const fullEmail = `${emailId}@${domainType === '직접 입력' ? emailDomain : domainType}`;
 
   //추후 백엔드와 연동, 예시코드만 작성
   const handleEmailCheck = async () => {
+    alert('사용 가능한 이메일입니다. (임시)');
+    setEmailValid(true);
     // const res = await fetch(`/api/users/check-email?email=${fullEmail}`);
     // const data = await res.json();
     // if (data.exists) {
@@ -59,6 +62,8 @@ function SignupForms({ onNext, onBack }) {
 };
 
   const handleNicknameCheck = async () => {
+    alert('사용 가능한 닉넴입니다. (임시)');
+    setNicknameValid(true);
     // const res = await fetch(`/api/users/check-nickname?nickname=${nickname}`);
     // const data = await res.json();
     // if (data.exists) {
@@ -93,7 +98,18 @@ function SignupForms({ onNext, onBack }) {
       {/* 프로필 사진 */}
       <section className={styles.section}>
         { profileImage ? (
-          <img src={profileImage} alt="프로필" className={styles.profileImage} />
+          <div className={styles.imageWrapper}>
+            <img 
+              src={profileImage} 
+              alt="프로필" 
+              className={styles.profileImage} />
+            <img
+              src={close}
+              alt="삭제"
+              className={styles.xIcon}
+              onClick={removeProfileImage}
+            />
+          </div>
         ) : (
           <div
             className={styles.uploadButton}
@@ -111,6 +127,7 @@ function SignupForms({ onNext, onBack }) {
           style={{ display: 'none' }}
         />
       </section>
+      
       <div className={styles.formGroup}>
         {/* 이메일 */}
         <label className={styles.label}>

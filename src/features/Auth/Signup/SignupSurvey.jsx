@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './SignupSurvey.module.css';
-import back from '../../assets/chevron-left.svg';
-import requiredIcon from '../../assets/required.svg';
+import back from '../../../assets/chevron-left.svg';
+import requiredIcon from '../../../assets/required.svg';
 
 function SignupSurvey({ onNext, onBack }) {
   const [category, setCategory] = useState('');

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import back from '../../assets/chevron-left.svg';
+import back from '../../../assets/chevron-left.svg';
 import styles from './SignupTerms.module.css'; 
 
 const SignupTerms = ({ onNext }) => {

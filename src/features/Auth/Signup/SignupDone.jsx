@@ -1,9 +1,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './SignupDone.module.css';
-import logo from '../../assets/logoportiony.svg';
+import logo from '../../../assets/logoportiony.png';
 
-function SignupComplete() {
+function SignupDone() {
     const navigate = useNavigate();
 
     const handleGoToLogin = () => {
