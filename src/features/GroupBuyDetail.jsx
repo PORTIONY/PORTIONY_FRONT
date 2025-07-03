@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
+import sampleImg from "../assets/sample-img.svg";
+import sellerProfile from "../assets/seller-profile.svg";
+import clockIcon from "../assets/clock-icon.svg";
 import './GroupBuyDetail.css';
 
 function GroupBuyDetail() {
@@ -8,7 +11,7 @@ function GroupBuyDetail() {
     category: "문구류",
     title: "치이카와 마스킹테이프 세트 같이 나눠요!",
     description: "안녕하세요!\n치이카와 마스킹테이프 세트를 10개 묶음으로 구매했는데,\n다 쓰기엔 양이 많아 같이 나눠쓰실 분 찾고 있어요 :)",
-    images: ["/assets/sample-img.svg", "/assets/sample2.jpg"],
+    images: [sampleImg],
     amount: "2",
     unit: "묶음",
     unitCustom: "",
@@ -47,7 +50,7 @@ function GroupBuyDetail() {
     id: i + 1,
     user: {
       nickname: `user${i + 1}`,
-      profileUrl: "/assets/seller-profile.svg"
+      profileUrl: sellerProfile
     },
     datetime: "2025-07-03 14:30",
     text: `너무 예뻐요! 댓글 ${i + 1}번째입니다`
@@ -77,7 +80,7 @@ function GroupBuyDetail() {
       id: comments.length + 1,
       user: {
         nickname: "나",
-        profileUrl: "/assets/seller-profile.svg"
+        profileUrl: sellerProfile
       },
       datetime: new Date().toISOString().slice(0, 16).replace("T", " "),
       text: input
@@ -105,7 +108,7 @@ function GroupBuyDetail() {
 
                 {/* 마감 디데이 (여기선 임시로 deadline 보여줌) */}
                 <div className="status">
-                  <img src="/assets/clock-icon.svg" alt="상태 아이콘" className="status-icon" />
+                  <img src={clockIcon} alt="상태 아이콘" className="status-icon" />
                   {isCompleted ? "공구완료" : `마감 ${getDDay(dummy.deadline)}`}
                 </div>
 
@@ -150,7 +153,7 @@ function GroupBuyDetail() {
                     <p className="section-title">판매자 정보</p>
                       <hr className="divider" />
                     <div className="seller-box">
-                      <img src="/assets/seller-profile.svg" alt="판매자" />
+                      <img src={sellerProfile} alt="판매자" />
                       <div className="seller-info">
                         <p className="name">박지현</p>
                         <p className="stats">누적 거래 횟수: 12회 (구매 0회 / 판매 5회)</p>

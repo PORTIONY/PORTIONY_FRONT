@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import backIcon from '../assets/back-icon.svg';
+import removeIcon from '../assets/remove-icon.svg';
+import modalIcon from '../assets/modal-icon.svg';
 import './GroupBuyNew.css';
 
 function GroupBuyNew() {
@@ -104,7 +107,7 @@ function GroupBuyNew() {
       <div className="page-wrapper">
         <div className="form-header">
             <img
-            src="/assets/back-icon.svg"
+            src={backIcon}
             alt="뒤로가기"
             className="back-button"
             onClick={() => window.history.back()} // or useNavigate() if using React Router v6+
@@ -172,7 +175,7 @@ function GroupBuyNew() {
                         handleRemoveImage(index);
                       }}
                     >
-                      <img src="/assets/remove-icon.svg" alt="삭제" />
+                      <img src={removeIcon} alt="삭제" />
                     </button>
                   </div>
                 ))}
@@ -280,7 +283,7 @@ function GroupBuyNew() {
             {showCancelModal && (
               <div className="modal-overlay">
                 <div className="modal-content">
-                  <img src="/assets/modal-icon.svg" alt="모달 아이콘" className="modal-icon" />
+                  <img src={modalIcon} alt="모달 아이콘" className="modal-icon" />
                   <p className="modal-message">글 작성을 취소하시겠습니까?</p>
                   <div className="modal-buttons">
                     <button className="modal-button confirm" onClick={handleConfirmCancel}>작성 취소</button>
