@@ -1,0 +1,92 @@
+/* 뒤로가기 + 이름 */
+.backWrapper {
+  position: absolute;
+  top: 13px;
+  left: 26px;
+  display: flex;
+  align-items: center;
+  gap: 26px; 
+}
+
+/* 뒤로가기 */
+.backIcon {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  display: inline-block;
+}
+
+/* 페이지 이름 */
+.signupTitle {
+  color: #000;
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 20px; 
+  letter-spacing: -0.32px;
+}
+
+/* 질문 */
+.label {
+    color: #000;
+
+    /* Body/Body1 */
+    font-family: Inter;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px; /* 123.077% */
+    letter-spacing: -0.32px;
+}
+
+/* 드롭다운박스 */
+.dropdownBox {
+    width: 788px;
+    height: 40px;
+    flex-shrink: 0;
+
+    border-radius: 10px;
+    border: 1px solid #000;
+    background: #FFF;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+/* 시작버튼 */
+.startButton {
+    display: flex;
+    width: 375px;
+    height: 56px;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+/* PORTIONY 시작하기 */
+.startButtonText {
+    color: #000;
+    text-align: center;
+
+    /* Title/Title1 */
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 20px; /* 100% */
+    letter-spacing: -0.32px;
+}
+
+/* AI 추천없이 시작하기 */
+.skipText {
+    color: #747474;
+    text-align: center;
+
+    /* Body/Body1 */
+    font-family: Inter;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px; /* 123.077% */
+    letter-spacing: -0.32px;
+}
