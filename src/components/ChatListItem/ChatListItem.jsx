@@ -13,7 +13,7 @@ function ChatListItem({
 }) {
   return (
     <div className={styles.chatItem} onClick={onClick}>
-      {/* ⭐ 겹치는 이미지 감싸기 */}
+      {/* 겹치는 이미지 감싸기 */}
       <div className={styles.imageWrapper}>
         <img src={postImage} alt="게시글 이미지" className={styles.postImg} />
         <img src={profileImg} alt="프로필" className={styles.profileImg} />
@@ -29,7 +29,7 @@ function ChatListItem({
           {hasUnread && (
             <img
               src={isReadIcon}
-              alt="읽지 않음"
+              alt="읽지 않음 표시"
               className={styles.readIcon}
             />
           )}
