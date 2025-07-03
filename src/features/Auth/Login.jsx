@@ -55,7 +55,7 @@ function Login() {
           </div>
           <button className={styles.loginButton} onClick={handleFinalLogin}>로그인</button>
           <p className={styles.signupText}>
-            첫 방문이신가요? <a href="#" className={styles.signupLink}>회원가입</a>
+            첫 방문이신가요? <a href="/signup" className={styles.signupLink}>회원가입</a>
           </p>
         </>
       )}

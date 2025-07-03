@@ -1,43 +1,65 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Reviews.module.css';
 import Dropdown from '../../../components/DropDown/DropDown';
+import ReviewsModal from './ReviewsModal';
 import arrowIcon from '../../../assets/chevron-left.svg';
 import uncheckedIcon from '../../../assets/checkbox-unchecked.svg';
 import checkedIcon from '../../../assets/checkbox-checked.svg';
 import minusIcon from '../../../assets/minus.svg';
 
-// 예시 데이터에 rating(별점) 추가
+// localStorage 관리 함수
+const LOCAL_KEY = 'portiony_reviews';
+function getLocalReviews() {
+  const raw = localStorage.getItem(LOCAL_KEY);
+  return raw ? JSON.parse(raw) : {};
+}
+function setLocalReview(productName, reviewData) {
+  const reviews = getLocalReviews();
+  reviews[productName] = reviewData;
+  localStorage.setItem(LOCAL_KEY, JSON.stringify(reviews));
+}
+function removeLocalReview(productName) {
+  const reviews = getLocalReviews();
+  delete reviews[productName];
+  localStorage.setItem(LOCAL_KEY, JSON.stringify(reviews));
+}
+
+// 샘플 데이터
 const sampleData = [
-  { id: 1,  name: '치이카와 스티커', type: '구매', date: '2025-06-10', writeStatus: '작성됨', rating: 5 },
-  { id: 2,  name: '치이카와 스티커', type: '판매', date: '2025-06-11', writeStatus: '미작성', rating: 4 },
-  { id: 3,  name: '치이카와 스티커', type: '판매', date: '2025-06-15', writeStatus: '미작성', rating: 3 },
-  { id: 4,  name: '치이카와 스티커', type: '판매', date: '2025-06-14', writeStatus: '미작성', rating: 5 },
-  { id: 5,  name: '치이카와 스티커', type: '구매', date: '2025-06-16', writeStatus: '작성됨', rating: 5 },
-  { id: 6,  name: '치이카와 스티커', type: '판매', date: '2025-06-12', writeStatus: '미작성', rating: 2 },
-  { id: 7,  name: '치이카와 스티커', type: '판매', date: '2025-06-17', writeStatus: '미작성', rating: 1 },
-  { id: 8,  name: '치이카와 스티커', type: '구매', date: '2025-06-18', writeStatus: '작성됨', rating: 4 },
-  { id: 9,  name: '치이카와 스티커', type: '판매', date: '2025-06-13', writeStatus: '미작성', rating: 5 },
-  { id: 10, name: '치이카와 스티커', type: '판매', date: '2025-06-19', writeStatus: '미작성', rating: 5 },
-  { id: 11, name: '치이카와 스티커', type: '판매', date: '2025-06-10', writeStatus: '미작성', rating: 3 },
-  { id: 12, name: '치이카와 스티커', type: '구매', date: '2025-06-10', writeStatus: '작성됨', rating: 5 },
-  { id: 13, name: '치이카와 스티커', type: '판매', date: '2025-06-10', writeStatus: '미작성', rating: 4 },
-  { id: 14, name: '치이카와 스티커', type: '판매', date: '2025-06-10', writeStatus: '미작성', rating: 5 },
+  { id: 1,  name: '치이카와 스티커', type: '구매', date: '2025-06-10', rating: 5 },
+  { id: 2,  name: '짱구 스티커', type: '판매', date: '2025-06-11', rating: 4 },
+  { id: 3,  name: '도라에몽 스티커', type: '판매', date: '2025-06-15', rating: 3 },
+  { id: 4,  name: '치이카와 스티커', type: '판매', date: '2025-06-14', rating: 5 },
+  { id: 5,  name: '치이카와 스티커', type: '구매', date: '2025-06-16', rating: 5 },
+  { id: 6,  name: '치이카와 스티커', type: '판매', date: '2025-06-12', rating: 2 },
+  { id: 7,  name: '치이카와 스티커', type: '판매', date: '2025-06-17', rating: 1 },
+  { id: 8,  name: '치이카와 스티커', type: '구매', date: '2025-06-18', rating: 4 },
+  { id: 9,  name: '치이카와 스티커', type: '판매', date: '2025-06-13', rating: 5 },
+  { id: 10, name: '치이카와 스티커', type: '판매', date: '2025-06-19', rating: 5 },
+  { id: 11, name: '치이카와 스티커', type: '판매', date: '2025-06-10', rating: 3 },
+  { id: 12, name: '치이카와 스티커', type: '구매', date: '2025-06-10', rating: 5 },
+  { id: 13, name: '치이카와 스티커', type: '판매', date: '2025-06-10', rating: 4 },
+  { id: 14, name: '치이카와 스티커', type: '판매', date: '2025-06-10', rating: 5 },
 ];
 
 export default function ReviewsHistory() {
-  const [viewType,        setViewType]        = useState('');               // '내가 남긴 후기' or '받은 후기'
+  const [viewType, setViewType] = useState('');
   const [transactionType, setTransactionType] = useState('거래 유형');
-  const [dateSort,        setDateSort]        = useState('거래 일자');
-  const [writeStatus,     setWriteStatus]     = useState('작성 상태');
-  const [ratingSort,      setRatingSort]      = useState('별점');
-  const [currentPage,     setCurrentPage]     = useState(1);
-  const [checkedItems,    setCheckedItems]    = useState({});
+  const [dateSort, setDateSort] = useState('거래 일자');
+  const [writeStatus, setWriteStatus] = useState('작성 상태');
+  const [ratingSort, setRatingSort] = useState('별점');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [checkedItems, setCheckedItems] = useState({});
+  // 모달 오픈 상태, 상품명, 모드 함께 관리
+  const [modalInfo, setModalInfo] = useState({ open: false, productName: '', mode: 'write' });
 
-  const perPage = 7;
+  // 후기(로컬) 상태
+  const [localReviews, setLocalReviews] = useState(getLocalReviews());
 
-  // 페이지가 바뀔 때, 체크박스 초기화
+  const perPage = 9;
+
   useEffect(() => setCheckedItems({}), [currentPage]);
-  // viewType 바뀔 때, 필터 · 페이지 · 체크 초기화
+
   useEffect(() => {
     setTransactionType('거래 유형');
     setDateSort('거래 일자');
@@ -47,32 +69,45 @@ export default function ReviewsHistory() {
     setCheckedItems({});
   }, [viewType]);
 
-  // 1) 필터링
-  const filtered = sampleData.filter(item => {
-    // 거래 유형 필터
+  // 등록/삭제 후 동기화용
+  const syncLocal = () => setLocalReviews(getLocalReviews());
+
+  // 후기 등록 콜백 (모달 → 리스트)
+  const handleRegisterReview = (productName, review) => {
+    setLocalReview(productName, review);
+    syncLocal();
+    setModalInfo({ open: false, productName: '', mode: 'write' });
+  };
+  // 삭제 콜백
+  const handleDeleteReview = (productName) => {
+    removeLocalReview(productName);
+    syncLocal();
+    setModalInfo({ open: false, productName: '', mode: 'write' });
+  };
+
+  // 작성상태 반영
+  const dataWithWriteStatus = sampleData.map(item => ({
+    ...item,
+    writeStatus: localReviews[item.name] ? '작성됨' : '미작성',
+  }));
+
+  // 필터/정렬/페이징
+  const filtered = dataWithWriteStatus.filter(item => {
     if (transactionType !== '거래 유형') {
       const want = transactionType.includes('구매') ? '구매' : '판매';
       if (item.type !== want) return false;
     }
-    // 내가 남긴 후기일 때만, 작성 상태 필터
     if (viewType === '내가 남긴 후기' && writeStatus !== '작성 상태') {
       if (item.writeStatus !== writeStatus) return false;
     }
     return true;
   });
 
-  // 2) 정렬
   const sorted = [...filtered].sort((a, b) => {
-    // 날짜 정렬
-    if (dateSort === '최신 순') {
-      return new Date(b.date) - new Date(a.date);
-    } else if (dateSort === '오래된 순') {
-      return new Date(a.date) - new Date(b.date);
-    }
+    if (dateSort === '최신 순') return new Date(b.date) - new Date(a.date);
+    if (dateSort === '오래된 순') return new Date(a.date) - new Date(b.date);
     return 0;
   });
-
-  // 받은 후기일 때 별점 정렬 추가
   if (viewType === '받은 후기') {
     sorted.sort((a, b) => {
       if (ratingSort === '별점 높은 순') return b.rating - a.rating;
@@ -81,28 +116,33 @@ export default function ReviewsHistory() {
     });
   }
 
-  // 3) 페이징
   const totalPages = Math.ceil(sorted.length / perPage);
-  const pagedData  = sorted.slice((currentPage - 1) * perPage, currentPage * perPage);
-
-  // 전체 선택 체크 여부
+  const pagedData = sorted.slice((currentPage - 1) * perPage, currentPage * perPage);
   const allChecked = pagedData.length > 0 && pagedData.every(item => checkedItems[item.id]);
-
   const toggleAll = () => {
     const newMap = {};
     pagedData.forEach(item => newMap[item.id] = !allChecked);
     setCheckedItems(newMap);
   };
   const toggleOne = id => setCheckedItems(prev => ({ ...prev, [id]: !prev[id] }));
-
   const prevPage = () => setCurrentPage(p => Math.max(1, p - 1));
   const nextPage = () => setCurrentPage(p => Math.min(totalPages, p + 1));
+
+  // 삭제 버튼
+  const handleDelete = () => {
+    Object.keys(checkedItems).filter(id => checkedItems[id]).forEach(id => {
+      const item = pagedData.find(row => row.id === Number(id));
+      if (item) removeLocalReview(item.name);
+    });
+    syncLocal();
+    setCheckedItems({});
+  };
 
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>거래 후기 내역</h2>
 
-      {/* 1) 내가 남긴 후기 / 받은 후기 토글 */}
+      {/* 내가 남긴 후기 / 받은 후기 토글 */}
       <div className={styles.toggleButtons}>
         {['내가 남긴 후기', '받은 후기'].map(type => (
           <button
@@ -115,7 +155,6 @@ export default function ReviewsHistory() {
         ))}
       </div>
 
-      {/* 2) 선택 바 */}
       {Object.values(checkedItems).filter(Boolean).length > 0 && (
         <div className={styles.selectionBar}>
           <button onClick={toggleAll} className={styles.clearButton} aria-label="선택 해제">
@@ -124,18 +163,12 @@ export default function ReviewsHistory() {
           <span className={styles.selectionText}>
             {Object.values(checkedItems).filter(Boolean).length}개 선택됨
           </span>
-          <button
-            className={styles.deleteButton}
-            onClick={() => {
-              console.log('삭제할 ID들:', Object.keys(checkedItems).filter(id => checkedItems[id]));
-            }}
-          >
+          <button className={styles.deleteButton} onClick={handleDelete}>
             후기 삭제
           </button>
         </div>
       )}
 
-      {/* 3) 필터 드롭다운 */}
       {viewType && (
         <div className={styles.dropdownWrapper}>
           <Dropdown
@@ -169,7 +202,6 @@ export default function ReviewsHistory() {
         </div>
       )}
 
-      {/* 4) 테이블 & 페이지네이션 */}
       {viewType ? (
         <>
           <div className={styles.tableContainer}>
@@ -235,8 +267,30 @@ export default function ReviewsHistory() {
                     <td>
                       {viewType === '내가 남긴 후기'
                         ? (item.writeStatus === '작성됨'
-                          ? <button className={styles.reviewButton}>후기 보기</button>
-                          : <button className={styles.reviewButton}>후기 작성</button>)
+                          ? <button
+                              className={styles.reviewButton}
+                              onClick={() =>
+                                setModalInfo({
+                                  open: true,
+                                  productName: item.name,
+                                  mode: 'view'
+                                })
+                              }
+                            >
+                              후기 보기
+                            </button>
+                          : <button
+                              className={styles.reviewButton}
+                              onClick={() =>
+                                setModalInfo({
+                                  open: true,
+                                  productName: item.name,
+                                  mode: 'write'
+                                })
+                              }
+                            >
+                              후기 작성
+                            </button>)
                         : <button className={styles.reviewButton}>후기 보기</button>
                       }
                     </td>
@@ -275,6 +329,18 @@ export default function ReviewsHistory() {
             “내가 남긴 후기” 또는 “받은 후기”를 선택해주세요.
           </p>
         </div>
+      )}
+
+      {/* 모달 */}
+      {modalInfo.open && (
+        <ReviewsModal
+          onClose={() => setModalInfo({ open: false, productName: '', mode: 'write' })}
+          productName={modalInfo.productName}
+          mode={modalInfo.mode}
+          savedReview={localReviews[modalInfo.productName]}
+          onRegister={handleRegisterReview}
+          onDelete={handleDeleteReview}
+        />
       )}
     </div>
   );

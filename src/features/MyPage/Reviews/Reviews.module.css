@@ -1,5 +1,5 @@
 .container {
-  position: relative;     /* relative 기준 설정 */
+  position: relative;
   margin: 20px 65px 0 65px;
   min-height: 600px;
 }
