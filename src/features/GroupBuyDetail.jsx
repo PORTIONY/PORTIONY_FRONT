@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import sampleImg from "../assets/sample-img.svg";
 import sellerProfile from "../assets/seller-profile.svg";
 import clockIcon from "../assets/clock-icon.svg";
-import './GroupBuyDetail.css';
+import styles from './GroupBuyDetail.module.css'
 
 function GroupBuyDetail() {
 
@@ -38,14 +38,14 @@ function GroupBuyDetail() {
     return diff >= 0 ? `D-${diff}` : "마감";
   };
 
-  // 찜하기 클릭핸들러
+  // 찜하기 클릭 핸들러
   const handleLikeClick = () => {
     setLiked((prev) => !prev); // 상태 토글
     setLikeCount((prev) => liked ? prev - 1 : prev + 1);
   };
 
 
-  // 더미 댓글 27개 생성
+  // 더미 댓글 43개 생성
   const dummyComments = Array.from({ length: 43 }, (_, i) => ({
     id: i + 1,
     user: {
@@ -92,105 +92,105 @@ function GroupBuyDetail() {
   };
 
   return (
-    <div className="group-buy-detail-page">
-      <div className="page-background">
-        <div className="white-box first-box">
-            <div className="product-wrapper">
+    <div className={styles['group-buy-detail-page']}>
+      <div className={styles['page-background']}>
+        <div className={`${styles['white-box']} ${styles['first-box']}`}>
+            <div className={styles['product-wrapper']}>
 
               {/* 왼쪽 이미지 영역 */}
-              <div className="product-image">
+              <div className={styles['product-image']}>
                 {/* dummy.images 배열 중 첫 번째 이미지 출력 */}
-                <img src={dummy.images[0]}/>
+                <img src={dummy.images[0]} alt="상품 이미지" />
               </div>
 
               {/* 오른쪽 정보 영역 */}
-              <div className="product-info">
+              <div className={styles['product-info']}>
 
                 {/* 마감 디데이 (여기선 임시로 deadline 보여줌) */}
-                <div className="status">
-                  <img src={clockIcon} alt="상태 아이콘" className="status-icon" />
+                <div className={styles['status']}>
+                  <img src={clockIcon} alt="상태 아이콘" className={styles['status-icon']} />
                   {isCompleted ? "공구완료" : `마감 ${getDDay(dummy.deadline)}`}
                 </div>
 
-                <h1 className="product-title">{dummy.title}</h1>
+                <h1 className={styles['product-title']}>{dummy.title}</h1>
 
                 {/* 가격 2500원 -> 2,500원 형태로 포맷 */}
-                <div className="price">{Number(dummy.price).toLocaleString()}원</div>
+                <div className={styles['price']}>{Number(dummy.price).toLocaleString()}원</div>
 
-                <dl className="detail-list">
-                  <div className="detail-row">
+                <dl className={styles['detail-list']}>
+                  <div className={styles['detail-row']}>
                     <dt>카테고리</dt>
                     <dd>{dummy.category}</dd>
                   </div>
-                  <div className="detail-row">
+                  <div className={styles['detail-row']}>
                     <dt>1인당 소분량</dt>
                     <dd>{dummy.amount} {dummy.unit || dummy.unitCustom}</dd>
                   </div>
-                  <div className="detail-row">
+                  <div className={styles['detail-row']}>
                     <dt>모집 · 거래 완료</dt>
                     <dd>{dummy.people}명 · 1명</dd>
                   </div>
-                  <div className="detail-row">
+                  <div className={styles['detail-row']}>
                     <dt>거래 방법</dt>
                     <dd>{dummy.method}</dd>
                   </div>
-                  <div className="detail-row">
+                  <div className={styles['detail-row']}>
                     <dt>거래 위치</dt>
                     <dd>{dummy.location}</dd>
                   </div>
-                  <div className="detail-row">
+                  <div className={styles['detail-row']}>
                     <dt>마감일</dt>
                     <dd>{dummy.deadline}</dd>
                   </div>
-                  <div className="detail-row">
+                  <div className={styles['detail-row']}>
                     <dt>작성일</dt>
                     <dd>{new Date().toISOString().slice(0, 10)}</dd>
                   </div>
                 </dl>
 
                 {/* 판매자 정보 */}
-                <div className="seller-section">
-                    <p className="section-title">판매자 정보</p>
-                      <hr className="divider" />
-                    <div className="seller-box">
+                <div className={styles['seller-section']}>
+                    <p className={styles['section-title']}>판매자 정보</p>
+                      <hr className={styles['divider']} />
+                    <div className={styles['seller-box']}>
                       <img src={sellerProfile} alt="판매자" />
-                      <div className="seller-info">
-                        <p className="name">박지현</p>
-                        <p className="stats">누적 거래 횟수: 12회 (구매 0회 / 판매 5회)</p>
+                      <div className={styles['seller-info']}>
+                        <p className={styles['name']}>박지현</p>
+                        <p className={styles['stats']}>누적 거래 횟수: 12회 (구매 0회 / 판매 5회)</p>
                       </div>
                     </div>
                 </div>
 
                 {/* 버튼 영역 */}
-                <div className="buttons">
+                <div className={styles['buttons']}>
                   {isSeller ? (
                     isCompleted ? (
                       <>
-                        <button className="btn-delete" onClick={() => { setModalType("delete"); setIsModalOpen(true); }}>삭제하기</button>
-                        <button className="btn-reopen" onClick={() => { setModalType("reopen"); setIsModalOpen(true); }}>재개시하기</button>
+                        <button className={styles['btn-delete']} onClick={() => { setModalType("delete"); setIsModalOpen(true); }}>삭제하기</button>
+                        <button className={styles['btn-reopen']} onClick={() => { setModalType("reopen"); setIsModalOpen(true); }}>재개시하기</button>
                       </>
                     ) : (
                       <>
-                        <button className="btn-edit">수정하기</button>
-                        <button className="btn-delete" onClick={() => { setModalType("delete"); setIsModalOpen(true); }}>삭제하기</button>
-                        <button className="btn-complete" onClick={() => { setModalType("complete"); setIsModalOpen(true); }}>공구완료</button>
+                        <button className={styles['btn-edit']}>수정하기</button>
+                        <button className={styles['btn-delete']} onClick={() => { setModalType("delete"); setIsModalOpen(true); }}>삭제하기</button>
+                        <button className={styles['btn-complete']} onClick={() => { setModalType("complete"); setIsModalOpen(true); }}>공구완료</button>
                       </>
                     )
                   ) : (
                     <>
                       <button
-                        className={`btn-like ${liked ? "liked" : ""}`}
+                        className={`${styles['btn-like']} ${liked ? styles.liked : ''}`}
                         onClick={handleLikeClick}
                       >
                         {liked ? (
                           <>
-                            <span className="heart-icon">❤</span> {likeCount}
+                            <span className={styles['heart-icon']}>❤</span> {likeCount}
                           </>
                         ) : (
                           "❤ 찜하기"
                         )}
                       </button>
-                      <button className="btn-chat">채팅하기</button>
+                      <button className={styles['btn-chat']}>채팅하기</button>
                     </>
                   )}
                 </div>
@@ -199,9 +199,9 @@ function GroupBuyDetail() {
             </div>
 
             {/* 상품 정보 */}
-            <div className="description-section">
-                <p className="section-title">상품 정보</p>
-                <hr className="divider" />
+            <div className={`${styles['description-section']}`}>
+                <p className={styles['section-title']}>상품 정보</p>
+                <hr className={styles['divider']} />
                 {/* 줄바꿈 */}
                 <p>
                   {dummy.description.split('\n').map((line, index) => (
@@ -215,45 +215,45 @@ function GroupBuyDetail() {
         </div>
 
         {/* 댓글 영역*/}
-        <div className="white-box second-box">
-          <div className="comment-section">
-            <h2 className="comment-title">
-                댓글 <span className="comment-count">{comments.length}</span>
+        <div className={`${styles['white-box']} ${styles['second-box']}`}>
+          <div className={styles['comment-section']}>
+            <h2 className={styles['comment-title']}>
+                댓글 <span className={styles['comment-count']}>{comments.length}</span>
             </h2>
 
-            <div className="comment-input-wrapper">
+            <div className={styles['comment-input-wrapper']}>
               <input
                 type="text"
                 placeholder="댓글을 작성해주세요."
-                className="comment-input"
+                className={styles['comment-input']}
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
               />
-              <button className="comment-submit">
+              <button className={styles['comment-submit']}>
                   등록
               </button>
             </div>
 
-            <ul className="comment-list">
+            <ul className={styles['comment-list']}>
               {comments
                 .slice((currentPage - 1) * commentsPerPage, currentPage * commentsPerPage)
                 .map((comment) => (
-                  <li key={comment.id} className="comment-item">
-                    <img src={comment.user.profileUrl} alt={comment.user.nickname} className="comment-profile" />
-                    <div className="comment-content">
-                      <div className="comment-header">
-                        <span className="comment-nickname">{comment.user.nickname}</span>
-                        <span className="comment-datetime">{comment.datetime}</span>
+                  <li key={comment.id} className={styles['comment-item']}>
+                    <img src={comment.user.profileUrl} alt={comment.user.nickname} className={styles['comment-profile']} />
+                    <div className={styles['comment-content']}>
+                      <div className={styles['comment-header']}>
+                        <span className={styles['comment-nickname']}>{comment.user.nickname}</span>
+                        <span className={styles['comment-datetime']}>{comment.datetime}</span>
                       </div>
-                      <p className="comment-text">{comment.text}</p>
+                      <p className={styles['comment-text']}>{comment.text}</p>
                     </div>
                   </li>
                 ))}
             </ul>
 
             {/* 페이지네이션 */}
-            <div className="pagination">
+            <div className={styles['pagination']}>
               <button
                 disabled={currentPage === 1}
                 onClick={() => setCurrentPage(currentPage - 1)}
@@ -264,7 +264,7 @@ function GroupBuyDetail() {
               {Array.from({ length: totalPages }, (_, i) => i + 1).map(pageNum => (
                 <button
                   key={pageNum}
-                  className={pageNum === currentPage ? "active" : ""}
+                  className={pageNum === currentPage ? styles.active : ""}
                   onClick={() => setCurrentPage(pageNum)}
                 >
                   {pageNum}
