@@ -1,56 +1,55 @@
 .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 75px;
-    padding: 0 32px;
-    border-bottom: 1px solid #e0e0e0;
-    background-color: white;
-  }
-  
-  .logo {
-    font-size: 28px;
-    font-weight: 800;
-    text-decoration: none;
-    color: black;
-  }
-  
-  .logoAccent {
-    color: #FFD700; /* 노란색 */
-  }
-  
-  .nav {
-    display: flex;
-    gap: 32px;
-  }
-  
-  .nav a {
-    text-decoration: none;
-    color: black;
-    font-weight: 500;
-    font-size: 16px;
-  }
-  
-  .nav a:hover {
-    color: #FFD700;
-  }
-  
-  .active {
-    font-weight: 700;
-    border-bottom: 2px solid #FFD700;
-  }
-  
-  .loginButton {
-    background-color: #FFD700;
-    color: black;
-    padding: 8px 16px;
-    font-weight: bold;
-    border-radius: 999px;
-    text-decoration: none;
-    transition: background-color 0.2s ease;
-  }
-  
-  .loginButton:hover {
-    background-color: #f5c600;
-  }
-  
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 102px;
+  padding: 0 40px;
+  background-color: white;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  height: 41px;
+}
+
+.logoImg {
+  width: 203.5px;
+  height: 50px;
+  display: block;
+}
+
+.nav {
+  display: flex;
+  gap: 90px;
+}
+
+.nav a {
+  text-decoration: none;
+  color: black;
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 20px; 
+  letter-spacing: -0.32px;
+  padding-bottom: 4px;
+  transition: color 0.2s ease, border-bottom 0.2s ease;
+}
+
+.nav a:hover {
+  color: #FECD24;
+}
+
+.active {
+  color: #FECD24;
+}
+
+.loginButton {
+  background: #FECD24;
+  color: black;
+  padding: 10px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+}

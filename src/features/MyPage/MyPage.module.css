@@ -1,0 +1,35 @@
+.container {
+    margin: 20px 65px 0 65px;
+    min-height: 800px;
+  }
+  
+  .title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 35px;
+  }
+  
+  .dropdownWrapper {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    align-items: flex-start;
+  }
+  
+  .content {
+    margin-top: 200px;
+    display: flex;      
+    justify-content: center;
+    
+  }
+  
+  .empty {
+    color: #9C9C9C;
+    font-family: Inter;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 40px; 
+    letter-spacing: -0.32px;
+  }
+  
