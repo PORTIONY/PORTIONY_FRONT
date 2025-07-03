@@ -1,0 +1,209 @@
+.product-form-wrapper {
+  width: 1140px;
+  margin: 0 auto;
+}
+
+/*그룹(라벨+입력창) 간의 간격*/
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 35px;
+}
+
+/*라벨과 입력창 사이간격*/
+.form-group label {
+  margin-bottom: 14px;
+  font-weight: medium;
+  font-size: 13px;
+}
+
+.form-group textarea[name="description"] {
+  height: 175px;
+  font-family: inherit; /* 부모 요소 폰트 상속 */
+  resize: none; /* 사용자가 크기 조절 못하게 */
+}
+
+input[type="date"] {
+  font-family: inherit; /* 부모 요소 폰트 상속 */
+}
+
+select option[value=""] {
+  color: black;
+}
+
+/*소분정보 박스*/
+.horizontal-inputs {
+  display: flex;
+  gap: 25px;
+}
+
+.horizontal-inputs input,
+.horizontal-inputs select {
+  width: 352px;
+}
+
+input,
+select,
+textarea {
+  border-radius: 10px;
+  padding: 10px;
+  border: 1px solid #000000;
+  font-size: 13px;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3); /* Drop shadow */
+}
+
+
+.form-header {
+  display: flex;
+  align-items: center; /*가운데정렬*/
+  margin-left: 35px;
+  margin-top: 26px;
+  margin-bottom: 47px;
+  gap: 26px;
+}
+
+.back-button {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.form-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.info-text {
+  margin: 50px 0; /* 위아래 공간 조절 */
+  font-size: 13px;
+  line-height: 1.3;
+  text-align: center; /* 가운데 정렬 */
+}
+
+.info-text label input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+}
+
+.image-preview-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 19px;
+  margin-top: 12px;
+}
+
+.image-preview-grid img {
+  width: 93px;
+  height: 93px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.image-preview-wrapper {
+  position: relative;
+  width: 93px;
+  height: 93px;
+  margin-right: 19px;
+  margin-bottom: 19px;
+}
+
+.image-preview-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.remove-button {
+  position: absolute;
+  width: 25px;
+  height: 15px;
+  top: 5px;
+  right: 0px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+button {
+  border-radius: 10px;
+  font-weight: 600; /* semi-bold */
+  font-size: 16px;
+  width: 120px;
+  height: 50px;
+  cursor: pointer;
+  border: none;
+}
+
+button.cancel {
+  background-color: #d9d9d9;
+  color: #000;
+}
+
+button.submit {
+  background-color: #FECD24;
+  color: #000;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end; /* 오른쪽 정렬 */
+}
+
+
+/*----------모달-------------*/
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /*흐림창*/
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;   /*세로로나열*/
+  align-items: center;      /*가운데정렬*/
+  justify-content: center;  /*세로 중앙 정렬*/
+  text-align: center;
+  width: 400px;
+  height: 250px;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  position: relative;
+}
+
+
+.modal-message {
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  margin-top: 25px;
+  margin-bottom: 40px;
+}
+
+.modal-buttons button {
+  margin: 0 10px;
+  padding: 9px 25px;
+}
+
+/*작성취소버튼*/
+.modal-buttons .confirm {
+  background-color: #d9d9d9;
+  color: black;
+}
+
+/*계속작성버튼*/
+.modal-buttons .cancel {
+  background-color: #fecd24;
+  color: black;
+}
