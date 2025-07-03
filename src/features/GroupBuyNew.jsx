@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import backIcon from '../assets/back-icon.svg';
 import removeIcon from '../assets/remove-icon.svg';
 import modalIcon from '../assets/modal-icon.svg';
-import './GroupBuyNew.css';
+import styles from './GroupBuyNew.module.css'
 
 function GroupBuyNew() {
   const [form, setForm] = useState({
@@ -104,21 +104,21 @@ function GroupBuyNew() {
 
 
   return (
-      <div className="page-wrapper">
-        <div className="form-header">
+      <div className={styles['page-wrapper']}>
+        <div className={styles['form-header']}>
             <img
             src={backIcon}
             alt="뒤로가기"
-            className="back-button"
+            className={styles['back-button']}
             onClick={() => window.history.back()} // or useNavigate() if using React Router v6+
             />
-            <h2 className="form-title">상품 등록</h2>
+            <h2 className={styles['form-title']}>상품 등록</h2>
         </div>
 
-        <div className="product-form-wrapper">
+        <div className={styles['product-form-wrapper']}>
           <form onSubmit={handleSubmit}>
             {/* 카테고리 */}
-            <div className="form-group">
+            <div className={styles['form-group']}>
               <label>카테고리</label>
               <select
               name="category"
@@ -138,19 +138,19 @@ function GroupBuyNew() {
             </div>
 
             {/* 상품명 */}
-            <div className="form-group">
+            <div className={styles['form-group']}>
               <label>상품명</label>
               <input type="text" name="title" placeholder="50자 이내로 입력해주세요." value={form.title} onChange={handleChange} />
             </div>
 
             {/* 상품 설명 */}
-            <div className="form-group">
+            <div className={styles['form-group']}>
               <label>상품 설명</label>
               <textarea name="description" placeholder="500자 이내로 입력해주세요." value={form.description} onChange={handleChange} />
             </div>
 
             {/* 이미지 첨부 */}
-            <div className="form-group image-upload-group">
+            <div className={`${styles['form-group']} ${styles['image-upload-group']}`}>
               <label>이미지 첨부 (최대 10장)</label>
               <input
                 type="file"
@@ -159,9 +159,9 @@ function GroupBuyNew() {
                 accept="image/*"
               />
 
-              <div className="image-preview-grid">
+              <div className={styles['image-preview-grid']}>
                 {previewUrls.map((url, index) => (
-                  <div key={index} className="image-thumbnail">
+                  <div key={index} className={styles['image-thumbnail']}>
                     <img
                       src={url}
                       alt={`미리보기${index}`}
@@ -169,7 +169,7 @@ function GroupBuyNew() {
                     />
                     <button
                       type="button"
-                      className="remove-button"
+                      className={styles['remove-button']}
                       onClick={(e) => {
                         e.stopPropagation();
                         handleRemoveImage(index);
@@ -184,9 +184,9 @@ function GroupBuyNew() {
 
 
             {/* 소분 량 */}
-            <div className="form-group">
+            <div className={styles['form-group']}>
               <label>소분 량</label>
-              <div className="horizontal-inputs">
+              <div className={styles['horizontal-inputs']}>
                 <input
                   type="number"
                   name="amount"
@@ -215,7 +215,7 @@ function GroupBuyNew() {
                   placeholder="직접 입력"
                   value={form.unitCustom}
                   onChange={handleChange}
-                  disabled={form.unit !== '직접 입력'} // ← 여기!
+                  disabled={form.unit !== '직접 입력'}
                   style={{
                     backgroundColor: form.unit !== '직접 입력' ? '#d9d9d9' : 'white',
                     cursor: form.unit !== '직접 입력' ? 'not-allowed' : 'text',
@@ -225,30 +225,31 @@ function GroupBuyNew() {
             </div>
 
             {/* 공구 인원 */}
-            <div className="form-group">
+            <div className={styles['form-group']}>
               <label>공구 인원</label>
               <input type="number" name="people" placeholder="최대 99명까지 입력할 수 있습니다." value={form.people} onChange={handleChange} />
             </div>
 
             {/* 소분 당 가격 */}
-            <div className="form-group">
+            <div className={styles['form-group']}>
               <label>소분당 가격</label>
               <input type="number" name="price" placeholder="최대 100만원까지 입력할 수 있습니다." value={form.price} onChange={handleChange} />
             </div>
 
             {/* 마감 기한 */}
-            <div className="form-group">
+            <div className={styles['form-group']}>
               <label>마감 기한</label>
               <input type="date" name="deadline" placeholder="현재일로부터 3개월 이내까지만 입력할 수 있습니다." value={form.deadline} onChange={handleChange} />
             </div>
 
             {/* 거래 방법 */}
-            <div className="form-group">
+            <div className={styles['form-group']}>
               <label>거래 방법</label>
-              <select name="method"
-              value={form.method}
-              onChange={handleChange}
-              style={{ color: form.method ? 'black' : 'gray' }}
+              <select
+                name="method"
+                value={form.method}
+                onChange={handleChange}
+                style={{ color: form.method ? 'black' : 'gray' }}
               >
                 <option value="" disabled hidden>거래 방법을 선택해주세요.</option>
                 <option value="직거래">직거래</option>
@@ -257,41 +258,62 @@ function GroupBuyNew() {
               </select>
             </div>
 
-            <div className="info-text">
-                <p>식품 등 관련 법령에 따라 인허가 또는 신고가 필요한 상품을 판매하는 경우,</p>
-                <p>해당 법적 책임은 전적으로 판매자(등록자)에게 있으며, 플랫폼은 이에 대한 책임을 지지 않습니다.</p>
-                <label style={{ cursor: 'pointer', userSelect: 'none' }}>
-                    확인했어요!
-                    <input
-                      type="checkbox"
-                      checked={isChecked}
-                      onChange={handleCheckChange}
-                    />
-                </label>
+            <div className={styles['info-text']}>
+              <p>식품 등 관련 법령에 따라 인허가 또는 신고가 필요한 상품을 판매하는 경우,</p>
+              <p>해당 법적 책임은 전적으로 판매자(등록자)에게 있으며, 플랫폼은 이에 대한 책임을 지지 않습니다.</p>
+              <label
+                style={{ cursor: 'pointer', userSelect: 'none' }}
+              >
+                확인했어요!
+                <input
+                  type="checkbox"
+                  checked={isChecked}
+                  onChange={handleCheckChange}
+                />
+              </label>
             </div>
 
-            <div className="button-group">
-              <button type="button" className="cancel" onClick={handleCancelClick}>
-                  작성 취소
+            <div className={styles['button-group']}>
+              <button
+                type="button"
+                className={styles.cancel}
+                onClick={handleCancelClick}
+              >
+                작성 취소
               </button>
-              <button type="submit" className="submit" disabled={!isFormComplete()}>
-                  등록하기
+              <button
+                type="submit"
+                className={styles.submit}
+                disabled={!isFormComplete()}
+              >
+                등록하기
               </button>
             </div>
 
-            {/*모달*/}
+            {/* 모달 */}
             {showCancelModal && (
-              <div className="modal-overlay">
-                <div className="modal-content">
-                  <img src={modalIcon} alt="모달 아이콘" className="modal-icon" />
-                  <p className="modal-message">글 작성을 취소하시겠습니까?</p>
-                  <div className="modal-buttons">
-                    <button className="modal-button confirm" onClick={handleConfirmCancel}>작성 취소</button>
-                    <button className="modal-button cancel" onClick={handleCloseModal}>계속 작성</button>
+              <div className={styles['modal-overlay']}>
+                <div className={styles['modal-content']}>
+                  <img src={modalIcon} alt="모달 아이콘" className={styles['modal-icon']} />
+                  <p className={styles['modal-message']}>글 작성을 취소하시겠습니까?</p>
+                  <div className={styles['modal-buttons']}>
+                    <button
+                      className={`${styles['modal-button']} ${styles.confirm}`}
+                      onClick={handleConfirmCancel}
+                    >
+                      작성 취소
+                    </button>
+                    <button
+                      className={`${styles['modal-button']} ${styles.cancel}`}
+                      onClick={handleCloseModal}
+                    >
+                      계속 작성
+                    </button>
                   </div>
                 </div>
               </div>
             )}
+
 
           </form>
         </div>
