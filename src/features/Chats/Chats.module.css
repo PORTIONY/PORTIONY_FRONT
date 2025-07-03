@@ -31,7 +31,7 @@
 /* 채팅 목록 내용 */
 .left {
   flex: 1;
-  padding: 141px 55px 0 55px;
+  padding-top: 141px; 
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
