@@ -1,32 +1,32 @@
 html, body {
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-  }
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: #f3f3f3;
+}
 
-  
 .web-wrapper {
-    width: 100vw;
-    height: 100vh;
-    background-color: #f3f3f3;
-    display: flex;
-    justify-content: center;
-    overflow: hidden; 
-  }
-  
-  .web-container {
-    width: 1280px;
-    height: 832px;
-    background-color: white;
-    box-shadow: 0 0 20px rgba(0,0,0,0.1);
-    overflow: hidden;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-  }
+  width: 100vw;           /* feature/product-register */
+  min-height: 100vh;      /* develop 쪽 */
+  background-color: #f3f3f3;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;       /* feature/product-register */
+}
 
-  .scrollable-content {
-    flex: 1; /* 나머지 영역을 채우도록 */
-    overflow-y: auto; /* 세로 스크롤만 허용 */
-    padding: 26px 0; /* 위아래 여백 (선택) */
-  }
+.web-container {
+  width: 1280px;
+  min-height: 100vh;      /* develop 쪽 */
+  background-color: white;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  position: relative;     /* feature/product-register */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;       /* feature/product-register */
+}
+
+.scrollable-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 26px 0;
+}
