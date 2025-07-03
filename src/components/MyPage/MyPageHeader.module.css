@@ -27,14 +27,26 @@
 }
 
 .name {
-  font-size: 20px;
+  color: #000;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
   font-weight: 600;
+  line-height: 16px; 
+  letter-spacing: -0.32px;
   margin: 0;
 }
 
 .history {
-  font-size: 14px;
-  margin: 0;
+  color: #000;
+  font-family: Inter;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px; 
+  letter-spacing: -0.32px;
+  margin-top: 0px;
+  margin-bottom: 10px;
 }
 
 .potionyWrapper {
@@ -48,10 +60,10 @@
   align-items: center;
   background-color: #000;
   color: #fff;
-  padding: 10px 16px;
+  padding: 10px 20px;
   border-radius: 12px;
   font-size: 14px;
-  gap: 8px;
+  gap: 11px;
   width: fit-content;
 }
 
@@ -62,8 +74,13 @@
 }
 
 .percent {
-  font-weight: bold;
-  margin-left: 8px;
+  color: #FFF;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 16px; 
+  letter-spacing: -0.32px;
 }
 
 .tooltipImg {
@@ -96,7 +113,7 @@
   font-size: 11px;
   font-style: normal;
   font-weight: 500;
-  line-height: 15px; /* 136.364% */
+  line-height: 15px; 
   letter-spacing: -0.32px;
   z-index: 30;
   min-width: 193px;;

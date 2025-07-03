@@ -1,7 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styles from './ProfileEditModal.module.css';
+
 import closeIcon from '../../assets/x.svg';
-import defaultProfile from '../../assets/Ellipse 23.png';
+import removePhotoIcon from '../../assets/backgroundX.svg';
+import defaultProfile from '../../assets/LOGOMAIN.png';
+import WithdrawModal from './secessionModal';
 
 export default function ProfileEditModal({ open, onClose, currentProfile, onSave }) {
   const fileInputRef = useRef(null);
@@ -15,11 +18,12 @@ export default function ProfileEditModal({ open, onClose, currentProfile, onSave
   const [passwordConfirm, setPasswordConfirm] = useState('');
   const [currentPassword, setCurrentPassword] = useState('');
 
-  // 에러 메시지, 어떤 인풋에 에러 표시할지 구분
   const [errorMsg, setErrorMsg] = useState('');
-  const [errorType, setErrorType] = useState(''); // 'old', 'new', 'confirm', ''
-
+  const [errorType, setErrorType] = useState('');
   const [passwordChanged, setPasswordChanged] = useState(false);
+  const [duplicateChecked, setDuplicateChecked] = useState(false);
+
+  const [showWithdrawModal, setShowWithdrawModal] = useState(false);
 
   useEffect(() => {
     if (open) {
@@ -33,6 +37,7 @@ export default function ProfileEditModal({ open, onClose, currentProfile, onSave
       setErrorType('');
       setPasswordChanged(false);
       setCurrentPassword(localStorage.getItem('password') || '');
+      setDuplicateChecked(false);
     }
   }, [open, currentProfile]);
 
@@ -49,10 +54,11 @@ export default function ProfileEditModal({ open, onClose, currentProfile, onSave
     }
   };
 
+  const handleRemoveImg = () => setProfileImg(defaultProfile);
+
   const handleSubmit = e => {
     e.preventDefault();
 
-    // 비밀번호 바꿀 때만 검증
     if (oldPasswordInput || password || passwordConfirm) {
       if (!oldPasswordInput) {
         setErrorMsg('현재 비밀번호를 입력하세요.');
@@ -79,23 +85,22 @@ export default function ProfileEditModal({ open, onClose, currentProfile, onSave
         setErrorType('new');
         return;
       }
-      // 비밀번호 저장
+
       localStorage.setItem('password', password);
       setPasswordChanged(true);
       setTimeout(() => setPasswordChanged(false), 2000);
       setErrorType('');
     }
 
-    // 닉네임, 이메일, 프로필 사진 저장 (변경된 경우만)
     onSave({ nickname, email, profileImg });
     onClose();
   };
 
-  // 에러 발생시 input에 스타일 추가
+  const isNicknameChanged = nickname !== currentProfile.nickname && nickname.length > 0;
+
   const getInputClass = (field) =>
     `${styles.input} ${errorType === field ? styles.errorInput : ''}`;
 
-  // 에러 메시지 input 바로 아래
   const ErrorMsg = ({ field }) => (
     errorType === field && errorMsg
       ? <div className={styles.errorMsg}>{errorMsg}</div>
@@ -105,18 +110,39 @@ export default function ProfileEditModal({ open, onClose, currentProfile, onSave
   return (
     <div className={styles.overlay}>
       <div className={styles.modal}>
-        <img
-          src={closeIcon}
-          alt="닫기"
-          className={styles.close}
-          onClick={onClose}
-        />
-        <div className={styles.profileImgWrapper}>
+        {/* 상단 닫기 X - 모달 전체 닫기 */}
+        <div className={styles.headerRow}>
+          <div className={styles.title}>프로필 편집</div>
           <img
-            src={profileImg}
-            alt="프로필"
-            className={styles.profileImg}
+            src={closeIcon}
+            alt="닫기"
+            className={styles.close}
+            onClick={onClose}
           />
+        </div>
+
+        {/* 프로필 이미지/사진 삭제 */}
+        <div className={styles.profileImgWrapper}>
+          <div className={styles.profileImgBox}>
+            <img
+              src={profileImg}
+              alt="프로필"
+              className={styles.profileImg}
+              onError={e => { e.target.onerror = null; e.target.src = defaultProfile; }}
+            />
+          
+            {profileImg !== defaultProfile && (
+              <button
+                type="button"
+                className={styles.profileImgClose}
+                onClick={handleRemoveImg}
+                tabIndex={-1}
+                aria-label="프로필 이미지 삭제"
+              >
+                <img src={removePhotoIcon} alt="" />
+              </button>
+            )}
+          </div>
           <button
             type="button"
             className={styles.photoChangeBtn}
@@ -132,35 +158,65 @@ export default function ProfileEditModal({ open, onClose, currentProfile, onSave
             onChange={handleFileChange}
           />
         </div>
+
         <form className={styles.form} autoComplete="off" onSubmit={handleSubmit}>
           <label className={styles.label}>
             닉네임
-            <input
-              className={styles.input}
-              type="text"
-              value={nickname}
-              onChange={e => {
-                setNickname(e.target.value);
-                setErrorType('');
-                setErrorMsg('');
-              }}
-              required
-            />
+            <div className={styles.nicknameRow}>
+              <input
+                className={styles.input}
+                type="text"
+                value={nickname}
+                onChange={e => {
+                  setNickname(e.target.value);
+                  setErrorType('');
+                  setErrorMsg('');
+                  setDuplicateChecked(false);
+                }}
+                required
+              />
+              <button
+                type="button"
+                className={styles.duplicateBtn}
+                style={{
+                  background: isNicknameChanged ? "#FECD24" : "#F6F6F6",
+                  color: isNicknameChanged ? "#000" : "#C0C0C0",
+                  border: isNicknameChanged ? "1px solid #FECD24" : "1px solid #ECECEC",
+                  cursor: isNicknameChanged ? "pointer" : "not-allowed"
+                }}
+                disabled={!isNicknameChanged}
+                onClick={() => setDuplicateChecked(true)}
+              >
+                중복 확인
+              </button>
+            </div>
+            {nickname && nickname !== '박지현' && duplicateChecked && (
+              <div
+                style={{
+                  color: "#32C05C",
+                  fontSize: 11,
+                  margin: "4px 2px 0 2px",
+                  fontWeight: 400,
+                  letterSpacing: "-0.02em",
+                  lineHeight: "14px"
+                }}
+              >
+                사용 가능한 닉네임입니다.
+              </div>
+            )}
           </label>
+
           <label className={styles.label}>
             아이디
             <input
-              className={styles.input}
+              className={`${styles.input} ${styles.disabledInput}`}
               type="email"
               value={email}
-              onChange={e => {
-                setEmail(e.target.value);
-                setErrorType('');
-                setErrorMsg('');
-              }}
-              required
+              readOnly
+              tabIndex={-1}
             />
           </label>
+
           <label className={styles.label}>
             현재 비밀번호
             <input
@@ -212,9 +268,31 @@ export default function ProfileEditModal({ open, onClose, currentProfile, onSave
           {passwordChanged && (
             <div style={{ color: "green", margin: "6px 0", fontSize: 13 }}>비밀번호가 변경되었습니다.</div>
           )}
-          <button type="submit" className={styles.saveBtn}>
-            프로필 저장
-          </button>
+
+          <div
+            className={styles.withdraw}
+            onClick={() => setShowWithdrawModal(true)}
+          >
+            탈퇴하기
+          </div>
+          <WithdrawModal
+            open={showWithdrawModal}
+            onClose={() => setShowWithdrawModal(false)}
+            onWithdraw={password => {
+              if (password !== currentPassword) {
+                alert('비밀번호가 일치하지 않습니다.');
+                return;
+              }
+              alert('정상적으로 탈퇴 처리되었습니다.');
+              setShowWithdrawModal(false);
+              onClose();
+            }}
+          />
+          <div className={styles.buttonRow}>
+            <button type="submit" className={styles.saveBtn}>
+              프로필 저장
+            </button>
+          </div>
         </form>
       </div>
     </div>

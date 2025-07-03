@@ -1,121 +1,237 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+.overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 1000;
+  background: rgba(217, 217, 217, 0.59);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal {
+  position: relative;
+  background: #fff;
+  border-radius: 16px;
+  width: 396px;
+  padding: 20px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.11);
+  display: flex;
+  flex-direction: column;
+}
+
+/* 상단 타이틀 + 닫기 */
+.headerRow {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; 
+  gap: 10px; 
+  margin-bottom: 10px;
+}
+
+.title {
+  flex: 1;
+  color: #000;
+  font-family: Inter;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 16px; 
+  letter-spacing: -0.32px;
+}
+
+.close {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.profileImgWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.profileImgBox {
+  position: relative;
+  width: 127px;
+  height: 127px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profileImg {
+  width: 127px;
+  height: 127px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #fff;
+  border: none;
+}
+
+.profileImgClose {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 32px;   
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2;
+  padding: 0;
+  transition: background 0.18s;
+}
+
+.profileImgClose img {
+  width: 20px;
+  height: 20px;
+}
+
+.photoChangeBtn {
+  margin-top: 24px;
+  padding: 11px 24px;
+  border: none;
+  background: #FECD24;
+  border-radius: 10px;
+  color: #000;
+  font-family: Inter;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px; 
+  letter-spacing: -0.32px;
+  cursor: pointer;
+}
+
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.label {
+  color: #000;
+  font-family: Inter;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px; 
+  letter-spacing: -0.32px;
+  margin-bottom: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.nicknameRow {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
 .input {
-    width: 100%;
-    height: 42px;
-    border: 1px solid #DBDBDB;
-    border-radius: 10px;
-    font-size: 14px;
-    padding: 0 14px;
-    margin-top: 4px;
-    font-family: inherit;
-    background: #fff;
-    transition: border-color 0.2s;
-  }
-  
-  .errorInput {
-    border: 1.5px solid #FF4747 !important;
-  }
-  
-  .errorMsg {
-    color: #FF4747;
-    font-size: 11px;
-    margin: 4px 2px 0 2px;
-    font-weight: 400;
-    letter-spacing: -0.02em;
-    line-height: 14px;
-  }
-  
-  *, *::before, *::after {
-    box-sizing: border-box;
-  }
-  
-  .overlay {
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    z-index: 1000;
-    background: rgba(217, 217, 217, 0.59);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .modal {
-    position: relative;
-    background: #fff;
-    border-radius: 16px;
-    width: 396px;
-    padding: 20px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.11);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .close {
-    position: absolute;
-    top: 22px;
-    right: 22px;
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-  }
-  
-  .profileImgWrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 24px;
-  }
-  
-  .profileImg {
-    width: 127px;
-    height: 127px;
-    border-radius: 50%;
-    object-fit: cover;
-    background: #fff;
-  }
-  
-  .photoChangeBtn {
-    margin-top: 24px;
-    padding: 11px 24px;
-    border: none;
-    background: #FECD24;
-    border-radius: 10px;
-    color: #000;
-    font-family: Inter;
-    font-size: 13px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 16px; 
-    letter-spacing: -0.32px;
-    cursor: pointer;
-  }
-  
-  .form {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 35px;
-  }
-  
-  .label {
-    font-size: 13px;
-    font-weight: 500;
-    margin-bottom: 6px;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-  
-  .saveBtn {
-    margin-top: 10px;
-    width: 100%;
-    height: 44px;
-    background: #FECD24;
-    border: none;
-    border-radius: 10px;
-    color: #000;
-    font-weight: 600;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
+  width: 100%;
+  height: 42px;
+  color: #000;
+  font-family: Inter;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px; 
+  letter-spacing: -0.32px;
+  border: 1px solid #DBDBDB;
+  border-radius: 10px;
+  padding: 0 14px;
+  margin-top: 4px;
+  background: #fff;
+  transition: border-color 0.2s;
+}
+
+.errorInput {
+  border: 1.5px solid #FF4747 !important;
+}
+
+.errorMsg {
+  color: #FF4747;
+  font-size: 11px;
+  margin: 4px 2px 0 2px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 14px;
+}
+
+.duplicateBtn {
+  height: 40px;
+  min-width: 80px;
+  padding: 0 14px;
+  margin-top: 4px;
+  background: #F6F6F6;
+  border: 1px solid #ECECEC;
+  border-radius: 8px;
+  color: #000000;
+  font-family: Inter;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px; 
+  letter-spacing: -0.32px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.duplicateBtn:active {
+  background: #FECD24;
+}
+
+.disabledInput {
+  background: #F6F6F6;
+  color: #C0C0C0;
+  pointer-events: none;
+  border: 1px solid #ECECEC;
+}
+
+.saveBtn {
+  width: 81px;
+  height: 40px;
+  background: #FECD24;
+  border: none;
+  border-radius: 10px;
+  color: #000;
+  font-family: Inter;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: -0.32px;
+  cursor: pointer;
+}
+
+.buttonRow {
+  display: flex;
+  justify-content: center;
+  margin-top: 0px;
+}
+
+.withdraw {
+  color: #979797;
+  font-family: Inter;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 11px;
+  letter-spacing: -0.32px;
+  text-align: center;
+  margin: 0px;
+  cursor: pointer;
+}

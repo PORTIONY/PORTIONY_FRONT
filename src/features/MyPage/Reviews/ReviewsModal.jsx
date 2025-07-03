@@ -18,17 +18,18 @@ export default function ReviewsModal({
   productName,
   onRegister,
   onDelete,
-  savedReview, // {review, date}, 없으면 작성 모드
-  mode = 'write', // 'write' | 'view' | 'edit'
+  savedReview, 
+  mode = 'write',
+  received = false, 
 }) {
-  // 내부 모드 전환 (view → edit 등)
+  
   const [internalMode, setInternalMode] = useState(mode);
   const [selectedReview, setSelectedReview] = useState('');
   const [customReview, setCustomReview] = useState('');
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const containerRef = useRef(null);
 
-  // edit 진입 시 기존값 세팅
+ 
   useEffect(() => {
     if (internalMode === 'edit' && savedReview) {
       if (options.includes(savedReview.review)) {
@@ -54,7 +55,6 @@ export default function ReviewsModal({
     }
   }, [internalMode, savedReview]);
 
-  // textarea 200자 초과, 비활성 조건
   const isOver = selectedReview === '기타(직접 입력)' && customReview.length > 200;
   const isDisabled =
     !selectedReview ||
@@ -93,11 +93,10 @@ export default function ReviewsModal({
   };
   const handleDelete = () => {
     if (onDelete) onDelete(productName);
-    onClose();
   };
 
   return (
-    <div className={styles.overlay} onClick={onClose}>
+    <div className={styles.overlay}>
       <div className={styles.container} onClick={e => e.stopPropagation()}>
         <div className={styles.header}>
           <span className={styles.title}>거래 후기</span>
@@ -176,8 +175,7 @@ export default function ReviewsModal({
           ) : null}
         </div>
 
-        {/* 하단 버튼 */}
-        {internalMode === 'write' && (
+        {!received && internalMode === 'write' && (
           <button
             className={styles.submitButton}
             disabled={isDisabled}
@@ -186,7 +184,7 @@ export default function ReviewsModal({
             거래 후기 등록하기
           </button>
         )}
-        {internalMode === 'view' && (
+        {!received && internalMode === 'view' && (
           <div style={{ display: 'flex', gap: 10 }}>
             <button
               className={styles.submitButton}
@@ -199,7 +197,7 @@ export default function ReviewsModal({
               className={styles.submitButton}
               style={{
                 background: '#fff',
-                color: '#ff4444',
+                color: '#000000',
                 border: '1px solid #ff4444',
                 flex: 1
               }}
@@ -209,7 +207,7 @@ export default function ReviewsModal({
             </button>
           </div>
         )}
-        {internalMode === 'edit' && (
+        {!received && internalMode === 'edit' && (
           <button
             className={styles.submitButton}
             disabled={isDisabled}

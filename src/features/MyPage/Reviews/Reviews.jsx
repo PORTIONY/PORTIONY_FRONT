@@ -3,11 +3,7 @@ import styles from './Reviews.module.css';
 import Dropdown from '../../../components/DropDown/DropDown';
 import ReviewsModal from './ReviewsModal';
 import arrowIcon from '../../../assets/chevron-left.svg';
-import uncheckedIcon from '../../../assets/checkbox-unchecked.svg';
-import checkedIcon from '../../../assets/checkbox-checked.svg';
-import minusIcon from '../../../assets/minus.svg';
 
-// localStorage 관리 함수
 const LOCAL_KEY = 'portiony_reviews';
 function getLocalReviews() {
   const raw = localStorage.getItem(LOCAL_KEY);
@@ -24,7 +20,6 @@ function removeLocalReview(productName) {
   localStorage.setItem(LOCAL_KEY, JSON.stringify(reviews));
 }
 
-// 샘플 데이터
 const sampleData = [
   { id: 1,  name: '치이카와 스티커', type: '구매', date: '2025-06-10', rating: 5 },
   { id: 2,  name: '짱구 스티커', type: '판매', date: '2025-06-11', rating: 4 },
@@ -49,16 +44,10 @@ export default function ReviewsHistory() {
   const [writeStatus, setWriteStatus] = useState('작성 상태');
   const [ratingSort, setRatingSort] = useState('별점');
   const [currentPage, setCurrentPage] = useState(1);
-  const [checkedItems, setCheckedItems] = useState({});
-  // 모달 오픈 상태, 상품명, 모드 함께 관리
-  const [modalInfo, setModalInfo] = useState({ open: false, productName: '', mode: 'write' });
-
-  // 후기(로컬) 상태
+  const [modalInfo, setModalInfo] = useState({ open: false, productName: '', mode: 'write', received: false });
   const [localReviews, setLocalReviews] = useState(getLocalReviews());
 
   const perPage = 9;
-
-  useEffect(() => setCheckedItems({}), [currentPage]);
 
   useEffect(() => {
     setTransactionType('거래 유형');
@@ -66,32 +55,26 @@ export default function ReviewsHistory() {
     setWriteStatus('작성 상태');
     setRatingSort('별점');
     setCurrentPage(1);
-    setCheckedItems({});
   }, [viewType]);
 
-  // 등록/삭제 후 동기화용
   const syncLocal = () => setLocalReviews(getLocalReviews());
 
-  // 후기 등록 콜백 (모달 → 리스트)
   const handleRegisterReview = (productName, review) => {
     setLocalReview(productName, review);
     syncLocal();
-    setModalInfo({ open: false, productName: '', mode: 'write' });
+    setModalInfo({ open: false, productName: '', mode: 'write', received: false });
   };
-  // 삭제 콜백
   const handleDeleteReview = (productName) => {
     removeLocalReview(productName);
-    syncLocal();
-    setModalInfo({ open: false, productName: '', mode: 'write' });
+    setLocalReviews(getLocalReviews()); 
+    setModalInfo({ open: false, productName: '', mode: 'write', received: false }); // 모달 닫기
   };
-
-  // 작성상태 반영
+  
   const dataWithWriteStatus = sampleData.map(item => ({
     ...item,
     writeStatus: localReviews[item.name] ? '작성됨' : '미작성',
   }));
 
-  // 필터/정렬/페이징
   const filtered = dataWithWriteStatus.filter(item => {
     if (transactionType !== '거래 유형') {
       const want = transactionType.includes('구매') ? '구매' : '판매';
@@ -115,34 +98,14 @@ export default function ReviewsHistory() {
       return 0;
     });
   }
-
   const totalPages = Math.ceil(sorted.length / perPage);
   const pagedData = sorted.slice((currentPage - 1) * perPage, currentPage * perPage);
-  const allChecked = pagedData.length > 0 && pagedData.every(item => checkedItems[item.id]);
-  const toggleAll = () => {
-    const newMap = {};
-    pagedData.forEach(item => newMap[item.id] = !allChecked);
-    setCheckedItems(newMap);
-  };
-  const toggleOne = id => setCheckedItems(prev => ({ ...prev, [id]: !prev[id] }));
   const prevPage = () => setCurrentPage(p => Math.max(1, p - 1));
   const nextPage = () => setCurrentPage(p => Math.min(totalPages, p + 1));
-
-  // 삭제 버튼
-  const handleDelete = () => {
-    Object.keys(checkedItems).filter(id => checkedItems[id]).forEach(id => {
-      const item = pagedData.find(row => row.id === Number(id));
-      if (item) removeLocalReview(item.name);
-    });
-    syncLocal();
-    setCheckedItems({});
-  };
 
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>거래 후기 내역</h2>
-
-      {/* 내가 남긴 후기 / 받은 후기 토글 */}
       <div className={styles.toggleButtons}>
         {['내가 남긴 후기', '받은 후기'].map(type => (
           <button
@@ -154,20 +117,6 @@ export default function ReviewsHistory() {
           </button>
         ))}
       </div>
-
-      {Object.values(checkedItems).filter(Boolean).length > 0 && (
-        <div className={styles.selectionBar}>
-          <button onClick={toggleAll} className={styles.clearButton} aria-label="선택 해제">
-            <img src={minusIcon} alt="-" />
-          </button>
-          <span className={styles.selectionText}>
-            {Object.values(checkedItems).filter(Boolean).length}개 선택됨
-          </span>
-          <button className={styles.deleteButton} onClick={handleDelete}>
-            후기 삭제
-          </button>
-        </div>
-      )}
 
       {viewType && (
         <div className={styles.dropdownWrapper}>
@@ -208,22 +157,6 @@ export default function ReviewsHistory() {
             <table className={styles.table}>
               <thead>
                 <tr>
-                  <th>
-                    <input
-                      type="checkbox"
-                      id="select-all"
-                      className={styles.hiddenCheckbox}
-                      checked={allChecked}
-                      onChange={toggleAll}
-                    />
-                    <label htmlFor="select-all" className={styles.checkboxLabel}>
-                      <img
-                        src={allChecked ? checkedIcon : uncheckedIcon}
-                        alt=""
-                        className={styles.checkboxImage}
-                      />
-                    </label>
-                  </th>
                   <th>상품명</th>
                   <th>거래 유형</th>
                   <th>거래 일자</th>
@@ -236,22 +169,6 @@ export default function ReviewsHistory() {
               <tbody>
                 {pagedData.map(item => (
                   <tr key={item.id}>
-                    <td>
-                      <input
-                        type="checkbox"
-                        id={`chk-${item.id}`}
-                        className={styles.hiddenCheckbox}
-                        checked={!!checkedItems[item.id]}
-                        onChange={() => toggleOne(item.id)}
-                      />
-                      <label htmlFor={`chk-${item.id}`} className={styles.checkboxLabel}>
-                        <img
-                          src={checkedItems[item.id] ? checkedIcon : uncheckedIcon}
-                          alt=""
-                          className={styles.checkboxImage}
-                        />
-                      </label>
-                    </td>
                     <td>{item.name}</td>
                     <td>{item.type}</td>
                     <td>{item.date}</td>
@@ -273,7 +190,8 @@ export default function ReviewsHistory() {
                                 setModalInfo({
                                   open: true,
                                   productName: item.name,
-                                  mode: 'view'
+                                  mode: 'view',
+                                  received: false,
                                 })
                               }
                             >
@@ -285,13 +203,26 @@ export default function ReviewsHistory() {
                                 setModalInfo({
                                   open: true,
                                   productName: item.name,
-                                  mode: 'write'
+                                  mode: 'write',
+                                  received: false,
                                 })
                               }
                             >
                               후기 작성
                             </button>)
-                        : <button className={styles.reviewButton}>후기 보기</button>
+                        : <button
+                            className={styles.reviewButton}
+                            onClick={() =>
+                              setModalInfo({
+                                open: true,
+                                productName: item.name,
+                                mode: 'view',
+                                received: true,
+                              })
+                            }
+                          >
+                            후기 보기
+                          </button>
                       }
                     </td>
                   </tr>
@@ -331,12 +262,12 @@ export default function ReviewsHistory() {
         </div>
       )}
 
-      {/* 모달 */}
       {modalInfo.open && (
         <ReviewsModal
-          onClose={() => setModalInfo({ open: false, productName: '', mode: 'write' })}
+          onClose={() => setModalInfo({ open: false, productName: '', mode: 'write', received: false })}
           productName={modalInfo.productName}
           mode={modalInfo.mode}
+          received={modalInfo.received}
           savedReview={localReviews[modalInfo.productName]}
           onRegister={handleRegisterReview}
           onDelete={handleDeleteReview}

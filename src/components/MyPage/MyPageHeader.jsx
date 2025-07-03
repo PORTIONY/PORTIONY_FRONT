@@ -5,16 +5,17 @@ import questionIcon from '../../assets/question-icon.svg';
 import ProfileEditModal from './ProfileEditModal';
 
 function MyPageHeader() {
-  const potionyPercent = 62.5;
+  //퍼센트 임시 값
+  const potionyPercent = 50;
   const gradientStyle = {
-    background: `conic-gradient(#fff ${potionyPercent}%, #000 ${potionyPercent}% 100%)`
+    background: `conic-gradient(from 180deg, #fff ${potionyPercent}%, #000 ${potionyPercent}% 100%)`
   };
 
-  const [nickname, setNickname] = useState('');
+  const [nickname, setNickname] = useState(''); 
   const [email, setEmail] = useState('');
   const [profileImg, setProfileImg] = useState(profileDefault);
 
-  // ★ 최초 진입 시 localStorage에 password 없으면 '1234'로 세팅 (테스트용)
+  // API 연결 전 비밀번호 초기 값 1234으로 설정
   useEffect(() => {
     if (!localStorage.getItem('password')) {
       localStorage.setItem('password', '1234');
@@ -22,7 +23,6 @@ function MyPageHeader() {
     setNickname(localStorage.getItem('nickname') || '박지현');
     setEmail(localStorage.getItem('email') || 'multicampus@naver.com');
     setProfileImg(localStorage.getItem('profileImg') || profileDefault);
-    // 비밀번호는 화면에 노출하지 않음
   }, []);
 
   const [showTooltip, setShowTooltip] = useState(false);

@@ -113,7 +113,7 @@
 
 .dropdownMenu {
   position: absolute;
-  top: 100%; /* 정확히 버튼 아래 붙임 */
+  top: 100%; 
   left: 0;
   right: 0;
   background: #fff;
@@ -122,9 +122,9 @@
   max-height: 144px;  
   overflow-y: auto;
   z-index: 10000;
-  margin: 0;         /* 여백 없앰 */
-  padding: 0;        /* 여백 없앰 */
-  list-style: none;  /* 점 없앰 */
+  margin: 0;      
+  padding: 0;       
+  list-style: none; 
 }
 
 .menuItem {

@@ -40,7 +40,6 @@
   margin-bottom: 15px;
 }
 
-/* 선택 바 (드롭다운 위에 겹치게) */
 .selectionBar {
   position: absolute;
   top: 100px;              
