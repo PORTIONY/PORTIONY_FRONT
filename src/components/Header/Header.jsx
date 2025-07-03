@@ -17,7 +17,7 @@ function Header() {
         <Link to="/chat" className={location.pathname.startsWith('/chat') ? styles.active : ''}>
           채팅방
         </Link>
-        <Link to="/community" className={location.pathname.startsWith('/chat') ? styles.active : ''}>
+        <Link to="/community" className={location.pathname.startsWith('/community') ? styles.active : ''}>
           커뮤니티
         </Link>
         <Link to="/mypage" className={location.pathname.startsWith('/mypage') ? styles.active : ''}>

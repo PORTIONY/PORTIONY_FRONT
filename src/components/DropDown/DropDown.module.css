@@ -1,0 +1,81 @@
+.dropdownContainer {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdownButton {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 4px 10px;
+    color: #000;
+    font-family: Inter;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: -0.32px;
+    background: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 0 4px rgba(0,0,0,0.25);
+    transition: 0.2s;
+    white-space: nowrap;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  /* 열렸을 때 아래 모서리만 평평하게 */
+  .dropdownButton.open {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom: 1px solid #000;
+  }
+  
+  .placeholder {
+    color: #888;
+  }
+  
+  .arrow,
+  .clearIcon {
+    width: 18px;
+    height: 18px;
+    transition: transform 0.2s, opacity 0.2s;
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+  
+  .dropdownMenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    background: #fff;
+    border-top: none;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 0 4px rgba(0,0,0,0.25);
+    z-index: 1000;
+    overflow-y: auto;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .menuItem {
+    padding: 4px 10px;
+    color: #000;
+    font-family: Inter;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: -0.32px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  
+  .menuItem:last-child {
+    border-radius: 0 0 8px 8px;
+  }
+  
