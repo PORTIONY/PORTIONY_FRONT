@@ -14,10 +14,10 @@ import './App.css';
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // // ✅ 테스트용으로 로그인 상태 강제로 true로 만들기
-  // useEffect(() => {
-  //   setIsLoggedIn(true);
-  // }, []);
+  // ✅ 테스트용으로 로그인 상태 강제로 true로 만들기
+  useEffect(() => {
+    setIsLoggedIn(true);
+  }, []);
 
   return (
     <div className="web-wrapper">
