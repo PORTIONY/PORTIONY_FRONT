@@ -5,7 +5,8 @@ import Footer from './components/Footer/Footer';
 import Login from './features/Auth/Login';
 import SignUp from './features/Auth/SignUp';
 import Home from './features/Main/Home';
-import MyPage from './features/MyPage/MyPage'; 
+import MyPage from './features/MyPage/MyPage';
+import Chat from './features/Chats/Chat'; 
 import './App.css';
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
                 <Route path="*" element={<Navigate to="/" />} />
               </>
             )}
+            <Route path="/chat" element={<Chat />} />
           </Routes>
           <Footer />
         </BrowserRouter>
