@@ -24,3 +24,9 @@ html, body {
     display: flex;
     flex-direction: column;
   }
+
+  .scrollable-content {
+    flex: 1; /* 나머지 영역을 채우도록 */
+    overflow-y: auto; /* 세로 스크롤만 허용 */
+    padding: 26px 0; /* 위아래 여백 (선택) */
+  }
