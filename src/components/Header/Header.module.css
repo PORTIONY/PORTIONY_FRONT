@@ -33,8 +33,17 @@
   font-weight: 600;
   line-height: 20px; 
   letter-spacing: -0.32px;
+  padding-bottom: 4px;
+  transition: color 0.2s ease, border-bottom 0.2s ease;
 }
 
+.nav a:hover {
+  color: #FECD24;
+}
+
+.active {
+  color: #FECD24;
+}
 
 .loginButton {
   background: #FECD24;
@@ -44,4 +53,3 @@
   text-decoration: none;
   font-weight: 600;
 }
-
