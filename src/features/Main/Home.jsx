@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 import HomeHeader from '../../components/Home/HomeHeader';
-
+import HomeBody from '../../components/Home/HomeBody';
 function Home() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -8,6 +8,7 @@ function Home() {
   return (
     <div>
       <HomeHeader/>
+      <HomeBody/>
     </div>
   );
 }
