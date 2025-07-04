@@ -21,8 +21,12 @@ const dummyResults = [
 
 ];
 
-function LocationModal({ open, onClose }) {
+function LocationModal({ open, onClose, onSelectAddress }) {
   if (!open) return null;
+
+  const handleClick = (address) => {
+    onSelectAddress(address);
+  };
 
   return (
     <div className={`${styles.overlay} ${typography.body1}`} onClick={onClose}>
@@ -58,6 +62,7 @@ function LocationModal({ open, onClose }) {
               <span
                 key={index}
                 className={styles.resultItem}
+                onClick={() => handleClick(result)}
               >
                 {result}
               </span>
