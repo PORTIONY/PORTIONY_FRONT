@@ -16,17 +16,22 @@
   }
   
   .arrowButton:disabled {
-    opacity: 0.3;
+    color: #d1d1d1;
     cursor: default;
   }
   
   .pageNumber {
     background: none;
     border: none;
-    color: #000;
+    color: #d1d1d1;
     font-family: Inter;
     font-size: 13px;
     font-weight: 500;
     cursor: pointer;
   }
   
+  .activePage {
+    font-weight: 700; 
+    font-size: 15px;
+    color: #000000;
+  }
