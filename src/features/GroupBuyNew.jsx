@@ -3,6 +3,7 @@ import backIcon from '../assets/back-icon.svg';
 import removeIcon from '../assets/remove-icon.svg';
 import modalIcon from '../assets/modal-icon.svg';
 import styles from './GroupBuyNew.module.css';
+import GroupBuyModal from '../components/GroupBuy/GroupBuyModal';
 
 function GroupBuyNew() {
   const [form, setForm] = useState({
@@ -87,20 +88,12 @@ function GroupBuyNew() {
     );
   };
 
-  // 모달 상태
+  /* 모달 상태  */
   const [showCancelModal, setShowCancelModal] = useState(false);
 
-  const handleCancelClick = () => {
-    setShowCancelModal(true);
-  };
-
-  const handleCloseModal = () => {
-    setShowCancelModal(false);
-  };
-
-  const handleConfirmCancel = () => {
-    window.history.back();
-  };
+  const handleCancelClick = () => setShowCancelModal(true); // 버튼 누르면 모달 띄우기
+  const handleCloseModal = () => setShowCancelModal(false); // 모달 닫기 (사용자가 '취소' 선택)
+  const handleConfirmCancel = () => window.history.back();  // 또는 navigate(-1) 사용 가능
 
   return (
     <div className={styles['page-wrapper']}>
@@ -288,30 +281,16 @@ function GroupBuyNew() {
             </button>
           </div>
 
-          {/* 모달 */}
-          {showCancelModal && (
-            <div className={styles['modal-overlay']}>
-              <div className={styles['modal-content']}>
-                <img src={modalIcon} alt="모달 아이콘" className={styles['modal-icon']} />
-                <p className={styles['modal-message']}>글 작성을 취소하시겠습니까?</p>
-                <div className={styles['modal-buttons']}>
-                  <button
-                    className={`${styles.myCustomButton} ${styles.confirm}`}
-                    onClick={handleConfirmCancel}
-                  >
-                    작성 취소
-                  </button>
-                  <button
-                    className={`${styles.myCustomButton} ${styles.cancel}`}
-                    onClick={handleCloseModal}
-                  >
-                    계속 작성
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
 
+          {showCancelModal && (
+            <GroupBuyModal
+              message="글 작성을 취소하시겠습니까?"
+              confirmText="작성 취소"
+              cancelText="계속 작성"
+              onCancel={handleCloseModal}     // 계속 작성 버튼
+              onConfirm={handleConfirmCancel} // 작성 취소 버튼
+            />
+          )}
         </form>
       </div>
     </div>
