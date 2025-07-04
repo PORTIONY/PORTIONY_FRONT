@@ -16,29 +16,26 @@ function getDDay(endDate) {
   return `D-${diffDays}`;
 }
 
-export default function ProductList({ products: propProducts }) {
+export default function ProductList({ products: propProducts, onClickProduct }) {
   const data = propProducts || [];
 
   return (
     <div className={styles.container}>
       {data.map((product, index) => (
-        <div key={index} className={styles.productCard}>
+        <div
+          key={product.id || index}  // id 있으면 id, 없으면 index
+          className={styles.productCard}
+          onClick={() => onClickProduct && onClickProduct(product)} // 클릭 시 콜백 호출
+          style={{ cursor: onClickProduct ? 'pointer' : 'default' }}
+        >
           <div className={styles.imageContainer}>
             <div className={styles.topBadges}>
               <span className={styles.badgeLocation}>
-                <img
-                  src={mapIcon}
-                  alt="위치"
-                  className={styles.icon}
-                />
+                <img src={mapIcon} alt="위치" className={styles.icon} />
                 {product.location}
               </span>
               <span className={styles.badgeDDay}>
-                <img
-                  src={clockIcon}
-                  alt="마감"
-                  className={styles.icon}
-                />
+                <img src={clockIcon} alt="마감" className={styles.icon} />
                 {getDDay(product.endDate)}
               </span>
             </div>
