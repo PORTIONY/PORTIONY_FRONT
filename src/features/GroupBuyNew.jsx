@@ -76,9 +76,9 @@ function GroupBuyNew() {
       form.category &&
       form.title &&
       form.description &&
-      form.image &&
+      images.length > 0 &&
       form.amount &&
-      (form.unit || form.unitCustom) && // 단위는 선택하거나 직접입력 중 하나는 있어야 함
+      (form.unit || form.unitCustom) &&
       form.people &&
       form.price &&
       form.deadline &&
@@ -87,19 +87,19 @@ function GroupBuyNew() {
     );
   };
 
-  /*모달 상태*/
+  // 모달 상태
   const [showCancelModal, setShowCancelModal] = useState(false);
 
   const handleCancelClick = () => {
-    setShowCancelModal(true); // 버튼 누르면 모달 띄우기
+    setShowCancelModal(true);
   };
 
   const handleCloseModal = () => {
-    setShowCancelModal(false); // 모달 닫기 (사용자가 '취소' 선택)
+    setShowCancelModal(false);
   };
 
   const handleConfirmCancel = () => {
-    window.history.back(); // 또는 navigate(-1) 사용 가능
+    window.history.back();
   };
 
   return (
@@ -296,13 +296,13 @@ function GroupBuyNew() {
                 <p className={styles['modal-message']}>글 작성을 취소하시겠습니까?</p>
                 <div className={styles['modal-buttons']}>
                   <button
-                    className={`${styles.myCustomButton} ${styles['modal-button']} ${styles.confirm}`}
+                    className={`${styles.myCustomButton} ${styles.confirm}`}
                     onClick={handleConfirmCancel}
                   >
                     작성 취소
                   </button>
                   <button
-                    className={`${styles.myCustomButton} ${styles['modal-button']} ${styles.cancel}`}
+                    className={`${styles.myCustomButton} ${styles.cancel}`}
                     onClick={handleCloseModal}
                   >
                     계속 작성

@@ -149,7 +149,6 @@ export default function BuyHistory() {
           <p className={styles.empty}>구매 내역이 없습니다.</p>
         )}
       </div>
-      {/* 페이지네이션 */}
       {totalPages > 1 && (
         <div className={styles.pagination}>
           <button
