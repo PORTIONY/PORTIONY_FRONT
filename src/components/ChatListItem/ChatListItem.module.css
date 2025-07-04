@@ -1,0 +1,105 @@
+.chatItem {
+  display: flex;
+  padding: 0px 15px;
+  align-items: center;
+  height: 55px;
+  width: 538px;
+  box-sizing: border-box;
+  gap: 15px;
+  align-self: stretch;
+}
+
+.imageWrapper {
+  position: relative;
+  width: 70px;
+  height: 55px;
+  flex-shrink: 0;
+}
+
+.postImg {
+  width: 55px;
+  height: 55px;
+  aspect-ratio: 1 / 1;
+  border-radius: 256px;
+  object-fit: cover;
+}
+
+.profileImg {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.chatContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  flex: 1;
+  overflow: hidden;
+  gap: 8px;
+}
+
+.chatTop {
+  margin-top: 6.5px;
+  display: flex;
+  height: 17px;
+  align-items: center;
+  gap: 5px;
+}
+
+/* 상대방 닉네임 */
+.partnerName {
+  display: -webkit-box;
+  max-width: 429px;
+  min-height: 17px;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+
+  overflow: hidden;
+  color: #000;
+
+  text-overflow: ellipsis;
+  /* Title/Title1 */
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 20px; /* 100% */
+  letter-spacing: -0.32px;
+}
+
+.lastMessageTime {
+  font-size: 13px;
+  color: #B2B2B2;
+  font-weight: 500;
+}
+
+/* 메시지 미리보기 감싸는 박스 */
+.chatBottom {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* 마지막 메시지(미리보기) */
+.lastMessage {
+  max-width: 398px;
+  font-size: 13px;
+  color: #B2B2B2;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin: 0px 0 6.5px 0 ;
+}
+
+.readIcon {
+  width: 10px;
+  height: 10px;
+}
