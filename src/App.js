@@ -14,7 +14,7 @@ import './App.css';
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // ✅ 테스트용으로 로그인 상태 강제로 true로 만들기
+  // 테스트용 로그인 강제 true
   useEffect(() => {
     setIsLoggedIn(true);
   }, []);
@@ -26,28 +26,20 @@ function App() {
           <Header />
           <div className="scrollable-content">
             <Routes>
-              {/* 로그인 안 했을 때 라우팅 */}
-              {!isLoggedIn ? (
-                <>
-                  <Route path="/signup" element={<SignUp />} />
-                  <Route path="*" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
-                </>
-              ) : (
-                <>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/mypage" element={<MyPage />} />
-                  <Route path="/login" element={<Navigate to="/" />} />
-                  <Route path="/signup" element={<Navigate to="/" />} />
-                  <Route path="*" element={<Navigate to="/" />} />
-                </>
-              )}
+              {/* 회원/비회원 구분이 필요한 페이지 */}
+              <Route path="/signup" element={isLoggedIn ? <Navigate to="/" /> : <SignUp />} />
+              <Route path="/login" element={isLoggedIn ? <Navigate to="/" /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
+              {/* 로그인 안 하면 메인 못 들어감 */}
+              <Route path="/" element={isLoggedIn ? <Home /> : <Navigate to="/login" />} />
+              <Route path="/mypage" element={isLoggedIn ? <MyPage /> : <Navigate to="/login" />} />
 
-              {/* 로그인 여부와 상관 없이 접근 가능한 라우트 */}
+              {/* 공구 상세/생성/채팅(로그인 여부 무관) */}
               <Route path="/chat" element={<Chat />} />
-
-              {/* 공구 신규 생성, 상세 */}
               <Route path="/group-buy/new" element={<GroupBuyNew />} />
               <Route path="/group-buy/:id" element={<GroupBuyDetail />} />
+
+              {/* 기타 잘못된 경로 */}
+              <Route path="*" element={<Navigate to="/" />} />
             </Routes>
           </div>
           <Footer />
