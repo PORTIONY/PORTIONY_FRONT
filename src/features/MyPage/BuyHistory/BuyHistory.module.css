@@ -17,10 +17,7 @@
 }
 
 .content {
-  margin-top: 200px;
-  display: flex;      
-  justify-content: center;
-  
+  margin-top: 20px;
 }
 
 .empty {
@@ -31,4 +28,45 @@
   font-weight: 700;
   line-height: 40px; 
   letter-spacing: -0.32px;
+  text-align: center;
+  margin-top: 200px;
 }
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 35px;
+  margin-top: 30px;
+}
+
+.arrowButton {
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.arrowButton img {
+  width: 18px;
+  height: 20px;
+}
+
+.nextArrow img {
+  transform: rotate(180deg);
+}
+
+.pageNumber {
+  background: none;
+  border: none;
+  color: #000;
+  font-family: Inter;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+
