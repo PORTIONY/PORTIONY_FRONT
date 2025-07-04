@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import backIcon from '../assets/back-icon.svg';
-import removeIcon from '../assets/remove-icon.svg';
-import modalIcon from '../assets/modal-icon.svg';
+import backIcon from '../../assets/back-icon.svg';
+import removeIcon from '../../assets/remove-icon.svg';
+import modalIcon from '../../assets/modal-icon.svg';
 import styles from './GroupBuyNew.module.css';
-import GroupBuyModal from '../components/GroupBuy/GroupBuyModal';
+import GroupBuyModal from '../../components/GroupBuy/GroupBuyModal';
 
 function GroupBuyNew() {
   const [form, setForm] = useState({

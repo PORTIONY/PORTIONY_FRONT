@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './productList.module.css';
 
 import mapIcon from '../../assets/location_on.svg'; 
@@ -18,15 +19,24 @@ function getDDay(endDate) {
 
 export default function ProductList({ products: propProducts, onClickProduct }) {
   const data = propProducts || [];
+  const navigate = useNavigate();
+
+  const handleClick = (product) => {
+    if (onClickProduct) {
+      onClickProduct(product); // 외부에서 prop이 넘어오면 그걸 우선!
+    } else {
+      navigate(`/group-buy/${product.id}`); // 아니면 상세페이지로 이동
+    }
+  };
 
   return (
     <div className={styles.container}>
       {data.map((product, index) => (
         <div
-          key={product.id || index}  // id 있으면 id, 없으면 index
+          key={product.id || index}
           className={styles.productCard}
-          onClick={() => onClickProduct && onClickProduct(product)} // 클릭 시 콜백 호출
-          style={{ cursor: onClickProduct ? 'pointer' : 'default' }}
+          onClick={() => handleClick(product)}
+          style={{ cursor: 'pointer' }}
         >
           <div className={styles.imageContainer}>
             <div className={styles.topBadges}>

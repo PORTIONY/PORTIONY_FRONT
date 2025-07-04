@@ -1,80 +1,32 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import sampleImg from "../assets/sample-img.svg";
-import sampleImg2 from "../assets/sample-img2.svg";
-import sampleImg3 from "../assets/sample-img3.svg";
-import sellerProfile from "../assets/seller-profile.svg";
-import clockIcon from "../assets/clock-icon.svg";
-import chevronLeft from "../assets/chevron-left.svg";
-import styles from './GroupBuyDetail.module.css'
-import GroupBuyModal from '../components/GroupBuy/GroupBuyModal';
+import sellerProfile from "../../assets/seller-profile.svg";
+import clockIcon from "../../assets/clock-icon.svg";
+import chevronLeft from "../../assets/chevron-left.svg";
+import styles from './GroupBuyDetail.module.css';
+import GroupBuyModal from '../../components/GroupBuy/GroupBuyModal';
+import dummyProducts from '../../data/dummyProduct'; 
+import Pagination from '../../components/PageNumber/Pagination';
 
-const dummyProducts = [
-  {
-    id: 1,
-    category: "문구류",
-    title: "치이카와 마스킹테이프 세트 같이 나눠요!",
-    description: "안녕하세요!\n치이카와 마스킹테이프 세트를 10개 묶음으로 구매했는데,\n다 쓰기엔 양이 많아 같이 나눠쓰실 분 찾고 있어요 :)",
-    images: [sampleImg, sampleImg2, sampleImg3],
-    amount: "2",
-    unit: "묶음",
-    unitCustom: "",
-    people: "2",
-    price: "2500",
-    deadline: "2025-07-10",
-    method: "직거래",
-    location: "망우본동"
-  },
-  {
-    id: 2,
-    category: "문구류",
-    title: "짱구 마스킹테이프 같이 나눠요!",
-    description: "짱구 마테 20개 주문했는데, 원하시는 분 나눔합니다!",
-    images: [sampleImg],
-    amount: "4",
-    unit: "개",
-    unitCustom: "",
-    people: "5",
-    price: "12000",
-    deadline: "2025-07-07",
-    method: "직거래",
-    location: "중곡동"
-  },
-  {
-    id: 3,
-    category: "문구류",
-    title: "도라에몽 마스킹테이프 세트 공구",
-    description: "도라에몽 마스킹테이프 세트 나눔할 분 모집!",
-    images: [sampleImg],
-    amount: "3",
-    unit: "세트",
-    unitCustom: "",
-    people: "3",
-    price: "9000",
-    deadline: "2025-07-09",
-    method: "택배거래",
-    location: "면목동"
-  }
-];
 
 function GroupBuyDetail() {
   const { id } = useParams();
-  const product = dummyProducts.find(item => String(item.id) === id);
+console.log('url id:', id, typeof id);
+console.log('더미:', dummyProducts.map(d=>d.id));
+const product = dummyProducts.find(item => String(item.id) === String(id));
 
-  // 상태값 : 판매자/구매자
-  const [isSeller, setIsSeller] = useState(true); // true:판매자, false:구매자
-  // 상태값 : 공구중/공구완료
-  const [isCompleted, setIsCompleted] = useState(false); // false:진행중, true:완료
-  const [modalType, setModalType] = useState(null); // "delete", "complete", "reopen", "edit"
-  const [liked, setLiked] = useState(false); // 찜 여부
-  const [likeCount, setLikeCount] = useState(12); // 전체 찜 수
+  // 상태값
+  const [isSeller, setIsSeller] = useState(true);
+  const [isCompleted, setIsCompleted] = useState(false);
+  const [modalType, setModalType] = useState(null);
+  const [liked, setLiked] = useState(false);
+  const [likeCount, setLikeCount] = useState(12);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const navigate = useNavigate();
 
   // 이미지 슬라이드
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
   const handleDotClick = (index) => setCurrentImageIndex(index);
 
   const getDDay = (deadline) => {
@@ -91,7 +43,6 @@ function GroupBuyDetail() {
     setLikeCount((prev) => liked ? prev - 1 : prev + 1);
   };
 
-  // 더미 댓글 43개
   const dummyComments = Array.from({ length: 43 }, (_, i) => ({
     id: i + 1,
     user: {
@@ -104,7 +55,6 @@ function GroupBuyDetail() {
 
   const [comments, setComments] = useState(dummyComments);
   const [currentPage, setCurrentPage] = useState(1);
-
   const commentsPerPage = 10;
   const totalPages = Math.ceil(comments.length / commentsPerPage);
 
@@ -116,7 +66,6 @@ function GroupBuyDetail() {
 
   const handleSubmit = () => {
     if (!input.trim()) return;
-
     const newComment = {
       id: comments.length + 1,
       user: {
@@ -126,7 +75,6 @@ function GroupBuyDetail() {
       datetime: new Date().toISOString().slice(0, 16).replace("T", " "),
       text: input
     };
-
     setComments([newComment, ...comments]);
     setInput("");
     setCurrentPage(1); 
@@ -142,7 +90,6 @@ function GroupBuyDetail() {
         <div className={`${styles['white-box']} ${styles['first-box']}`}>
           <div className={styles['product-wrapper']}>
 
-            {/* 이미지/슬라이더 */}
             <div className={styles['product-image']}>
               <img src={product.images[currentImageIndex]} alt={`상품 이미지 ${currentImageIndex + 1}`} />
               {isCompleted && (
@@ -150,7 +97,6 @@ function GroupBuyDetail() {
                   <span className={styles['overlay-text']}>공구 마감된 상품입니다.</span>
                 </div>
               )}
-              {/* dot 표시 */}
               <div className={styles['image-dots']}>
                 {product.images.map((_, idx) => (
                   <span
@@ -162,7 +108,6 @@ function GroupBuyDetail() {
               </div>
             </div>
 
-            {/* 이미지 오른쪽 정보 영역 */}
             <div className={styles['product-info']}>
               <div className={`${styles['status']} ${isCompleted ? styles['completed'] : ''}`}>
                 {!isCompleted && <img src={clockIcon} alt="상태 아이콘" className={styles['status-icon']} />}
@@ -197,7 +142,7 @@ function GroupBuyDetail() {
                 </div>
                 <div className={styles['detail-row']}>
                   <dt>작성일</dt>
-                  <dd>{new Date().toISOString().slice(0, 10)}</dd>
+                  <dd>{product.createdAt}</dd> 
                 </div>
               </dl>
               <div className={styles['seller-section']}>
@@ -212,7 +157,6 @@ function GroupBuyDetail() {
                 </div>
               </div>
 
-              {/* 버튼 영역 */}
               <div className={styles['buttons']}>
                 {isSeller ? (
                   isCompleted ? (
@@ -344,32 +288,12 @@ function GroupBuyDetail() {
               ))}
             </ul>
 
-            {/* 댓글 - 페이지네이션 */}
-            <div className={styles['pagination']}>
-              <button
-                disabled={currentPage === 1}
-                className={styles['pagination-button']}
-                onClick={() => setCurrentPage(currentPage - 1)}
-              >
-                <img src={chevronLeft} alt="이전" className={styles['pagination-arrow']} />
-              </button>
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map(pageNum => (
-                <button
-                  key={pageNum}
-                  className={`${styles['pagination-button']} ${pageNum === currentPage ? styles.active : ''}`}
-                  onClick={() => setCurrentPage(pageNum)}
-                >
-                  {pageNum}
-                </button>
-              ))}
-              <button
-                disabled={currentPage === totalPages}
-                className={styles['pagination-button']}
-                onClick={() => setCurrentPage(currentPage + 1)}
-              >
-                <img src={chevronLeft} alt="다음" className={`${styles['pagination-arrow']} ${styles.right}`} />
-              </button>
-            </div>
+            <Pagination
+              totalPages={totalPages}
+              currentPage={currentPage}
+              onPageChange={setCurrentPage}
+            />
+
           </div>
         </div>
       </div>
@@ -378,4 +302,3 @@ function GroupBuyDetail() {
 }
 
 export default GroupBuyDetail;
-
