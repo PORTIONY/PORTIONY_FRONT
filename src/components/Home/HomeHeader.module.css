@@ -5,14 +5,12 @@
 
 .homeHeader {
   display: flex;
-  width: auto;
-  height: 142px;
-  padding: 10px 260px;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
   background: #FFF;
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.20);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
+  padding: 10px 0;
+  gap: 20px;
 }
 
 .searchBarWrapper {
