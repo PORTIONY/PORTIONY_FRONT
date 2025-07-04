@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './Pagination.module.css';
 
 export default function Pagination({ totalPages, currentPage, onPageChange }) {
-  if (totalPages < 2) return null; // 1페이지면 안 보이게!
+  if (totalPages < 2) return null; 
 
   return (
     <div className={styles.pagination}>

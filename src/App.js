@@ -7,8 +7,8 @@ import SignUp from './features/Auth/SignUp';
 import Home from './features/Main/Home';
 import MyPage from './features/MyPage/MyPage';
 import Chat from './features/Chats/Chat';
-import GroupBuyNew from './features/GroupBuyNew';
-import GroupBuyDetail from './features/GroupBuyDetail';
+import GroupBuyNew from './features/GroupBuy/GroupBuyNew';
+import GroupBuyDetail from './features/GroupBuy/GroupBuyDetail';
 import './App.css';
 
 function App() {
