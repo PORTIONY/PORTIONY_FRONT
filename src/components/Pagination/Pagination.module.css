@@ -1,0 +1,32 @@
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin: 30px 0 35px 0;
+  }
+  
+  .arrowButton {
+    background: none;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #666;
+  }
+  
+  .arrowButton:disabled {
+    opacity: 0.3;
+    cursor: default;
+  }
+  
+  .pageNumber {
+    background: none;
+    border: none;
+    color: #000;
+    font-family: Inter;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  
