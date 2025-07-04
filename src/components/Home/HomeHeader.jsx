@@ -3,17 +3,31 @@ import styles from './HomeHeader.module.css';
 import typography from './Typography.module.css';
 import locationIcon from '../../assets/location_on.svg';
 
-
 const categories = ['의류', '반려동물', '문구류', '육아용품', '화장품/뷰티', '잡화/기타'];
 
-function HomeHeader({onLocationClick}) {
-   return (
+
+function HomeHeader({ onLocationClick, selectedAddress }) {
+
+  // 주소가 '시/도 구/군 동' 형식일 때, 구와 동을 반환
+  // 예: '서울특별시 중랑구 망우본동' -> '중랑구/망우본동'
+  const getGuDongFromAddress = (selectedAddress) => {
+    const addressParts  = selectedAddress.split(' ');
+    if (addressParts .length >= 2) {
+      const gu = addressParts[addressParts.length - 2];
+      const dong = addressParts[addressParts.length - 1];
+      return `${gu}/${dong}`;
+    }
+    // 만약 주소 형식이 예상과 다를 경우, 전체 주소를 반환
+    return selectedAddress;
+  };
+
+  return (
     <div className={styles.homeHeader}>
       <div className={styles.searchBarWrapper}>
-    <button className={styles.locationBtn}>
+    <button className={styles.locationBtn} onClick={onLocationClick}>
       <div className={styles.locationContent}>
         <img src={locationIcon} alt="위치아이콘" className={styles.locationIcon} />
-        <span className={typography.body1}>망우본동</span>
+        <span className={typography.body1}>{getGuDongFromAddress(selectedAddress)}</span>
       </div>
     </button>
     <div className={styles.searchBox}>
@@ -30,8 +44,7 @@ function HomeHeader({onLocationClick}) {
       </div>
     ))}
   </div>
-</div>
-
+  </div>
    );
 }
 
