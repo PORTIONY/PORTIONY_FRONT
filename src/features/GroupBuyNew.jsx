@@ -77,9 +77,9 @@ function GroupBuyNew() {
       form.category &&
       form.title &&
       form.description &&
-      form.image &&
+      images.length > 0 &&
       form.amount &&
-      (form.unit || form.unitCustom) && // 단위는 선택하거나 직접입력 중 하나는 있어야 함
+      (form.unit || form.unitCustom) &&
       form.people &&
       form.price &&
       form.deadline &&
@@ -94,7 +94,6 @@ function GroupBuyNew() {
   const handleCancelClick = () => setShowCancelModal(true); // 버튼 누르면 모달 띄우기
   const handleCloseModal = () => setShowCancelModal(false); // 모달 닫기 (사용자가 '취소' 선택)
   const handleConfirmCancel = () => window.history.back();  // 또는 navigate(-1) 사용 가능
-
 
   return (
     <div className={styles['page-wrapper']}>
@@ -292,8 +291,6 @@ function GroupBuyNew() {
               onConfirm={handleConfirmCancel} // 작성 취소 버튼
             />
           )}
-
-
         </form>
       </div>
     </div>

@@ -67,7 +67,7 @@ export default function ReviewsHistory() {
   const handleDeleteReview = (productName) => {
     removeLocalReview(productName);
     setLocalReviews(getLocalReviews()); 
-    setModalInfo({ open: false, productName: '', mode: 'write', received: false }); // 모달 닫기
+    setModalInfo({ open: false, productName: '', mode: 'write', received: false }); 
   };
   
   const dataWithWriteStatus = sampleData.map(item => ({
