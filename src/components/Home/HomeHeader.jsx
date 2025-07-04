@@ -2,15 +2,17 @@ import React, { useState } from 'react';
 import styles from './HomeHeader.module.css';
 import typography from './Typography.module.css';
 import locationIcon from '../../assets/location_on.svg';
-
+import LocationModal from './LocationModal';
 
 const categories = ['의류', '반려동물', '문구류', '육아용품', '화장품/뷰티', '잡화/기타'];
 
 function HomeHeader({onLocationClick}) {
+  const [modalOpen, setModalOpen] = useState(false);
+
    return (
     <div className={styles.homeHeader}>
       <div className={styles.searchBarWrapper}>
-    <button className={styles.locationBtn}>
+    <button className={styles.locationBtn} onClick={() => setModalOpen(true)}>
       <div className={styles.locationContent}>
         <img src={locationIcon} alt="위치아이콘" className={styles.locationIcon} />
         <span className={typography.body1}>망우본동</span>
@@ -30,8 +32,9 @@ function HomeHeader({onLocationClick}) {
       </div>
     ))}
   </div>
-</div>
 
+  <LocationModal open={modalOpen} onClose={() => setModalOpen(false)} />
+  </div>
    );
 }
 
