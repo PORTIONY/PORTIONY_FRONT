@@ -7,6 +7,8 @@
   box-sizing: border-box;
   gap: 15px;
   align-self: stretch;
+
+  margin-bottom: 30px;
 }
 
 .imageWrapper {
@@ -49,7 +51,8 @@
   margin-top: 6.5px;
   display: flex;
   height: 17px;
-  align-items: center;
+  justify-self: space-between;
+  align-items: baseline;
   gap: 5px;
 }
 
@@ -66,7 +69,7 @@
 
   text-overflow: ellipsis;
   /* Title/Title1 */
-  font-family: Inter;
+  font-family: 'Inter';
   font-size: 20px;
   font-style: normal;
   font-weight: 600;
@@ -77,29 +80,64 @@
 .lastMessageTime {
   font-size: 13px;
   color: #B2B2B2;
-  font-weight: 500;
+  font-weight: 400;
+
+/* Body/Body1 */
+font-family: Inter;
+font-style: normal;
+line-height: 16px; /* 123.077% */
+letter-spacing: -0.32px;
 }
 
 /* 메시지 미리보기 감싸는 박스 */
 .chatBottom {
   display: flex;
-  align-items: center;
-  gap: 8px;
+  align-items: baseline;
+  justify-content: space-between;
 }
 
 /* 마지막 메시지(미리보기) */
 .lastMessage {
   max-width: 398px;
+  max-height: 17px;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1 0 0;
   font-size: 13px;
   color: #B2B2B2;
-  font-weight: 500;
+  font-weight: 400;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   margin: 0px 0 6.5px 0 ;
+  color: #B2B2B2;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  /* Body/Body1 */
+  font-family: Inter;
+  font-style: normal;
+  line-height: 16px; /* 123.077% */
+  letter-spacing: -0.32px;
 }
 
 .readIcon {
   width: 10px;
   height: 10px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.messageWrapper {
+  flex: 1;
+  overflow: hidden;
+}
+
+.readIconWrapper {
+  width: 10px;
+  height: 10px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

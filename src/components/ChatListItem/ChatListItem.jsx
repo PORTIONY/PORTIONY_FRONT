@@ -25,13 +25,14 @@ function ChatListItem({
           <span className={styles.lastMessageTime}>{lastMessageTime}</span>
         </div>
         <div className={styles.chatBottom}>
+          <div className={styles.messageWrapper}>
           <p className={styles.lastMessage}>{lastMessage}</p>
+          </div>
+
           {hasUnread && (
-            <img
-              src={isReadIcon}
-              alt="읽지 않음 표시"
-              className={styles.readIcon}
-            />
+            <div className={styles.readIconWrapper}>
+              <img src={isReadIcon} alt="읽지 않음" className={styles.readIcon} />
+            </div>
           )}
         </div>
       </div>
