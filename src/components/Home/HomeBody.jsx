@@ -19,7 +19,7 @@ const images = [
     banner3
 ];
 
-function HomeBody({ selectedAddress }) {
+function HomeBody({ selectedAddress, selectedCategory }) {
   const navigate = useNavigate();
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -54,7 +54,11 @@ function HomeBody({ selectedAddress }) {
 
   // 상품 데이터
   const products = dummyProducts
-    .filter(item => item.location === selectedAddress)
+    .filter(item => {
+      const isSameLocation = item.location === selectedAddress;
+      const isSameCategory = selectedCategory === '전체' ? true : item.category === selectedCategory;
+      return isSameLocation && isSameCategory;
+    })
     .map(item => ({
       id: item.id,
       name: item.title,

@@ -85,6 +85,11 @@
   align-items: center;
   justify-content: center;
   opacity: 0.3;
+  cursor: pointer;
+}
+
+.active {
+  opacity: 1;
 }
 
 .categoryIcon {

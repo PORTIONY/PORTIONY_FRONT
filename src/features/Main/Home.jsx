@@ -6,6 +6,7 @@ import LocationModal from '../../components/Home/LocationModal';
 function Home() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedAddress, setSelectedAddress] = useState('서울특별시 중랑구 망우본동');
+    const [selectedCategory, setSelectedCategory] = useState('전체');
 
     const handleSelectDong = (address) => {
         setSelectedAddress(address);
@@ -21,9 +22,12 @@ function Home() {
             <HomeHeader
                 onLocationClick={() => setIsModalOpen(true)}
                 selectedAddress={selectedAddress}
+                selectedCategory={selectedCategory}
+                onCategoryChange={setSelectedCategory}
             />
             <HomeBody
                 selectedAddress={selectedDong}
+                selectedCategory={selectedCategory}
             />
             <LocationModal
                 open={isModalOpen}
