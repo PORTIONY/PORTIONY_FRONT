@@ -6,7 +6,7 @@ import locationIcon from '../../assets/location_on.svg';
 const categories = ['의류', '반려동물', '문구류', '육아용품', '화장품/뷰티', '잡화/기타'];
 
 
-function HomeHeader({ onLocationClick, selectedAddress }) {
+function HomeHeader({ onLocationClick, selectedAddress, selectedCategory, onCategoryChange }) {
 
   // 주소가 '시/도 구/군 동' 형식일 때, 구와 동을 반환
   // 예: '서울특별시 중랑구 망우본동' -> '중랑구/망우본동'
@@ -38,7 +38,14 @@ function HomeHeader({ onLocationClick, selectedAddress }) {
 
   <div className={styles.categoryList}>
     {categories.map((cat, i) => (
-      <div key={i} className={styles.categoryCard}>
+      <div 
+        key={i} 
+        className={`${styles.categoryCard} ${selectedCategory === cat ? styles.active : ''}`}
+        onClick={() => {
+          const isSame = selectedCategory === cat;
+          onCategoryChange(isSame ? '전체' : cat);
+        }}
+      >
         <img className={styles.categoryIcon} src="https://placehold.co/40x40" />
         <span className={`${styles.categoryLabel} ${typography.body2}`}>{cat}</span>
       </div>
