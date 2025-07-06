@@ -11,6 +11,10 @@ function Home() {
         setSelectedAddress(address);
         setIsModalOpen(false);
     };
+    
+    // 임시 로직 : 현재는 전체주소에서 동만 추출하여 데이터를 필터링 (평택시 중앙동인지 안산시 중앙동인지 구분하지 않음)
+    // 추후 정확한 지역 매칭을 위해 필터 로직 개선 필요
+    const selectedDong = selectedAddress.split(' ').pop().trim();
 
     return (
         <div>
@@ -18,7 +22,9 @@ function Home() {
                 onLocationClick={() => setIsModalOpen(true)}
                 selectedAddress={selectedAddress}
             />
-            <HomeBody/>
+            <HomeBody
+                selectedAddress={selectedDong}
+            />
             <LocationModal
                 open={isModalOpen}
                 onClose={() => setIsModalOpen(false)}

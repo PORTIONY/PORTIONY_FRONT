@@ -19,7 +19,7 @@ const images = [
     banner3
 ];
 
-function HomeBody() {
+function HomeBody({ selectedAddress }) {
   const navigate = useNavigate();
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -54,6 +54,7 @@ function HomeBody() {
 
   // 상품 데이터
   const products = dummyProducts
+    .filter(item => item.location === selectedAddress)
     .map(item => ({
       id: item.id,
       name: item.title,
