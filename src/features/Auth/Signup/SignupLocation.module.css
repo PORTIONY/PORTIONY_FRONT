@@ -1,3 +1,12 @@
+/* 전체감싸기 */
+.allWrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    padding-top: 97px;
+}
+
 /* 뒤로가기 + 이름 */
 .backWrapper {
   position: absolute;
@@ -18,16 +27,16 @@
 
 /* 페이지 이름 */
 .signupTitle {
-  color: #000;
-  font-family: Inter;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 20px; 
-  letter-spacing: -0.32px;
+    color: #000;
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 20px; 
+    letter-spacing: -0.32px;
 }
 
-/* 내 동네 둘러보기  */
+/* 내 동네 둘러보기 */
 .heading {
     width: 137px;
 
@@ -40,19 +49,75 @@
     font-weight: 600;
     line-height: 20px; /* 100% */
     letter-spacing: -0.32px;
+
+    margin-bottom: 74px;
 }
 
-/* 동네설정버튼  */
+/* 현재위치로찾기 + 검색창 */
+.searchForm {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+/* 현재위치로찾기버튼  */
 .locationButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     width: 143px;
     height: 40px;
     flex-shrink: 0;
 
+    border: none;
     border-radius: 10px;
     background: #FECD24;
+    cursor: pointer;
 }
 
-/* 현재 위치로 찾기 */
+/* 위치아이콘 */
+.locationIcon {
+    width: 22px;
+    height: 25px;
+}
+
+/* 현재 위치로 찾기 문구 */
+.locationButtonText {
+    color: #000;
+
+    /* Body/Body1 */
+    font-family: Inter;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px; /* 123.077% */
+    letter-spacing: -0.32px;
+}
+
+/* 검색창 + 돋보기아이콘 */
+.searchInputWrapper {
+    position: relative;
+    width: 453px;
+    height: 40px;
+}
+
+/* 검색창 */
+.searchInput {
+    width: 100%;
+    height: 100%;
+    padding: 10px 40px 10px 12px; 
+    box-sizing: border-box;
+
+    border-radius: 10px;
+    border: 1px solid #000;
+    background: #FFF;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+/* 동명(읍, 면)으로 검색 (ex. 서초동) */
 .input::placeholder {
     color: #6D6D6D;
 
@@ -63,6 +128,17 @@
     font-weight: 500;
     line-height: 16px; /* 123.077% */
     letter-spacing: -0.32px;
+}
+
+/* 돋보기 */
+.searchIconInside {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 17px;
+    height: 17px;
+    cursor: pointer;
 }
 
 /* 검색결과박스 */
@@ -76,8 +152,33 @@
     background: #FFF;
 }
 
+/* '검색어'검색 결과 */
+.resultIttemLabel {
+    color: #000;
+
+    /* Body/Body1 */
+    font-family: Inter;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px; /* 123.077% */
+    letter-spacing: -0.32px;
+
+    margin: 24px;
+}
+
+/* 구분선 */
+.resultBoxDivider {
+    display: flex;
+    width: 547.001px;
+    height: 0px;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+
 /* 검색결과 동네리스트 */
-.resultItem {
+.resultItems {
     color: #000;
 
     /* Body/Body1 */
@@ -90,11 +191,32 @@
 }
 
 /* 검색결과 동네리스트 - 호버효과 */
-.resultItem:hover {
+.resultItems:hover {
     text-decoration: underline;
 }
 
-/* 선택동네 + 로 설정하시겠어요?*/
+/* 선택동네 + 로 설정하시겠어요? 레이아웃*/
+.confirmBox {
+    height: 0;
+    margin: 0;
+    transition: all 0.2s ease;
+}
+
+/* 동네선택했을때 */
+.visible {
+  height: auto;
+  margin: 0;
+  text-align: center;
+}
+
+/* 동네선택 안했을때 */
+.hidden {
+  height: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+/* 선택동네 + 로 설정하시겠어요? 문구*/
 .selectedText {
     color: #000;
 
@@ -105,6 +227,7 @@
     font-weight: 600;
     line-height: 16px; /* 100% */
     letter-spacing: -0.32px;
+    margin: 35px 0;
 }
 
 /* 다음버튼 */
@@ -115,17 +238,17 @@
     padding: 10px;
     justify-content: center;
     align-items: center;
-    gap: 10px;
-    flex-shrink: 0;
 
     border-radius: 10px;
     background: #000;
     box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
 }
 
 /* 다음버튼 - 비활성화 */
 .nextButton:disabled {
     background: #D9D9D9;
+    cursor: not-allowed;
 }
 
 /* 다음버튼문구 */
@@ -140,9 +263,4 @@
     font-weight: 600;
     line-height: 20px; /* 100% */
     letter-spacing: -0.32px;
-}
-
-/* 다음버튼문구 - 비활성화 */
-.nextButtonText:disabled {
-    color: #8d8d8d;
 }

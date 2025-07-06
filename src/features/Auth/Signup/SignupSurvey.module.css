@@ -1,3 +1,12 @@
+/* 전체감싸기 */
+.allWrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    padding-top: 97px;
+}
+
 /* 뒤로가기 + 이름 */
 .backWrapper {
   position: absolute;
@@ -27,8 +36,34 @@
   letter-spacing: -0.32px;
 }
 
+.dropdownWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  gap: 35px;
+}
+
+/* 환영합니다, 어떤 상품이 필요하세요? */
+.heading {
+  color: #000;
+
+  /* Title/Title1 */
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 20px; /* 100% */
+  letter-spacing: -0.32px;
+}
+
+.surveyWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
 /* 질문 */
-.label {
+.surveyLabel {
     color: #000;
 
     /* Body/Body1 */
@@ -38,6 +73,15 @@
     font-weight: 500;
     line-height: 16px; /* 123.077% */
     letter-spacing: -0.32px;
+}
+
+/* 필수아이콘 */
+.requiredIcon {
+    width: 5px;
+    height: 5px;
+    aspect-ratio: 1/1;
+    margin-left: 5px;
+    vertical-align: middle;
 }
 
 /* 드롭다운박스 */
@@ -52,6 +96,11 @@
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
+/* 드롭박스내부 안내메세지 (상품 분야를 선택해주세요.) */
+.dropdownBox:invalid {
+  color: #949494;
+}
+
 /* 시작버튼 */
 .startButton {
     display: flex;
@@ -60,7 +109,20 @@
     padding: 10px;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+
+    border: none;
+    border-radius: 10px;
+    background: #FECD24;
+    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.25);
+
+    margin-top: 46px;
+    cursor: pointer;
+}
+
+/* 시작버튼 - 비활성화 */
+.startButton:disabled {
+    cursor: not-allowed;
+    background: #D9D9D9;
 }
 
 /* PORTIONY 시작하기 */
@@ -89,4 +151,7 @@
     font-weight: 500;
     line-height: 16px; /* 123.077% */
     letter-spacing: -0.32px;
+    cursor: pointer;
+
+    margin-top: 26px;
 }

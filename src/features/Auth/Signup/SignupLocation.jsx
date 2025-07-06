@@ -68,20 +68,20 @@ function SignupLocation({ onNext, onBack }) {
     };
 
     return (
-        <>
-        <div className={styles.backWrapper}>
-            <img
-                src={back}
-                alt="뒤로가기"
-                className={styles.backIcon}
-                onClick={onBack} />
-            <span className={styles.signupTitle}>회원가입</span>
-        </div>
-        
-        <div className={styles.container}>
+        <>        
+        <div className={styles.allWrapper}>
+            <div className={styles.backWrapper}>
+                <img
+                    src={back}
+                    alt="뒤로가기"
+                    className={styles.backIcon}
+                    onClick={onBack} />
+                <span className={styles.signupTitle}>회원가입</span>
+            </div>
+            
             <h2 className={styles.heading}>내 동네 둘러보기</h2>
 
-            <div className={styles.locationSearch}>
+            <div className={styles.searchForm}>
                 <button className={styles.locationButton} onClick={handleCurrentLocation}>
                 <img 
                     src = {location}
@@ -90,38 +90,51 @@ function SignupLocation({ onNext, onBack }) {
                 <span className={styles.locationButtonText}>현재 위치로 찾기</span>
                 </button>
 
-                <div className={styles.searchRow}>
+                <div className={styles.searchInputWrapper}>
                     <input
                         type="text"
+                        className={styles.searchInput}
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        placeholder="동명(읍, 면)으로 검색 (ex. 서초동)"
-                        className={styles.searchInput} />
+                        placeholder="동명(읍, 면)으로 검색 (ex. 서초동)" 
+                    />
                     <img 
                         src = {search}
                         alt='검색'
-                        className = {styles.searchIcon}
-                        onClick = {() => handleSearch()} />
+                        className = {styles.searchIconInside}
+                        onClick = {() => handleSearch()}
+                    />
                 </div>
             </div>
 
             <div className={styles.resultBox}>
+                <p className={styles.resultIttemLabel}>
+                    ‘{searchTerm}’ 검색 결과
+                </p>
+                <hr className={styles.resultBoxDivider} />
+
                 {results.map((item, idx) => (
                     <div
                         key={idx}
-                        className={`${styles.resultItem} ${selected === item ? styles.selected : ''}`}
+                        className={`${styles.resultItemText} ${selected === item ? styles.selectedItem : ''}`}
                         onClick={() => setSelected(item)}
-                    > {item}
-                </div>))} 
+                    > 
+                        {item}
+                    </div>
+                ))} 
             </div>
 
+            <div
+                className={`${styles.confirmBox} ${
+                selected ? styles.visible : styles.hidden
+                }`}
+            >
             {selected && (
-                <p className={styles.confirmText}>
-                    <span className={styles.selectedText}>
-                        {selected}로 시작하시겠어요?
-                    </span>
-                </p> )
-            }
+                <p className={styles.selectedText}>
+                    {selected}로 시작하시겠어요?
+                </p>
+            )}
+            </div>
 
             <button className={styles.nextButton} onClick={onNext} disabled={!selected}>
                 <span className={styles.nextButtonText}>다음</span>

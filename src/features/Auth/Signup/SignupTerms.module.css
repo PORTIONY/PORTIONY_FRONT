@@ -1,3 +1,12 @@
+/* 전체 컨테이너 */
+.allWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
 /* 뒤로가기 + 이름 */
 .backWrapper {
   position: absolute;
@@ -13,7 +22,6 @@
   width: 25px;
   height: 25px;
   cursor: pointer;
-  display: inline-block;
 }
 
 /* 페이지 이름 */
@@ -38,6 +46,8 @@
     font-weight: 600;
     line-height: 20px; /* 100% */
     letter-spacing: -0.32px;
+    margin-top: 45px;
+    margin-bottom: 74px;
 }
 
 /* 모두 동의 */
@@ -51,33 +61,49 @@
     font-weight: 600;
     line-height: 16px; /* 100% */
     letter-spacing: -0.32px;
+    margin-right: 8px;
 }
 
 /* 모두 동의 박스 */
 .allAgreeBox {
-  margin: 24px 0;
+  width: 100%;
+  max-width: 380px;
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 29px;
 }
+
+/* 가운데 고정 정렬 박스 */
+.contentBox {
+  width: 100%;
+  max-width: 741px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
 
 /* 구분선 */
 .divider {
-    color: #939393;
-    display: flex;
-    width: 741.003px;
+    background-color: #939393;
+    max-width: 741px;
+    width: 100%;
     height: 1px;
-    justify-content: center;
-    align-items: center;
-    flex-shrink: 0;
+    margin: 0 auto;
 }
 
 /* 체크리스트 */
 .checkList {
     display: flex;
-    height: 183px;
-    padding-right: 22px;
+    width: 100%;
+    max-width: 380px;
+    min-height: 183px;
     flex-direction: column;
     align-items: flex-start;
-    gap: 37px;
-    flex-shrink: 0;
+    gap: 35px;
+    margin-top: 13px;
+    margin-bottom: 70px;
 }
 
 /* 체크박스 */
@@ -85,6 +111,18 @@
   display: flex;
   align-items: center;
   gap: 5px;
+  cursor: pointer;
+}
+
+/* 체크박스 아이콘 */
+.checkboxIcon {
+  width: 24px;
+  height: 24px;
+}
+
+/* 기존 input 숨기기 */
+input[type="checkbox"] {
+  display: none;
 }
 
 /* [필수] ...내용 */
@@ -111,6 +149,7 @@
     font-weight: 500;
     line-height: 16px; /* 123.077% */
     letter-spacing: -0.32px;
+    margin-left: auto;
 }
 
 /* 다음버튼 */
@@ -123,16 +162,18 @@
     align-items: center;
     gap: 10px;
     flex-shrink: 0;
-    margin-top: 70px;
+    cursor: pointer;
 
     border-radius: 10px;
     background: #000;
     box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
 }
 
 /* 다음버튼 - 비활성화 */
 .nextButton:disabled {
     background: #D9D9D9;
+    cursor: not-allowed;;
 }
 
 /* 다음버튼문구 */
@@ -147,9 +188,4 @@
     font-weight: 600;
     line-height: 20px; /* 100% */
     letter-spacing: -0.32px;
-}
-
-/* 다음버튼문구 - 비활성화 */
-.nextButtonText:disabled {
-    color: #8d8d8d;
 }

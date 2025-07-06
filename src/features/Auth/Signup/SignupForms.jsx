@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import styles from './SignupForms.module.css';
 import { useNavigate } from 'react-router-dom';
 
-import profileImage from '../../../assets/profile-image.svg'
+import defaultProfileImage from '../../../assets/profile-image.svg'
 import back from '../../../assets/chevron-left.svg';
 import requiredIcon from '../../../assets/required.svg';
 import close from '../../../assets/x.svg';
@@ -11,7 +11,6 @@ const domainOptions = ['직접 입력', 'gmail.com', 'naver.com',
                       'daum.net', 'hanmail.net'];
 
 function SignupForms({ onNext, onBack }) {
-  const [profileImage, setProfileImage] = useState(null);
   const fileInputRef = useRef(null);
 
   const [emailId, setEmailId] = useState('');
@@ -23,6 +22,8 @@ function SignupForms({ onNext, onBack }) {
   const [passwordCheck, setPasswordCheck] = useState('');
   const [nickname, setNickname] = useState('');
   const [nicknameValid, setNicknameValid] = useState(false);
+
+  const [profileImage, setProfileImage] = useState(null);
 
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
@@ -42,7 +43,9 @@ function SignupForms({ onNext, onBack }) {
     }
   };
 
-  const removeProfileImage = () => setProfileImage(null);
+  const removeProfileImage = () => {
+    setProfileImage(null);
+  }
 
   const fullEmail = `${emailId}@${domainType === '직접 입력' ? emailDomain : domainType}`;
 
@@ -89,35 +92,33 @@ function SignupForms({ onNext, onBack }) {
 
   return (
     <>
-    <div className={styles.container}>
+    <div className={styles.allWrapper}>
       <div className={styles.backWrapper}>
         <img src={back} onClick={onBack} className={styles.backIcon} alt="뒤로가기" />
         <span className={styles.signupTitle}>회원가입</span>
       </div>
 
       {/* 프로필 사진 */}
-      <section className={styles.section}>
-        { profileImage ? (
-          <div className={styles.imageWrapper}>
-            <img 
-              src={profileImage} 
-              alt="프로필" 
-              className={styles.profileImage} />
+      <div className={styles.profileImageWrapper}>
+        <div className={styles.imageWrapper}>
+          <img 
+            src={profileImage || defaultProfileImage} 
+            alt="프로필" 
+            className={styles.profileImage} 
+          />
+          {profileImage && (
             <img
               src={close}
               alt="삭제"
               className={styles.xIcon}
               onClick={removeProfileImage}
             />
-          </div>
-        ) : (
-          <div
-            className={styles.uploadButton}
-            onClick={() => fileInputRef.current.click()}
-          ><span className={styles.uploadButtonText}>프로필 사진 등록</span>
-          </div>
-          )
-        }
+          )}
+        </div>
+
+        <div className={styles.uploadButton} onClick={() => fileInputRef.current.click()}>
+          <span className={styles.uploadButtonText}>프로필 사진 등록</span>
+        </div>
 
         <input
           type="file"
@@ -126,90 +127,105 @@ function SignupForms({ onNext, onBack }) {
           onChange={handleImageUpload}
           style={{ display: 'none' }}
         />
-      </section>
+      </div>
+
       
-      <div className={styles.formGroup}>
-        {/* 이메일 */}
-        <label className={styles.label}>
-          이메일 <img src={requiredIcon} className={styles.requiredIcon} />
-        </label>
+      <div className={styles.inputFormWrapper}>
+        <div className={styles.formGroup}>
+          {/* 이메일 */}
+          <label className={styles.formLabel}>
+            이메일 <img src={requiredIcon} className={styles.requiredIcon} />
+          </label>
 
-        <div className={styles.emailRow}>
-          <input
-            className={`${styles.input}  ${styles.domainInput}`}
-            value={emailId}
-            onChange={(e) => setEmailId(e.target.value)}
-            placeholder="이메일을 입력해주세요."
-          />
-          <span>@</span>
-          {domainType === '직접 입력' ? (
+          <div className={styles.emailRow}>
             <input
-              className={`${styles.input} ${styles.domainInput}`}
-              value={emailDomain}
-              onChange={(e) => setEmailDomain(e.target.value)}
-              placeholder="도메인을 입력해주세요."
+              className={`${styles.inputForm}  ${styles.domainInputForm}`}
+              value={emailId}
+              onChange={(e) => setEmailId(e.target.value)}
+              placeholder="이메일을 입력해주세요."
             />
-          ) : (
-            <input value={domainType} readOnly />
-            )
-          }
 
-          <select
-            value={domainType}
-            onChange={(e) => setDomainType(e.target.value)}>
+            <span>@</span>
 
-            {domainOptions.map((d) => (
-              <option key={d}>{d}</option>
-              ))
+            {domainType === '직접 입력' ? (
+              <input
+                  className={`${styles.inputForm} ${styles.domainInputForm}`}
+                  value={emailDomain}
+                  onChange={(e) => setEmailDomain(e.target.value)}
+                  placeholder="도메인을 입력해주세요."
+              />
+              ) : (
+              <input 
+                className={`${styles.inputForm} ${styles.domainInputForm}`}
+                value={domainType} readOnly />
+              )
             }
-          </select>
 
-          <button className={styles.validButton} onClick={handleEmailCheck}>
-            <span className={styles.validButtonText}>중복 확인</span>
-          </button>
+            <select
+              className={`${styles.inputForm} ${styles.domainInputForm}`}
+              value={domainType}
+              onChange={(e) => setDomainType(e.target.value)}>
+
+              {domainOptions.map((d) => (
+                <option key={d} value={d}>{d}</option>
+                ))
+              }
+            </select>
+
+            <button 
+              className={styles.validButton} 
+              onClick={handleEmailCheck}>
+              <span className={styles.validButtonText}>중복 확인</span>
+            </button>
           </div>
         </div>
 
-        {/* 비밀번호 */}
-        <label className={styles.label}>
-          비밀번호 <img src={requiredIcon} className={styles.requiredIcon} />
-        </label>
-        
-        <div className={styles.passwordRow}>
-          <input
-            className={`${styles.input}`}
-            type="password"
-            value={password}
-            placeholder="영문, 숫자 포함 8자 이상 입력해주세요."
-            onChange={(e) => setPassword(e.target.value)}
-          />
+        <div className={styles.formGroup}>
+          {/* 비밀번호 */}
+          <label className={styles.formLabel}>
+            비밀번호 <img src={requiredIcon} className={styles.requiredIcon} />
+          </label>
+          
+          <div className={styles.passwordRow}>
+            <input
+              className={`${styles.inputForm}`}
+              type="password"
+              value={password}
+              placeholder="영문, 숫자 포함 8자 이상 입력해주세요."
+              onChange={(e) => setPassword(e.target.value)}
+            />
 
-          <input
-            className={`${styles.input}`}
-            type="password"
-            value={passwordCheck}
-            placeholder="비밀번호 다시 입력해주세요."
-            onChange={(e) => setPasswordCheck(e.target.value)}
-          />
-      </div>
+            <input
+              className={`${styles.inputForm}`}
+              type="password"
+              value={passwordCheck}
+              placeholder="비밀번호 다시 입력해주세요."
+              onChange={(e) => setPasswordCheck(e.target.value)}
+            />
+          </div>
+        </div>
 
-      {/* 닉네임 */}
-      <label className={styles.label}>
-        닉네임 <img src={requiredIcon} className={styles.requiredIcon} />
-      </label>
+        <div className={styles.formGroup}>
+          {/* 닉네임 */}
+          <label className={styles.formLabel}>
+            닉네임 <img src={requiredIcon} className={styles.requiredIcon} />
+          </label>
 
-      <div className={styles.nicknameRow}>
-        <input
-          className={`${styles.input}`}
-          value={nickname}
-          onChange={(e) => setNickname(e.target.value)}
-          placeholder="닉네임을 입력해주세요."
-        />
-        <button 
-          className={styles.validButton} 
-          onClick={handleNicknameCheck}>
-          <span className={styles.validButtonText}>중복 확인</span>
-        </button>
+          <div className={styles.nicknameRow}>
+            <input
+              className={`${styles.inputForm}`}
+              value={nickname}
+              onChange={(e) => setNickname(e.target.value)}
+              placeholder="닉네임을 입력해주세요."
+            />
+
+            <button 
+              className={styles.validButton} 
+              onClick={handleNicknameCheck}>
+              <span className={styles.validButtonText}>중복 확인</span>
+            </button>
+          </div>
+        </div>
       </div>
 
       {/* 다음 버튼 */}
@@ -220,7 +236,6 @@ function SignupForms({ onNext, onBack }) {
         <span className={styles.nextButtonText}>다음</span>
       </button>
     </div> </>
-  );
-};
+  );};
 
 export default SignupForms;

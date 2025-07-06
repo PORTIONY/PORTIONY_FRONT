@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import Login from './features/Auth/Login';
-import Signup from './features/Auth/Signup';
+import SignUp from './features/Auth/SignUp';
 import Home from './features/Main/Home';
 import MyPage from './features/MyPage/MyPage'; 
 import './App.css';
@@ -24,7 +24,7 @@ function App() {
           <Routes>
             {!isLoggedIn ? (
               <>
-                <Route path="/signup" element={<Signup />} />
+                <Route path="/signup" element={<SignUp />} />
                 <Route path="*" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
               </>
             ) : (
