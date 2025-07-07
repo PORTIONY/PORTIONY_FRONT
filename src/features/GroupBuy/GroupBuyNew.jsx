@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import backIcon from '../../assets/back-icon.svg';
 import removeIcon from '../../assets/remove-icon.svg';
 import modalIcon from '../../assets/modal-icon.svg';
@@ -7,7 +8,13 @@ import dropdownIcon from '../../assets/dropdown.svg';
 import styles from './GroupBuyNew.module.css';
 import GroupBuyModal from '../../components/GroupBuy/GroupBuyModal';
 
-function GroupBuyNew() {
+function GroupBuyNew({ mode = 'create', initialData = null, productId = null }) {
+
+  // 라우팅
+  const navigate = useNavigate();
+
+
+  // form 입력값 상태
   const [form, setForm] = useState({
     category: '',
     title: '',
@@ -22,23 +29,34 @@ function GroupBuyNew() {
     method: '',
   });
 
-  const [images, setImages] = useState([]);
-  const [previewUrls, setPreviewUrls] = useState([]);
-  const [selectedImage, setSelectedImage] = useState(null);
 
+  // 이미지 관련 상태
+  const [images, setImages] = useState([]);             // 파일 객체 저장
+  const [previewUrls, setPreviewUrls] = useState([]);   // 이미지 미리보기 URL
+  const [selectedImage, setSelectedImage] = useState(null);  // 클릭된 이미지 URL (확대용)
+  // 체크박스 상태
+  const [isChecked, setIsChecked] = useState(false);
+  //  작성 취소 모달 상태
+  const [showCancelModal, setShowCancelModal] = useState(false);
+
+  // --------------------------- 날짜 계산 (마감 기한 최소~최대 범위 설정)
+  const today = new Date();
+  const minDate = today.toISOString().split('T')[0];
+  const threeMonthsLater = new Date();
+  threeMonthsLater.setMonth(threeMonthsLater.getMonth() + 3);
+  const maxDate = threeMonthsLater.toISOString().split('T')[0];
+
+  // ------------------------------ input 입력값 변경 핸들러
   const handleChange = (e) => {
     const { name, value } = e.target;
-
     if (name === 'people') {
       if (value === '') {
         setForm(prev => ({ ...prev, [name]: '' }));
         return;
       }
-
       const number = parseInt(value);
       if (isNaN(number) || number < 1 || number > 99) return;
     }
-
     if (name === 'title' && value.length > 50) return;
     if (name === 'description' && value.length > 500) return;
     if (name === 'price') {
@@ -49,34 +67,23 @@ function GroupBuyNew() {
     setForm(prev => ({ ...prev, [name]: value }));
   };
 
+
+  // 가격 1000단위 콤마 포맷터
   const formatPrice = (value) => {
-    // 숫자만 추출
     const numericValue = value.replace(/[^\d]/g, '');
-    // 숫자가 비었으면 ''
     if (!numericValue) return '';
-    // 천단위 콤마 붙이기
     return parseInt(numericValue, 10).toLocaleString();
   };
 
-  // 오늘 날짜 YYYY-MM-DD 형식으로
-  const today = new Date();
-  const minDate = today.toISOString().split('T')[0];
-
-  // 3개월 뒤 날짜 계산
-  const threeMonthsLater = new Date();
-  threeMonthsLater.setMonth(threeMonthsLater.getMonth() + 3);
-  const maxDate = threeMonthsLater.toISOString().split('T')[0];
-
-
+  // --------------------- 이미지 관련 핸들러
+  // 이미지 추가 (최대 10장)
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
     const totalFiles = images.length + files.length;
-
     if (totalFiles > 10) {
       alert('이미지는 최대 10장까지 등록할 수 있습니다.');
       return;
     }
-
     const newPreviews = files.map(file => {
       const reader = new FileReader();
       return new Promise(resolve => {
@@ -84,37 +91,31 @@ function GroupBuyNew() {
         reader.readAsDataURL(file);
       });
     });
-
     Promise.all(newPreviews).then(results => {
       setImages(prev => [...prev, ...files]);
       setPreviewUrls(prev => [...prev, ...results]);
     });
   };
-
+  // 이미지 삭제
   const handleRemoveImage = (indexToRemove) => {
     setImages(prev => prev.filter((_, i) => i !== indexToRemove));
     setPreviewUrls(prev => prev.filter((_, i) => i !== indexToRemove));
   };
-
+  // 이미지 확대 보기 클릭
   const handlePreviewClick = (url) => {
     setSelectedImage(url);
   };
-
+  // 이미지 확대 모달 닫기
   const handleCloseImgModal = () => {
     setSelectedImage(null);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('제출할 데이터:', form);
-  };
 
-  const [isChecked, setIsChecked] = useState(false);
-
+  // -------------------- 체크박스 핸들러
   const handleCheckChange = (e) => {
     setIsChecked(e.target.checked);
   };
-
+  // 폼 전체 유효성 검사 (버튼 활성화 조건)
   const isFormComplete = () => {
     return (
       form.category &&
@@ -131,12 +132,40 @@ function GroupBuyNew() {
     );
   };
 
-  /* 모달 상태  */
-  const [showCancelModal, setShowCancelModal] = useState(false);
+  // ------------------------ 모달 관련 핸들러
+  // 작성 취소 버튼 클릭 → 모달 열기
+  const handleCancelClick = () => setShowCancelModal(true);
+  // 모달 내 '계속 작성' → 모달 닫기
+  const handleCloseModal = () => setShowCancelModal(false);
+  // 모달 내 '작성 취소' → 이전 페이지로 이동
+  const handleConfirmCancel = () => window.history.back();
 
-  const handleCancelClick = () => setShowCancelModal(true); // 버튼 누르면 모달 띄우기
-  const handleCloseModal = () => setShowCancelModal(false); // 모달 닫기 (사용자가 '취소' 선택)
-  const handleConfirmCancel = () => window.history.back();  // 또는 navigate(-1) 사용 가능
+
+  // ----------------------- submit 핸들러 (등록 or 수정 → 상세 페이지로 이동)
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!isFormComplete()) {
+      alert("모든 필수 항목을 입력해주세요.");
+      return;
+    }
+
+    if (mode === 'edit') {
+      // 수정 모드: 현재 productId로 이동
+      navigate(`/group-buy/${productId}`);
+    } else {
+      // 등록 모드: 새 id가 있다고 가정하고 이동
+      const newId = 99;  // 추후 백엔드 연동 필요
+      navigate(`/group-buy/${newId}`);
+    }
+  };
+
+  // ------------------------------ 수정 모드일 경우, 초기 데이터로 form 채우기
+  useEffect(() => {
+    if (mode === 'edit' && initialData) {
+      setForm(initialData);
+    }
+  }, [initialData, mode]);
 
   return (
     <div className={styles['page-wrapper']}>
@@ -366,7 +395,7 @@ function GroupBuyNew() {
               className={`${styles.groupbuynewButton} ${styles.submit}`}
               disabled={!isFormComplete()}
             >
-              등록하기
+              {mode === "edit" ? "수정하기" : "등록하기"}
             </button>
           </div>
 
