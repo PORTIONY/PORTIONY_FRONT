@@ -17,7 +17,7 @@ function getDDay(endDate) {
   return `D-${diffDays}`;
 }
 
-export default function ProductList({ products: propProducts, onClickProduct, context = 'mypage' }) {
+export default function ProductList({ products: propProducts, onClickProduct }) {
   const data = propProducts || [];
   const navigate = useNavigate();
 
@@ -26,15 +26,6 @@ export default function ProductList({ products: propProducts, onClickProduct, co
       onClickProduct(product); // 외부에서 prop이 넘어오면 그걸 우선!
     } else {
       navigate(`/group-buy/${product.id}`); // 아니면 상세페이지로 이동
-    }
-  };
-
-  // 상품 상세 정보 텍스트를 context에 따라 다르게 설정
-  const getDetailsText = (product) => {
-    if (context === 'mypage') {
-      return `구매 일자: ${product.endDate}`;
-    } else {
-      return `공구 인원 ${product.people}명 · 거래 완료 ${product.completedCount}명`;
     }
   };
 
@@ -67,7 +58,7 @@ export default function ProductList({ products: propProducts, onClickProduct, co
           <div className={styles.productInfo}>
             <h3 className={styles.productName}>{product.name}</h3>
             <p className={styles.productPrice}>{product.price}</p>
-            <p className={styles.productDetails}>{getDetailsText(product)}</p>
+            <p className={styles.productDetails}>{product.details}</p>
           </div>
         </div>
       ))}

@@ -68,7 +68,7 @@ function HomeBody({ selectedAddress, selectedCategory, searchKeyword }) {
       location: item.location,
       endDate: item.deadline,
       people: item.people,
-      completedCount: transactions[item.id] || 0 
+      details: `공구 인원 ${item.people}명 · 거래 완료 ${transactions[item.id] || 0}명`
     }));
 
   
