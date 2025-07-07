@@ -19,7 +19,7 @@ const images = [
     banner3
 ];
 
-function HomeBody({ selectedAddress, selectedCategory }) {
+function HomeBody({ selectedAddress, selectedCategory, searchKeyword }) {
   const navigate = useNavigate();
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -57,7 +57,8 @@ function HomeBody({ selectedAddress, selectedCategory }) {
     .filter(item => {
       const isSameLocation = item.location === selectedAddress;
       const isSameCategory = selectedCategory === '전체' ? true : item.category === selectedCategory;
-      return isSameLocation && isSameCategory;
+      const isSearchMatch = searchKeyword ? item.title.toLowerCase().includes(searchKeyword.toLowerCase()) : true;
+      return isSameLocation && isSameCategory && isSearchMatch;
     })
     .map(item => ({
       id: item.id,
