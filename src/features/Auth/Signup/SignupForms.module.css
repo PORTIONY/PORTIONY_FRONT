@@ -1,10 +1,10 @@
-/* 전체감싸기 */
-.allWrapper {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 97px;
+/* 전체컨테이너 */
+.allContainer {
+position: relative;
+display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 97px;
 }
 
 /* 뒤로가기 + 이름 */
@@ -27,16 +27,16 @@
 
 /* 페이지 이름 */
 .signupTitle {
-    color: #000;
-    font-family: Inter;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 20px;
-    letter-spacing: -0.32px;
+  color: #000;
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 20px;
+  letter-spacing: -0.32px;
 }
 
-/* 프사 + 버튼 */
+/* 프사 + 삭제아이콘 + 버튼 */
 .profileImageWrapper {
   display: flex;
   flex-direction: column;
@@ -46,203 +46,226 @@
   margin-bottom: 15px;
 }
 
+/* 프로필사진 + 삭제아이콘 */
+.imageWrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 /* 프사 */
 .profileImage {
-    width: 127px;
-    height: 127px;
-    aspect-ratio: 1/1;
+  width: 127px;
+  height: 127px;
+  aspect-ratio: 1/1;
 
-    border-radius: 127px;
-    background: url('../../../assets/profile-image.svg') lightgray 50% / cover no-repeat;
+  border-radius: 127px;
+  background: url('../../../assets/profile-image.svg') lightgray 50% / cover no-repeat;
+}
+
+/* 프로필사진 삭제아이콘(x아이콘) */
+.xIcon {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  background-color: black; 
+  border-radius: 50%;
+  box-shadow: 0 0 2px rgba(0,0,0,0.3);
 }
 
 /* 프사설정버튼 */
 .uploadButton {
-    width: 110px;
-    height: 40px;
-    flex-shrink: 0;
+  width: 110px;
+  height: 40px;
+  flex-shrink: 0;
 
-    border-radius: 10px;
-    background: #FECD24;
+  border-radius: 10px;
+  background: #FECD24;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+  color: #000;
+
+  /* Body/Body1 */
+  font-family: Inter;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px; /* 123.077% */
+  letter-spacing: -0.32px;
 }
 
-/* 프사버튼문구 */
-.uploadButtonText {
-    color: #000;
-
-    /* Body/Body1 */
-    font-family: Inter;
-    font-size: 13px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 16px; /* 123.077% */
-    letter-spacing: -0.32px;
-}
-
-/* 입력창 전체정렬 */
+/* 입력창 4개 */
 .inputFormWrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 35px;
-
-    margin-bottom: 35px;
-}
-
-/* 입력창 개별정렬 */
-.formGroup {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 11.71px;
-  margin-bottom: 16px;
-  width: 100%;
+  gap: 35px;
+  margin-bottom: 35px;
+}
+
+/* 입력창 1개 */
+.formGroup {
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+gap: 11.71px;
+width: 100%;
 }
 
 /* 입력창제목 */
 .formLabel {
-    color: #000;
+  color: #000;
 
-    /* Body/Body1 */
-    font-family: Inter;
-    font-size: 13px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 16px; /* 123.077% */
-    letter-spacing: -0.32px;
+  /* Body/Body1 */
+  font-family: Inter;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px; /* 123.077% */
+  letter-spacing: -0.32px;
 
-    margin-bottom: 6px;
-    display: block;
+  display: block;
 }
 
 /* 필수아이콘 */
 .requiredIcon {
-    width: 5px;
-    height: 5px;
-    aspect-ratio: 1/1;
-    margin-left: 5px;
-    vertical-align: middle;
+  width: 5px;
+  height: 5px;
+  aspect-ratio: 1/1;
+  margin-left: 5px;
+  vertical-align: middle;
 }
 
 /* 이메일, 닉네임 입력줄 */
 .emailRow, .nicknameRow {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  width: 100%;
 }
 
 /* 비밀번호 입력줄 (수직정렬) */
 .passwordRow {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
 }
 
 /* 입력창 */
 .inputForm {
-    width: 788px;
-    height: 40px;
-    flex-shrink: 0;
+  width: 788px;
+  height: 40px;
 
-    border-radius: 10px;
-    border: 1px solid #000;
-    background: #FFF;
-    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  border: 1px solid #000;
+  background: #FFF;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
 /* 이메일입력창 */
 .domainInputForm {
-    width: 220px;
-    height: 40px;
-    flex-shrink: 0;
+  width: 220px;
+  height: 40px;
 
-    border-radius: 10px;
-    border: 1px solid #000;
-    background: #FFF;
-    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  border: 1px solid #000;
+  background: #FFF;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
 /* 입력창 내 문구 */
 .inputForm::placeholder {
-    color: #949494;
+  color: #949494;
 
-    /* Body/Body1 */
-    font-family: Inter;
-    font-size: 13px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 16px; /* 123.077% */
-    letter-spacing: -0.32px;
+  /* Body/Body1 */
+  font-family: Inter;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px; /* 123.077% */
+  letter-spacing: -0.32px;
+}
+
+/* 비밀번호는 영문과 숫자를 포함한 8자 이상이어야 합니다. */
+.errorText {
+  color: red;
+
+  /* Body/Body1 */
+  font-family: Inter;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px; /* 123.077% */
+  letter-spacing: -0.32px;
+  margin-left: 5px;
 }
 
 /* 닉네임입력창 길이 조절 */
 .nicknameRow input {
-  flex: 1;
-  width: auto;
+flex: 1;
+width: auto;
 }
 
 /* 중복확인버튼 */
 .validButton {
-    width: 86px;
-    height: 40px;
-    flex-shrink: 0;
+  width: 86px;
+  height: 40px;
 
-    border-radius: 10px;
-    background: #D9D9D9;
-}
+  border: none;
+  border-radius: 10px;
+  background: #D9D9D9;
 
-/* 중복확인버튼문구 */
-.validButtonText {
-    color: #000;
+  color: #000;
 
-    /* Body/Body1 */
-    font-family: Inter;
-    font-size: 13px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 16px; /* 123.077% */
-    letter-spacing: -0.32px;
+  /* Body/Body1 */
+  font-family: Inter;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px; /* 123.077% */
+  letter-spacing: -0.32px;
 }
 
 /* 다음버튼 */
 .nextButton {
-    display: flex;
-    width: 375px;
-    height: 56px;
-    padding: 10px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    flex-shrink: 0;
-    margin-bottom: 106px;
+  display: flex;
+  width: 375px;
+  height: 56px;
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  margin-bottom: 106px;
 
-    border-radius: 10px;
-    background: #000;
-    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.25);
-    cursor: pointer;
+  border: none;
+  border-radius: 10px;
+  background: #000;
+  box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+
+  color: #FFF;
+  text-align: center;
+
+  /* Title/Title1 */
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 20px; /* 100% */
+  letter-spacing: -0.32px;
 }
 
 /* 다음버튼 - 비활성화 */
 .nextButton:disabled {
-    background: #D9D9D9;
-    cursor: not-allowed;
-}
-
-/* 다음버튼문구 */
-.nextButtonText {
-    color: #FFF;
-    text-align: center;
-
-    /* Title/Title1 */
-    font-family: Inter;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 20px; /* 100% */
-    letter-spacing: -0.32px;
+  background: #D9D9D9;
+  cursor: not-allowed;
 }

@@ -8,117 +8,74 @@ function SignupSurvey({ onNext, onBack }) {
   const [purpose, setPurpose] = useState('');
   const [situation, setSituation] = useState('');
 
-  const isFormValid = category && purpose && situation;
+  const isNextValid = category && purpose && situation;
 
   const handleSkip = () => {
     // AI 추천없이 시작하기 => 회원가입완료페이지로 넘어감.
     onNext();
   };
 
-  return (
-    <>
-    <div className={styles.allWrapper}>
+  // 설문
+  const questions = [
+    {
+      label: '어떤 종류의 상품을 주로 찾아보시나요?',
+      value: category,
+      setValue: setCategory,
+      placeholder: '상품 분야를 선택해주세요.',
+      options: ['의류', '반려동물', '문구류', '육아용품', '화장품/뷰티', '잡화/기타'],
+    },
+    {
+      label: '주로 어떤 이유로 상품을 구매하시나요?',
+      value: purpose,
+      setValue: setPurpose,
+      placeholder: '구매 목적을 선택해주세요.',
+      options: ['가격 절약', '혼자서 구매 어려움', '이웃들과 공유'],
+    },
+    {
+      label: '어떤 상황에 가장 가까우신가요?',
+      value: situation,
+      setValue: setSituation,
+      placeholder: '나의 생활 상황을 골라주세요.',
+      options: ['프리랜서', '전업주부', '직장인', '학생', '기타'],
+    },
+  ];
+
+return (
+  <>
+      <div className={styles.allContainer}>
+
         <div className={styles.backWrapper}>
-            <img
-                src={back}
-                alt="뒤로가기"
-                className={styles.backIcon}
-                onClick={onBack} />
-            <span className={styles.signupTitle}>회원가입</span>
+          <img src={back} alt="뒤로가기" className={styles.backIcon} onClick={onBack}/>
+          <span className={styles.signupTitle}>회원가입</span>
         </div>
 
         <div className={styles.dropdownWrapper}>
-            <h2 className={styles.heading}>환영합니다, 어떤 상품이 필요하세요?</h2>
+          <h2 className={styles.heading}>환영합니다, 어떤 상품이 필요하세요?</h2>
 
-            {/* 질문 1 */}
-            <div className={styles.surveyWrapper}>
-                <label className={styles.surveyLabel}>
-                    어떤 종류의 상품을 주로 찾아보시나요?
-                    <img src={required} className={styles.requiredIcon} />
-                </label>
-                <select 
-                    className={styles.dropdownBox}
-                    value={category} 
-                    onChange={(e) => setCategory(e.target.value)}
-                    required
-                >
-                        <option value=""
-                            disabled hidden>
-                            {/* 안전하게 스타일대신 여백주기 (10px대체) */}
-                            &nbsp;&nbsp;&nbsp;상품 분야를 선택해주세요.
-                        </option>
-                        <option value="의류">&nbsp;&nbsp;&nbsp;의류</option>
-                        <option value="반려동물">&nbsp;&nbsp;&nbsp;반려동물</option>
-                        <option value="문구류">&nbsp;&nbsp;&nbsp;문구류</option>
-                        <option value="육아용품">&nbsp;&nbsp;&nbsp;육아용품</option>
-                        <option value="화장품/기타">&nbsp;&nbsp;&nbsp;화장품/뷰티</option>
-                        <option value="잡화/기타">&nbsp;&nbsp;&nbsp;잡화/기타</option>
-                </select>
-            </div>
+          {questions.map((q, index) => (
+            <div className={styles.surveyFormWrapper} key={index}>
+              <label className={styles.surveyLabel}> {q.label}
+                  <img src={required} className={styles.requiredIcon} alt="필수"/>
+              </label>
 
-            {/* 질문 2 */}
-            <div className={styles.surveyWrapper}>
-                <label className={styles.surveyLabel}>
-                    주로 어떤 이유로 상품을 구매하시나요?
-                    <img src={required} className={styles.requiredIcon} />
-                </label>
-                <select 
-                    className={styles.dropdownBox}
-                    value={purpose} 
-                    onChange={(e) => setPurpose(e.target.value)}
-                    required
-                >
-                        <option value=""
-                            disabled hidden>
-                            {/* 안전하게 스타일대신 여백주기 (10px대체) */}
-                            &nbsp;&nbsp;&nbsp;구매 목적을 선택해주세요.
-                        </option>
-                        <option value="가격 절약">&nbsp;&nbsp;&nbsp;가격 절약</option>
-                        <option value="혼자서 구매 어려움">&nbsp;&nbsp;&nbsp;혼자서 구매 어려움</option>
-                        <option value="이웃들과 공유">&nbsp;&nbsp;&nbsp;이웃들과 공유</option>
-                </select>
+              <select
+                className={styles.dropdownBox} value={q.value} onChange={(e) => q.setValue(e.target.value)} required>
+                <option value="" disabled hidden>{q.placeholder}</option>
+                {q.options.map((opt, idx) => (
+                  <option key={idx} value={opt}>{opt}</option>
+                ))}
+              </select>
             </div>
-
-            {/* 질문 3 */}
-            <div className={styles.surveyWrapper}>
-                <label className={styles.surveyLabel}>
-                    어떤 상황에 가장 가까우신가요?
-                    <img src={required} className={styles.requiredIcon} />
-                </label>
-                <select 
-                    className={styles.dropdownBox}
-                    value={situation} 
-                    onChange={(e) => setSituation(e.target.value)} 
-                    required
-                >
-                        <option value="" 
-                            disabled hidden>
-                            {/* 안전하게 스타일대신 여백주기 (10px대체) */}
-                            &nbsp;&nbsp;&nbsp;나의 생활 상황을 골라주세요.
-                        </option>
-                        <option value="프리랜서">&nbsp;&nbsp;&nbsp;프리랜서</option>
-                        <option value="전업주부">&nbsp;&nbsp;&nbsp;전업주부</option>
-                        <option value="직장인">&nbsp;&nbsp;&nbsp;직장인</option>
-                        <option value="학생">&nbsp;&nbsp;&nbsp;학생</option>
-                        <option value="기타">&nbsp;&nbsp;&nbsp;기타</option>
-                </select>
-            </div>
+          ))}
         </div>
 
         {/* 시작 버튼 */}
-        <button
-            className={styles.startButton}
-            onClick={onNext}
-            disabled={!isFormValid}
-        >
-            <span className={styles.startButtonText}>PORTIONY 시작하기</span>
-        </button>
+        <button type="button" className={styles.startButton} onClick={onNext} disabled={!isNextValid}><span>PORTIONY 시작하기</span></button>
 
         {/* 건너뛰기 */}
-        <p className={styles.skipText} onClick={handleSkip}>
-            AI 추천 없이 시작하기
-        </p>
-    </div> </>
+        <p className={styles.skipText} onClick={handleSkip}>AI 추천 없이 시작하기</p>
+      </div> 
+    </>
   );
 }
 

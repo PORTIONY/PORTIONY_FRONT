@@ -8,6 +8,8 @@ import { Link } from 'react-router-dom';
 function Login() {
   const [status, setStatus] = useState('init'); 
   const navigate = useNavigate();
+  const [userEmail, setUserEmail] = useState('');
+  const [userPassword, setUserPassword] = useState('');
 
   const handleLoginClick = () => {
     setStatus('form'); // 로그인 폼 보여주기
@@ -48,12 +50,23 @@ function Login() {
             />
             <span className={styles.loginTitle}>로그인</span>
           </div>
-          <img src={character} alt="캐릭터 로고" className={styles.logoTop} />
+          <img src={character} alt="캐릭터 로고" className={styles.logoTop}/>
+
           <div className={styles.formGroup}>
-            <input type="email" placeholder="이메일을 입력해주세요." className={styles.input} />
-            <input type="password" placeholder="비밀번호를 입력해주세요." className={styles.input} />
+            <input type="email" placeholder="이메일을 입력해주세요." 
+              className={styles.input} onChange={(e) => setUserEmail(e.target.value)}/>
+
+            <input type="password" placeholder="비밀번호를 입력해주세요." 
+              className={styles.input} onChange={(e) => setUserPassword(e.target.value)}/>
           </div>
-          <button className={styles.loginButton} onClick={handleFinalLogin}>로그인</button>
+
+          <button 
+            type='button'
+            className={styles.loginButton} 
+            onClick={handleFinalLogin}
+            disabled={!userEmail || !userPassword}>
+            로그인
+          </button>
           <p className={styles.signupText}>
             첫 방문이신가요? <a href="/signup" className={styles.signupLink}>회원가입</a>
           </p>
@@ -62,7 +75,7 @@ function Login() {
 
       {status === 'done' && (
         <>
-          <img src={character} alt="캐릭터 로고" className={styles.character} />
+          <img src={character} alt="캐릭터 로고" className={styles.character}/>
           <p className={styles.slogan_dif}>함께 사서, 함께 나누는 새로운 소비 문화</p>
           <p className={styles.loginText}>로그인 완료되었습니다!</p>
           <button className={styles.loginCompleteButton} onClick={goToMain}>메인 홈으로 가기</button>
