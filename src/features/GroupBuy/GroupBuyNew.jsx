@@ -3,8 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import backIcon from '../../assets/back-icon.svg';
 import removeIcon from '../../assets/remove-icon.svg';
 import modalIcon from '../../assets/modal-icon.svg';
-import dropdownIcon from '../../assets/dropdown.svg';
-
 import styles from './GroupBuyNew.module.css';
 import GroupBuyModal from '../../components/GroupBuy/GroupBuyModal';
 
@@ -105,11 +103,11 @@ function GroupBuyNew({ mode = 'create', initialData = null, productId = null }) 
   const handlePreviewClick = (url) => {
     setSelectedImage(url);
   };
+
   // 이미지 확대 모달 닫기
   const handleCloseImgModal = () => {
     setSelectedImage(null);
   };
-
 
   // -------------------- 체크박스 핸들러
   const handleCheckChange = (e) => {
@@ -188,9 +186,7 @@ function GroupBuyNew({ mode = 'create', initialData = null, productId = null }) 
               name="category"
               value={form.category}
               onChange={handleChange}
-              style={{
-                  color: form.category ? 'black' : 'gray',
-              }}
+              style={{ color: form.category ? 'black' : 'gray' }}
             >
               <option value="" hidden>카테고리를 선택해주세요.</option>
               <option value="생활용품">생활용품</option>
@@ -206,71 +202,45 @@ function GroupBuyNew({ mode = 'create', initialData = null, productId = null }) 
           {/* 상품명 */}
           <div className={styles['form-group']}>
             <label>상품명</label>
-            <input
-                type="text"
-                name="title"
-                placeholder="50자 이내로 입력해주세요."
-                value={form.title}
-                onChange={handleChange}
-                maxLength={50}
-            />
+            <input type="text" name="title" placeholder="50자 이내로 입력해주세요." value={form.title} onChange={handleChange} />
           </div>
 
           {/* 상품 설명 */}
           <div className={styles['form-group']}>
             <label>상품 설명</label>
-            <textarea
-                name="description"
-                placeholder="500자 이내로 입력해주세요."
-                value={form.description}
-                onChange={handleChange}
-                maxLength={500}
-            />
+            <textarea name="description" placeholder="500자 이내로 입력해주세요." value={form.description} onChange={handleChange} />
           </div>
 
           {/* 이미지 첨부 */}
-          <div className={styles['form-group']}>
+          <div className={`${styles['form-group']} ${styles['image-upload-group']}`}>
             <label>이미지 첨부 (최대 10장)</label>
+            <input
+              type="file"
+              onChange={handleImageChange}
+              multiple
+              accept="image/*"
+            />
 
-            <div className={styles['image-upload-box']}>
-              {/* 커스텀 디자인된 버튼 */}
-              <label
-                htmlFor="image-upload"
-                className={styles['custom-file-button']}>
-                이미지 선택
-              </label>
-
-              {/* 숨겨진 파일 인풋 */}
-              <input
-                id="image-upload"
-                type="file"
-                onChange={handleImageChange}
-                multiple
-                accept="image/*"
-                className={styles['hidden-file-input']}
-              />
-
-              <div className={styles['image-preview-grid']}>
-                {previewUrls.map((url, index) => (
-                  <div key={index} className={styles['image-thumbnail']}>
-                    <img
-                      src={url}
-                      alt={`미리보기${index}`}
-                      onClick={() => handlePreviewClick(url)}
-                    />
-                    <button
-                      type="button"
-                      className={styles['remove-button']}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleRemoveImage(index);
-                      }}
-                    >
-                      <img src={removeIcon} alt="삭제" />
-                    </button>
-                  </div>
-                ))}
-              </div>
+            <div className={styles['image-preview-grid']}>
+              {previewUrls.map((url, index) => (
+                <div key={index} className={styles['image-thumbnail']}>
+                  <img
+                    src={url}
+                    alt={`미리보기${index}`}
+                    onClick={() => handlePreviewClick(url)}
+                  />
+                  <button
+                    type="button"
+                    className={styles['remove-button']}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleRemoveImage(index);
+                    }}
+                  >
+                    <img src={removeIcon} alt="삭제" />
+                  </button>
+                </div>
+              ))}
             </div>
           </div>
 
@@ -318,36 +288,38 @@ function GroupBuyNew({ mode = 'create', initialData = null, productId = null }) 
           {/* 공구 인원 */}
           <div className={styles['form-group']}>
             <label>공구 인원</label>
-            <input type="number" name="people" placeholder="최대 99명까지 입력할 수 있습니다." value={form.people} onChange={handleChange} />
+            <input
+                type="number"
+                name="people"
+                placeholder="최대 99명까지 입력할 수 있습니다."
+                value={form.people}
+                onChange={handleChange}
+            />
           </div>
 
           {/* 소분 당 가격 */}
           <div className={styles['form-group']}>
             <label>소분당 가격</label>
-            <div className={styles['price-wrapper']}>
-              <input
+            <input
                 type="text"
                 name="price"
                 placeholder="최대 100만원까지 입력할 수 있습니다."
                 value={form.price}
                 onChange={handleChange}
-              />
-              <span className={styles['unit']}>원</span>
-            </div>
+            />
           </div>
-
 
           {/* 마감 기한 */}
           <div className={styles['form-group']}>
             <label>마감 기한</label>
             <input
-              type="date"
-              name="deadline"
-              placeholder="현재일로부터 3개월 이내까지만 입력할 수 있습니다."
-              value={form.deadline}
-              onChange={handleChange}
-              min={minDate}
-              max={maxDate}
+                type="date"
+                name="deadline"
+                placeholder="현재일로부터 3개월 이내까지만 입력할 수 있습니다."
+                min={minDate}
+                max={maxDate}
+                value={form.deadline}
+                onChange={handleChange}
             />
           </div>
 
@@ -385,14 +357,14 @@ function GroupBuyNew({ mode = 'create', initialData = null, productId = null }) 
           <div className={styles['button-group']}>
             <button
               type="button"
-              className={`${styles.groupbuynewButton} ${styles.cancel}`}
+              className={`${styles.myCustomButton} ${styles.cancel}`}
               onClick={handleCancelClick}
             >
               작성 취소
             </button>
             <button
               type="submit"
-              className={`${styles.groupbuynewButton} ${styles.submit}`}
+              className={`${styles.myCustomButton} ${styles.submit}`}
               disabled={!isFormComplete()}
             >
               {mode === "edit" ? "수정하기" : "등록하기"}
@@ -410,17 +382,6 @@ function GroupBuyNew({ mode = 'create', initialData = null, productId = null }) 
             />
           )}
         </form>
-
-        {selectedImage && (
-          <div className={styles.modalOverlay} onClick={handleCloseImgModal}>
-            <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-              <img src={selectedImage} alt="확대 이미지" />
-              <button className={styles.closeButton} onClick={handleCloseImgModal}>×</button>
-            </div>
-          </div>
-        )}
-
-
       </div>
     </div>
   );
