@@ -9,6 +9,7 @@ import MyPage from './features/MyPage/MyPage';
 import Chat from './features/Chats/Chat';
 import GroupBuyNew from './features/GroupBuy/GroupBuyNew';
 import GroupBuyDetail from './features/GroupBuy/GroupBuyDetail';
+import GroupBuyEdit from './features/GroupBuy/GroupBuyEdit';
 import './App.css';
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
               <Route path="/chat" element={<Chat />} />
               <Route path="/group-buy/new" element={<GroupBuyNew />} />
               <Route path="/group-buy/:id" element={<GroupBuyDetail />} />
+              <Route path="/group-buy/:id/edit" element={<GroupBuyEdit />} />
 
               {/* 기타 잘못된 경로 */}
               <Route path="*" element={<Navigate to="/" />} />

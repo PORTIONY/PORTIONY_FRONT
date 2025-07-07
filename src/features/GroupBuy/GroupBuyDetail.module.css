@@ -362,37 +362,3 @@
   font-size: 13px;
   margin-top: 3px;
 }
-
-.pagination {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 35px;
-  margin-bottom: 35px;
-}
-
-.pagination-button {
-  padding: 4px 8px;
-  background: none;
-  border: none;
-  color: #000;
-  cursor: pointer;
-  font-weight: 400;
-  font-size: 16px;
-  text-align: center;
-  line-height: 1.5;
-}
-
-.pagination-button.active {
-  font-weight: 600;
-}
-
-.pagination-arrow {
-  position: relative;
-  top: 4px;  /* 이미지 아래로 2px 이동 */
-}
-
-
-.pagination-arrow.right {
-  transform: scaleX(-1);
-}
