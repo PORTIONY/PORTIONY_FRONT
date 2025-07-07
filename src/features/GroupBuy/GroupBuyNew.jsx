@@ -146,11 +146,6 @@ function GroupBuyNew({ mode = 'create', initialData = null, productId = null }) 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!isFormComplete()) {
-      alert("모든 필수 항목을 입력해주세요.");
-      return;
-    }
-
     if (mode === 'edit') {
       // 수정 모드: 현재 productId로 이동
       navigate(`/group-buy/${productId}`);

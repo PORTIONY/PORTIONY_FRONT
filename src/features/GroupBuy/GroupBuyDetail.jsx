@@ -303,7 +303,7 @@ function GroupBuyDetail() {
               } else if (modalType === 'reopen') {
                 setIsCompleted(false); // 재개시 처리
               } else if (modalType === 'edit') {
-                alert('수정하기 처리 진행');
+                navigate(`/group-buy/${id}/edit`); // 수정 처리 (수정페이지 이동)
               }
               setIsGroupBuyModalOpen(false);
             }}
