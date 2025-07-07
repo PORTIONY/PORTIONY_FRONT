@@ -6,26 +6,7 @@ import locationIcon from '../../assets/location_on.svg';
 const categories = ['의류', '반려동물', '문구류', '육아용품', '화장품/뷰티', '잡화/기타'];
 
 
-function HomeHeader({ onLocationClick, selectedAddress, selectedCategory, onCategoryChange, searchKeyword, onSearchKeywordChange }) {
-  const [inputValue, setInputValue] = useState(searchKeyword || '');
-
-  // 입력값 변경 핸들러
-  const handleInputChange = (e) => {
-    setInputValue(e.target.value);
-  };
-
-  // 검색 실행 함수
-  // 검색 버튼 클릭 또는 엔터 키 입력 시 호출
-  const handleSearch = () => {
-    onSearchKeywordChange(inputValue);
-    console.log(`검색어: ${inputValue}`);
-  };
-
-  const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
-      handleSearch();
-    }
-  };
+function HomeHeader({ onLocationClick, selectedAddress, selectedCategory, onCategoryChange }) {
 
   // 주소가 '시/도 구/군 동' 형식일 때, 구와 동을 반환
   // 예: '서울특별시 중랑구 망우본동' -> '중랑구/망우본동'
@@ -50,17 +31,8 @@ function HomeHeader({ onLocationClick, selectedAddress, selectedCategory, onCate
       </div>
     </button>
     <div className={styles.searchBox}>
-      <input 
-        className={styles.searchInput} 
-        placeholder="검색어를 입력하세요" 
-        value={inputValue}
-        onChange={handleInputChange}
-        onKeyDown={handleKeyDown}
-      />
-      <button 
-        className={styles.searchBtn}
-        onClick={handleSearch}
-      />
+      <input className={styles.searchInput} placeholder="검색어를 입력하세요" />
+      <button className={styles.searchBtn}/>
     </div>
   </div>
 
