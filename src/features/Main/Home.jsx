@@ -7,6 +7,7 @@ function Home() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedAddress, setSelectedAddress] = useState('서울특별시 중랑구 망우본동');
     const [selectedCategory, setSelectedCategory] = useState('전체');
+    const [searchKeyword, setSearchKeyword] = useState('');
 
     const handleSelectDong = (address) => {
         setSelectedAddress(address);
@@ -24,10 +25,13 @@ function Home() {
                 selectedAddress={selectedAddress}
                 selectedCategory={selectedCategory}
                 onCategoryChange={setSelectedCategory}
+                searchKeyword={searchKeyword}
+                onSearchKeywordChange={setSearchKeyword}
             />
             <HomeBody
                 selectedAddress={selectedDong}
                 selectedCategory={selectedCategory}
+                searchKeyword={searchKeyword}
             />
             <LocationModal
                 open={isModalOpen}
