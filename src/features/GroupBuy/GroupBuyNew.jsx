@@ -219,37 +219,49 @@ function GroupBuyNew({ mode = 'create', initialData = null, productId = null }) 
           </div>
 
           {/* 이미지 첨부 */}
-          <div className={`${styles['form-group']} ${styles['image-upload-group']}`}>
+          <div className={styles['form-group']}>
             <label>이미지 첨부 (최대 10장)</label>
-            <input
-              type="file"
-              onChange={handleImageChange}
-              multiple
-              accept="image/*"
-            />
 
-            <div className={styles['image-preview-grid']}>
-              {previewUrls.map((url, index) => (
-                <div key={index} className={styles['image-thumbnail']}>
-                  <img
-                    src={url}
-                    alt={`미리보기${index}`}
-                    onClick={() => handlePreviewClick(url)}
-                  />
-                  <button
-                    type="button"
-                    className={styles['remove-button']}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleRemoveImage(index);
-                    }}
-                  >
-                    <img src={removeIcon} alt="삭제" />
-                  </button>
+            <div className={styles['image-upload-wrapper']}>
+              <div className={styles['image-upload-box']}>
+                <label htmlFor="image-upload" className={styles['upload-label']}>
+                  이미지 선택
+                </label>
+                <input
+                  id="image-upload"
+                  type="file"
+                  className={styles['hidden-file-input']}
+                  onChange={handleImageChange}
+                  multiple
+                  accept="image/*"
+                />
+
+                <div className={styles['image-preview-grid']}>
+                  {previewUrls.map((url, index) => (
+                    <div key={index} className={styles['image-thumbnail']}>
+                      <img
+                        src={url}
+                        alt={`미리보기${index}`}
+                        onClick={() => handlePreviewClick(url)}
+                      />
+                      <button
+                        type="button"
+                        className={styles['remove-button']}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleRemoveImage(index);
+                        }}
+                      >
+                        <img src={removeIcon} alt="삭제" />
+                      </button>
+                    </div>
+                  ))}
                 </div>
-              ))}
+              </div>
             </div>
           </div>
+
+
 
           {/* 소분 량 */}
           <div className={styles['form-group']}>
@@ -415,6 +427,22 @@ function GroupBuyNew({ mode = 'create', initialData = null, productId = null }) 
             />
           )}
         </form>
+        {selectedImage && (
+          <div className={styles['image-modal-overlay']} onClick={handleCloseImgModal}>
+            <div
+              className={styles['image-modal']}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                className={styles['close-button']}
+                onClick={handleCloseImgModal}
+              >
+                ✕
+              </button>
+              <img src={selectedImage} alt="확대 이미지" />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
