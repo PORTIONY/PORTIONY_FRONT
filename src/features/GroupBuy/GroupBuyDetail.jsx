@@ -1,91 +1,150 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import styles from './GroupBuyDetail.module.css';
+
+import HomeHeader from '../../components/Home/HomeHeader';
+import LocationModal from '../../components/Home/LocationModal';
+import GroupBuyModal from '../../components/GroupBuy/GroupBuyModal';
+import Pagination from '../../components/PageNumber/Pagination';
+import dummyProducts from '../../data/dummyProduct';
 import sellerProfile from "../../assets/seller-profile.svg";
 import clockIcon from "../../assets/clock-icon.svg";
 import chevronLeft from "../../assets/chevron-left.svg";
-import styles from './GroupBuyDetail.module.css';
-import GroupBuyModal from '../../components/GroupBuy/GroupBuyModal';
-import dummyProducts from '../../data/dummyProduct'; 
-import Pagination from '../../components/PageNumber/Pagination';
 
 
 function GroupBuyDetail() {
-  const { id } = useParams();
-console.log('url id:', id, typeof id);
-console.log('더미:', dummyProducts.map(d=>d.id));
-const product = dummyProducts.find(item => String(item.id) === String(id));
 
-  // 상태값
+  // 지역 선택 모달 상태 (Header 관련)
+  const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
+  const [selectedAddress, setSelectedAddress] = useState('서울특별시 중랑구 망우본동');
+
+  const handleSelectDong = (address) => {
+    setSelectedAddress(address);
+    setIsLocationModalOpen(false);
+  };
+
+
+  // URL 파라미터에서 상품 ID 추출
+  const { id } = useParams();
+  console.log('url id:', id, typeof id);
+  console.log('더미:', dummyProducts.map(d => d.id));
+
+  // 상품 데이터 찾기 (더미 데이터에서)
+  const product = dummyProducts.find(item => String(item.id) === String(id));
+
+  // -------------- 상태값 선언 ---------------
+  // 판매자이면 true, 구매자이면 false
   const [isSeller, setIsSeller] = useState(true);
+
+  // 공구완료면 true, 공구중이면 false
   const [isCompleted, setIsCompleted] = useState(false);
+
+  // 모달 종류 (예: 좋아요, 삭제, 공유 등 다양한 모달 구분)
   const [modalType, setModalType] = useState(null);
+
+  // 좋아요 상태 및 좋아요 수
   const [liked, setLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(12);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const navigate = useNavigate();
+  // 모달 열림 상태
+  const [isGroupBuyModalOpen, setIsGroupBuyModalOpen] = useState(false);
 
-  // 이미지 슬라이드
+  // 이미지 슬라이드 현재 인덱스
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const handleDotClick = (index) => setCurrentImageIndex(index);
 
-  const getDDay = (deadline) => {
-    const now = new Date();
-    const end = new Date(deadline);
-    end.setHours(0,0,0,0);
-    now.setHours(0,0,0,0);
-    const diff = Math.ceil((end - now) / (1000 * 60 * 60 * 24));
-    return diff >= 0 ? `D-${diff}` : "마감";
-  };
-
-  const handleLikeClick = () => {
-    setLiked((prev) => !prev); 
-    setLikeCount((prev) => liked ? prev - 1 : prev + 1);
-  };
-
+  // 댓글 상태 (초기 더미 댓글 43개)
   const dummyComments = Array.from({ length: 43 }, (_, i) => ({
     id: i + 1,
     user: {
       nickname: `user${i + 1}`,
-      profileUrl: sellerProfile
+      profileUrl: sellerProfile,
     },
     datetime: "2025-07-04 15:30",
-    text: `너무 예뻐요! 댓글 ${i + 1}번째입니다`
+    text: `너무 예뻐요! 댓글 ${i + 1}번째입니다`,
   }));
-
   const [comments, setComments] = useState(dummyComments);
+
+  // 댓글 페이지네이션 관련 상태 및 변수
   const [currentPage, setCurrentPage] = useState(1);
-  const commentsPerPage = 10;
+  const commentsPerPage = 10;                          // 페이지당 댓글 개수
   const totalPages = Math.ceil(comments.length / commentsPerPage);
 
+  // 현재 페이지에 보여줄 댓글 범위 계산
   const indexOfLast = currentPage * commentsPerPage;
   const indexOfFirst = indexOfLast - commentsPerPage;
   const currentComments = comments.slice(indexOfFirst, indexOfLast);
 
+  // 댓글 입력창 상태
   const [input, setInput] = useState("");
 
+  // 라우터 네비게이션 훅
+  const navigate = useNavigate();
+
+  // --- 함수 선언 ---
+
+  // 이미지 슬라이드에서 특정 인덱스 클릭시 현재 이미지 인덱스 변경
+  const handleDotClick = (index) => {
+    setCurrentImageIndex(index);
+  };
+
+  // 마감일 기준 D-day 계산 함수
+  const getDDay = (deadline) => {
+    const now = new Date();
+    const end = new Date(deadline);
+    // 날짜만 비교하기 위해 시간 초기화
+    end.setHours(0, 0, 0, 0);
+    now.setHours(0, 0, 0, 0);
+    const diff = Math.ceil((end - now) / (1000 * 60 * 60 * 24));
+    return diff >= 0 ? `D-${diff}` : "마감";
+  };
+
+  // 좋아요 버튼 클릭 처리 함수
+  const handleLikeClick = () => {
+    setLiked((prev) => !prev);
+    // liked 값은 비동기 갱신이므로, 이전 상태 기준으로 증가/감소 처리
+    setLikeCount((prevCount) => (liked ? prevCount - 1 : prevCount + 1));
+  };
+
+  // 댓글 제출 처리 함수
   const handleSubmit = () => {
+    // 공백 입력 방지
     if (!input.trim()) return;
+
+    // 새 댓글 객체 생성
     const newComment = {
       id: comments.length + 1,
       user: {
         nickname: "나",
-        profileUrl: sellerProfile
+        profileUrl: sellerProfile,
       },
       datetime: new Date().toISOString().slice(0, 16).replace("T", " "),
-      text: input
+      text: input,
     };
+
+    // 댓글 배열 맨 앞에 새 댓글 추가
     setComments([newComment, ...comments]);
-    setInput("");
-    setCurrentPage(1); 
+    setInput("");       // 입력창 초기화
+    setCurrentPage(1);  // 첫 페이지로 이동 (새 댓글 보여주기 위해)
   };
 
+  // 상품이 존재하지 않으면 에러 메시지 렌더링
   if (!product) {
-    return <div className={styles['group-buy-detail-page']}>상품을 찾을 수 없습니다.</div>
+    return <div className={styles['group-buy-detail-page']}>상품을 찾을 수 없습니다.</div>;
   }
 
   return (
     <div className={styles['group-buy-detail-page']}>
+      <HomeHeader
+        onLocationClick={() => setIsLocationModalOpen(true)}
+        selectedAddress={selectedAddress}
+      />
+
+      <LocationModal
+        open={isLocationModalOpen}
+        onClose={() => setIsLocationModalOpen(false)}
+        onSelectAddress={handleSelectDong}
+      />
+
       <div className={styles['page-background']}>
         <div className={`${styles['white-box']} ${styles['first-box']}`}>
           <div className={styles['product-wrapper']}>
@@ -157,18 +216,18 @@ const product = dummyProducts.find(item => String(item.id) === String(id));
                 </div>
               </div>
 
-              <div className={styles['buttons']}>
+              <div className={styles['gbd-buttons']}>
                 {isSeller ? (
                   isCompleted ? (
                     <>
-                      <button className={styles['gbd-btn-delete']} onClick={() => { setModalType("delete"); setIsModalOpen(true); }}>삭제하기</button>
-                      <button className={styles['gbd-btn-reopen']} onClick={() => { setModalType("reopen"); setIsModalOpen(true); }}>재개시하기</button>
+                      <button className={styles['gbd-btn-delete']} onClick={() => { setModalType("delete"); setIsGroupBuyModalOpen(true); }}>삭제하기</button>
+                      <button className={styles['gbd-btn-reopen']} onClick={() => { setModalType("reopen"); setIsGroupBuyModalOpen(true); }}>재개시하기</button>
                     </>
                   ) : (
                     <>
-                      <button className={styles['gbd-btn-edit']} onClick={() => { setModalType("edit"); setIsModalOpen(true); }}>수정하기</button>
-                      <button className={styles['gbd-btn-delete']} onClick={() => { setModalType("delete"); setIsModalOpen(true); }}>삭제하기</button>
-                      <button className={styles['gbd-btn-complete']} onClick={() => { setModalType("complete"); setIsModalOpen(true); }}>공구완료</button>
+                      <button className={styles['gbd-btn-edit']} onClick={() => { setModalType("edit"); setIsGroupBuyModalOpen(true); }}>수정하기</button>
+                      <button className={styles['gbd-btn-delete']} onClick={() => { setModalType("delete"); setIsGroupBuyModalOpen(true); }}>삭제하기</button>
+                      <button className={styles['gbd-btn-complete']} onClick={() => { setModalType("complete"); setIsGroupBuyModalOpen(true); }}>공구완료</button>
                     </>
                   )
                 ) : (
@@ -211,7 +270,7 @@ const product = dummyProducts.find(item => String(item.id) === String(id));
         </div>
 
         {/* 모달창 */}
-        {isModalOpen && (
+        {isGroupBuyModalOpen && (
           <GroupBuyModal
             message={
               modalType === 'delete'
@@ -246,9 +305,9 @@ const product = dummyProducts.find(item => String(item.id) === String(id));
               } else if (modalType === 'edit') {
                 alert('수정하기 처리 진행');
               }
-              setIsModalOpen(false);
+              setIsGroupBuyModalOpen(false);
             }}
-            onCancel={() => setIsModalOpen(false)}
+            onCancel={() => setIsGroupBuyModalOpen(false)}
           />
         )}
 

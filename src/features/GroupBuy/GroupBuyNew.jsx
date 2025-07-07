@@ -3,6 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import backIcon from '../../assets/back-icon.svg';
 import removeIcon from '../../assets/remove-icon.svg';
 import modalIcon from '../../assets/modal-icon.svg';
+import dropdownIcon from '../../assets/dropdown.svg';
+import checkedIcon from '../../assets/checkbox-checked.svg';
+import uncheckedIcon from '../../assets/checkbox-unchecked.svg';
 import styles from './GroupBuyNew.module.css';
 import GroupBuyModal from '../../components/GroupBuy/GroupBuyModal';
 
@@ -186,7 +189,11 @@ function GroupBuyNew({ mode = 'create', initialData = null, productId = null }) 
               name="category"
               value={form.category}
               onChange={handleChange}
-              style={{ color: form.category ? 'black' : 'gray' }}
+              className={styles.selectCustom}
+              style={{
+                backgroundImage: `url(${dropdownIcon})`,
+                color: form.category ? 'black' : 'gray',
+              }}
             >
               <option value="" hidden>카테고리를 선택해주세요.</option>
               <option value="생활용품">생활용품</option>
@@ -259,7 +266,11 @@ function GroupBuyNew({ mode = 'create', initialData = null, productId = null }) 
                 name="unit"
                 value={form.unit}
                 onChange={handleChange}
-                style={{ color: form.unit ? 'black' : 'gray' }}
+                className={styles.selectCustom}
+                style={{
+                  backgroundImage: `url(${dropdownIcon})`,
+                  color: form.unit ? 'black' : 'gray',
+                }}
               >
                 <option value="" hidden>소분 단위를 선택해주세요.</option>
                 <option value="개">개</option>
@@ -311,7 +322,14 @@ function GroupBuyNew({ mode = 'create', initialData = null, productId = null }) 
 
           {/* 마감 기한 */}
           <div className={styles['form-group']}>
-            <label>마감 기한</label>
+            <div className={styles['label-row']}>
+              <label>마감 기한</label>
+              {!form.deadline && (
+                <span className={styles['date-info-text']}>
+                  현재일로부터 3개월 이내까지만 입력할 수 있습니다.
+                </span>
+              )}
+            </div>
             <input
                 type="date"
                 name="deadline"
@@ -323,6 +341,7 @@ function GroupBuyNew({ mode = 'create', initialData = null, productId = null }) 
             />
           </div>
 
+
           {/* 거래 방법 */}
           <div className={styles['form-group']}>
             <label>거래 방법</label>
@@ -330,7 +349,11 @@ function GroupBuyNew({ mode = 'create', initialData = null, productId = null }) 
               name="method"
               value={form.method}
               onChange={handleChange}
-              style={{ color: form.method ? 'black' : 'gray' }}
+              className={styles.selectCustom}
+              style={{
+                backgroundImage: `url(${dropdownIcon})`,
+                color: form.method ? 'black' : 'gray',
+              }}
             >
               <option value="" disabled hidden>거래 방법을 선택해주세요.</option>
               <option value="직거래">직거래</option>
@@ -343,28 +366,38 @@ function GroupBuyNew({ mode = 'create', initialData = null, productId = null }) 
             <p>식품 등 관련 법령에 따라 인허가 또는 신고가 필요한 상품을 판매하는 경우,</p>
             <p>해당 법적 책임은 전적으로 판매자(등록자)에게 있으며, 플랫폼은 이에 대한 책임을 지지 않습니다.</p>
             <label
-              style={{ cursor: 'pointer', userSelect: 'none' }}
+              style={{
+                cursor: 'pointer',
+                userSelect: 'none',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '8px',
+                width: '100%',            // 넓게 잡기
+              }}
             >
-              확인했어요!
               <input
                 type="checkbox"
                 checked={isChecked}
                 onChange={handleCheckChange}
+                style={{ display: 'none' }}
               />
+              확인했어요!
+              <img src={isChecked ? checkedIcon : uncheckedIcon} alt={isChecked ? "체크됨" : "체크 안됨"} />
             </label>
           </div>
 
           <div className={styles['button-group']}>
             <button
               type="button"
-              className={`${styles.myCustomButton} ${styles.cancel}`}
+              className={`${styles.groupbuynewButton} ${styles.cancel}`}
               onClick={handleCancelClick}
             >
               작성 취소
             </button>
             <button
               type="submit"
-              className={`${styles.myCustomButton} ${styles.submit}`}
+              className={`${styles.groupbuynewButton} ${styles.submit}`}
               disabled={!isFormComplete()}
             >
               {mode === "edit" ? "수정하기" : "등록하기"}
