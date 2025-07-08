@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import back from '../../../assets/chevron-left.svg';
 import location from '../../../assets/location.svg';
 import styles from './SignupLocation.module.css';
-import search from '../../../assets/search.svg';
+import search from '../../../assets/search(gray).svg';
 
 function SignupLocation({ onNext, onBack }) {
 const [searchTerm, setSearchTerm] = useState('');
