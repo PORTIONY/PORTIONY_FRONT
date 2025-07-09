@@ -1,0 +1,85 @@
+/* 전체컨테이너 */
+.allContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  padding-top: 126px;
+}
+
+/* 로고 + 슬로건 */
+.logoWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  display: flex;
+  width: 165px;
+  gap: 13px;
+}
+
+/* 로고이미지크기조정 */
+.logoWrapper img {
+width: 165px;
+height: auto;
+display: block;
+}
+
+/* 함께 사서, 함께 나누는 새로운 소비 문화 */
+.slogan {
+  color: #000;
+  text-shadow: 0px 0px 15px rgba(0, 0, 0, 0.25);
+
+  /* Heading/Heading2 */
+  font-family: Inter;
+  font-size: 26px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 26px; /* 100% */
+  letter-spacing: -0.32px;
+  white-space: nowrap;
+}
+
+/* 회원가입 완료되었습니다! */
+.successText {
+  color: #000;
+  text-shadow: 0px 0px 15px rgba(0, 0, 0, 0.25);
+
+  /* Title/Title1 */
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 20px; /* 100% */
+  letter-spacing: -0.32px;
+  margin: 70px 0 50px;
+}
+
+/* 로그인버튼 */
+.loginButton {
+  display: flex;
+  width: 375px;
+  height: 56px;
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+
+  border: none;
+  border-radius: 10px;
+  background: #000;
+  box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+
+  color: #FFF;
+  text-align: center;
+
+  /* Title/Title1 */
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 20px; /* 100% */
+  letter-spacing: -0.32px;
+}
