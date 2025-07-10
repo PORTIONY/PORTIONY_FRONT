@@ -5,38 +5,45 @@ import Footer from './components/Footer/Footer';
 import Login from './features/Auth/Login';
 import SignUp from './features/Auth/SignUp';
 import Home from './features/Main/Home';
-import MyPage from './features/MyPage/MyPage'; 
+import MyPage from './features/MyPage/MyPage';
+import Chat from './features/Chats/Chat';
+import GroupBuyNew from './features/GroupBuy/GroupBuyNew';
+import GroupBuyDetail from './features/GroupBuy/GroupBuyDetail';
+import GroupBuyEdit from './features/GroupBuy/GroupBuyEdit';
 import './App.css';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // // ✅ 테스트용으로 로그인 상태 강제로 true로 만들기
-  // useEffect(() => {
-  //   setIsLoggedIn(true);
-  // }, []);
+  // 테스트용 로그인 강제 true
+  useEffect(() => {
+    setIsLoggedIn(true);
+  }, []);
 
   return (
     <div className="web-wrapper">
       <div className="web-container">
         <BrowserRouter>
           <Header />
-          <Routes>
-            {!isLoggedIn ? (
-              <>
-                <Route path="/signup" element={<SignUp />} />
-                <Route path="*" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
-              </>
-            ) : (
-              <>
-                <Route path="/" element={<Home />} />
-                <Route path="/mypage" element={<MyPage />} />
-                <Route path="/login" element={<Navigate to="/" />} />
-                <Route path="/signup" element={<Navigate to="/" />} />
-                <Route path="*" element={<Navigate to="/" />} />
-              </>
-            )}
-          </Routes>
+          <div className="scrollable-content">
+            <Routes>
+              {/* 회원/비회원 구분이 필요한 페이지 */}
+              <Route path="/signup" element={isLoggedIn ? <Navigate to="/" /> : <SignUp />} />
+              <Route path="/login" element={isLoggedIn ? <Navigate to="/" /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
+              {/* 로그인 안 하면 메인 못 들어감 */}
+              <Route path="/" element={isLoggedIn ? <Home /> : <Navigate to="/login" />} />
+              <Route path="/mypage" element={isLoggedIn ? <MyPage /> : <Navigate to="/login" />} />
+
+              {/* 공구 상세/생성/채팅(로그인 여부 무관) */}
+              <Route path="/chat" element={<Chat />} />
+              <Route path="/group-buy/new" element={<GroupBuyNew />} />
+              <Route path="/group-buy/:id" element={<GroupBuyDetail />} />
+              <Route path="/group-buy/:id/edit" element={<GroupBuyEdit />} />
+
+              {/* 기타 잘못된 경로 */}
+              <Route path="*" element={<Navigate to="/" />} />
+            </Routes>
+          </div>
           <Footer />
         </BrowserRouter>
       </div>

@@ -17,10 +17,7 @@
 }
 
 .content {
-  margin-top: 200px;
-  display: flex;      
-  justify-content: center;
-  
+  margin-top: 20px;
 }
 
 .empty {
@@ -31,4 +28,9 @@
   font-weight: 700;
   line-height: 40px; 
   letter-spacing: -0.32px;
+  text-align: center;
+  margin-top: 200px;
 }
+
+
+
