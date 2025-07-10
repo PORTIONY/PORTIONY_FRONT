@@ -6,7 +6,7 @@ import SignupSurvey from './Signup/SignupSurvey';
 import SignupDone from './Signup/SignupDone';
 
 
-const Signup = () => {
+const SignUp = () => {
   const [step, setStep] = useState(1); // 상태로 단계 관리
 
   const goToNextStep = () => setStep(step + 1);
@@ -23,4 +23,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default SignUp;
