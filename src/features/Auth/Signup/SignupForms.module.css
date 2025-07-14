@@ -194,20 +194,6 @@ width: 100%;
   letter-spacing: -0.32px;
 }
 
-/* 비밀번호는 영문과 숫자를 포함한 8자 이상이어야 합니다. */
-.errorText {
-  color: red;
-
-  /* Body/Body1 */
-  font-family: Inter;
-  font-size: 13px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 16px; /* 123.077% */
-  letter-spacing: -0.32px;
-  margin-left: 5px;
-}
-
 /* 닉네임입력창 길이 조절 */
 .nicknameRow input {
 flex: 1;
@@ -232,6 +218,41 @@ width: auto;
   font-weight: 500;
   line-height: 16px; /* 123.077% */
   letter-spacing: -0.32px;
+}
+
+/* 입력창 하단 에러메세지 */
+.errorText {
+  color: red;
+
+  /* Body/Body1 */
+  font-family: Inter;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px; /* 123.077% */
+  letter-spacing: -0.32px;
+  margin-left: 5px;
+  display: block; 
+  margin-top: 5px;
+}
+
+.successText {
+  color: #FECD24;
+
+  /* Body/Body1 */
+  font-family: Inter;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px; /* 123.077% */
+  letter-spacing: -0.32px;
+  margin-left: 5px;
+  display: block; 
+  margin-top: 5px;
+}
+
+.errorBorder {
+  border: 1px solid red; 
 }
 
 /* 다음버튼 */

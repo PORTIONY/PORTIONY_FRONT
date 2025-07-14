@@ -8,7 +8,7 @@ import requiredIcon from '../../../assets/required.svg';
 import close from '../../../assets/x.svg';
 
 const domainOptions = ['직접 입력', 'gmail.com', 'naver.com', 
-                      'daum.net', 'hanmail.net'];
+                      'daum.net', 'hanmail.net','test.com(이메일중복문구 확인용 테스트도메인)'];
 
 function SignupForms({ onNext, onBack }) {
   const fileInputRef = useRef(null);
@@ -17,11 +17,20 @@ function SignupForms({ onNext, onBack }) {
   const [emailDomain, setEmailDomain] = useState('');
   const [domainType, setDomainType] = useState('직접 입력');
   const [emailValid, setEmailValid] = useState(false);
+  const [emailMessage, setEmailMessage] = useState('');
+  const [emailError, setEmailError] = useState(false);
 
   const [password, setPassword] = useState('');
   const [passwordCheck, setPasswordCheck] = useState('');
+  const [passwordMessage, setPasswordMessage] =useState('');
+  const [passwordError, setPasswordError] = useState(false);
+  const [passwordCheckMessage, setPasswordCheckMessage] = useState('');
+  const [passwordCheckError, setPasswordCheckError] = useState(false);
+
   const [nickname, setNickname] = useState('');
   const [nicknameValid, setNicknameValid] = useState(false);
+  const [nicknameMessage, setNicknameMessage] = useState('');
+  const [nicknameError, setNicknameError] = useState(false);
 
   const [profileImage, setProfileImage] = useState(null);
 
@@ -37,7 +46,7 @@ function SignupForms({ onNext, onBack }) {
     // const formData = new FormData();
     // formData.append('file', file); // key는 백엔드에서 정한대로 추후 수정
 
-    // const res = await fetch('/api/upload-profile-image', { // api 경로 백엔드구현 후 수정
+    // const res = await fetch('/api/upload-profile-image', { 
     //   method: 'POST',
     //   body: formData,
     // });
@@ -56,37 +65,71 @@ function SignupForms({ onNext, onBack }) {
 
   //추후 백엔드와 연동, 예시코드만 작성, 백엔드연동 후 예시코드 지우기 
   const handleEmailCheck = async () => {
-    alert('사용 가능한 이메일입니다. (임시)');
+    if (fullEmail.includes('test.com')) {
+    setEmailValid(false);
+    setEmailMessage('이미 사용 중인 이메일입니다.');
+    setEmailError(true);
+  } else {
     setEmailValid(true);
+    setEmailMessage('사용 가능한 이메일입니다.');
+    setEmailError(false);
+  }
     // const res = await fetch(`/api/users/check-email?email=${fullEmail}`);
     // const data = await res.json();
     // if (data.exists) {
-    //     alert('이미 사용 중인 이메일입니다.');
-    //     setEmailValid(false);
+        // setEmailValid(false);
+        // setEmailMessage('이미 사용 중인 이메일입니다.');
+        // setEmailError(true);
     // } else {
-    //     alert('사용 가능한 이메일입니다.');
-    //     setEmailValid(true);
+      // setEmailValid(true);
+      // setEmailMessage('사용 가능한 이메일입니다.');
+      // setEmailError(false);
     // }
 };
 
   const handleNicknameCheck = async () => {
-    alert('사용 가능한 닉넴입니다. (임시)');
-    setNicknameValid(true);
+    if (nickname === 'taken') {
+      setNicknameValid(false);
+      setNicknameMessage('이미 사용 중인 닉네임입니다.');
+      setNicknameError(true);
+    } else {
+      setNicknameValid(true);
+      setNicknameMessage('사용 가능한 닉네임입니다.');
+      setNicknameError(false);
+    }
     // const res = await fetch(`/api/users/check-nickname?nickname=${nickname}`);
     // const data = await res.json();
     // if (data.exists) {
-    //     alert('이미 사용 중인 닉네임입니다.');
-    //     setNicknameValid(false);
+        // setNicknameValid(false);
+        // setNicknameMessage('이미 사용 중인 닉네임입니다.');
+        // setNicknameError(true);
     // } else {
-    //     alert('사용 가능한 닉네임입니다.');
-    //     setNicknameValid(true);
+          // setNicknameValid(true);
+          // setNicknameMessage('사용 가능한 닉네임입니다.');
+          // setNicknameError(false);
     // }
   };
 
-  const isPasswordValid = (pw) => {
-  const hasLetter = /[a-zA-Z]/.test(pw);
-  const hasNumber = /[0-9]/.test(pw);
-  return pw.length >= 8 && hasLetter && hasNumber;
+  const validatePassword = (pw) => {
+    const hasLetter = /[a-zA-Z]/.test(pw);
+    const hasNumber = /[0-9]/.test(pw);
+    const isValid = pw.length >= 8 && hasLetter && hasNumber;
+
+    if (!pw) {
+      setPasswordMessage('');
+      setPasswordError(false);
+      return false;
+    }
+
+    if(!isValid) {
+      setPasswordMessage('비밀번호는 영문과 숫자를 포함한 8자 이상이어야 합니다.');
+      setPasswordError(true);
+      return false;
+    }
+
+    setPasswordMessage('사용 가능한 비밀번호입니다.');
+    setPasswordError(false);
+    return true;
 };
 
   const isNextValid = () => {
@@ -94,8 +137,10 @@ function SignupForms({ onNext, onBack }) {
       emailId &&
       (domainType !== '직접 입력' || emailDomain) &&
       emailValid &&
-      isPasswordValid(password) &&
+      password &&
+      !passwordError &&
       password === passwordCheck &&
+      !passwordCheckError &&
       nickname &&
       nicknameValid
     );
@@ -136,7 +181,7 @@ function SignupForms({ onNext, onBack }) {
 
           <div className={styles.emailRow}>
             <input
-              className={`${styles.inputForm}  ${styles.domainInputForm}`}
+              className={`${styles.inputForm}  ${styles.domainInputForm} ${emailError ? styles.errorBorder : ''}`}
               value={emailId}
               onChange={(e) => setEmailId(e.target.value)}
               placeholder="이메일을 입력해주세요."/>
@@ -145,13 +190,13 @@ function SignupForms({ onNext, onBack }) {
 
               {domainType === '직접 입력' ? (
                 <input
-                    className={`${styles.inputForm} ${styles.domainInputForm}`}
+                    className={`${styles.inputForm} ${styles.domainInputForm} ${emailError ? styles.errorBorder : ''}`}
                     value={emailDomain}
                     onChange={(e) => setEmailDomain(e.target.value)}
                     placeholder="도메인을 입력해주세요."/>
                 ) : (
                 <input 
-                  className={`${styles.inputForm} ${styles.domainInputForm}`}
+                  className={`${styles.inputForm} ${styles.domainInputForm} ${emailError ? styles.errorBorder : ''}`}
                   value={domainType} readOnly/>
                 )
               }
@@ -165,7 +210,13 @@ function SignupForms({ onNext, onBack }) {
               </select>
 
               <button className={styles.validButton} onClick={handleEmailCheck}> <span>중복 확인</span> </button>
-            </div>
+            </div> 
+
+            {emailMessage && (
+              <span className={emailError ? styles.errorText : styles.successText}>
+                {emailMessage}
+              </span>
+            )}
           </div>
 
           <div className={styles.formGroup}>
@@ -174,22 +225,45 @@ function SignupForms({ onNext, onBack }) {
             
             <div className={styles.passwordRow}>
               <input
-                className={`${styles.inputForm}`}
+                className={`${styles.inputForm} ${passwordError ? styles.errorBorder : ''}`}
                 type="password"
                 value={password}
                 placeholder="영문, 숫자 포함 8자 이상 입력해주세요."
-                onChange={(e) => setPassword(e.target.value)}/>
+                onChange={(e) => {
+                  const value = e.target.value;
+                  setPassword(value);
+                  validatePassword(value);
+                }}/>
+              
+              {passwordMessage && (
+              <span className={passwordError ? styles.errorText : styles.successText}>
+                {passwordMessage}
+              </span>
+            )}
 
               <input
-                className={`${styles.inputForm}`}
+                className={`${styles.inputForm} ${passwordCheckError ? styles.errorBorder : ''}`}
                 type="password"
                 value={passwordCheck}
                 placeholder="비밀번호를 다시 입력해주세요."
-                onChange={(e) => setPasswordCheck(e.target.value)}/>
+                onChange={(e) => {
+                  const value = e.target.value;
+                  setPasswordCheck(value);
+
+                  if (password && value !== password) {
+                    setPasswordCheckMessage('비밀번호가 다릅니다.');
+                    setPasswordCheckError(true);
+                  } else {
+                    setPasswordCheckMessage('사용 가능한 비밀번호입니다.');
+                    setPasswordCheckError(false);
+                  }
+                }}/>
             </div>
 
-            {password && !isPasswordValid(password) && (
-              <span className={styles.errorText}>비밀번호는 영문과 숫자를 포함한 8자 이상이어야 합니다.</span>
+            {passwordMessage && (
+              <span className={passwordCheckError ? styles.errorText : styles.successText}>
+                {passwordCheckMessage}
+              </span>
             )}
           </div>
 
@@ -199,13 +273,19 @@ function SignupForms({ onNext, onBack }) {
 
             <div className={styles.nicknameRow}>
               <input
-                className={`${styles.inputForm}`}
+                className={`${styles.inputForm} ${nicknameError ? styles.errorBorder : ''}`}
                 value={nickname}
                 onChange={(e) => setNickname(e.target.value)}
                 placeholder="닉네임을 입력해주세요."/>
 
               <button className={styles.validButton} onClick={handleNicknameCheck}><span>중복 확인</span></button>
-            </div>
+            </div>  
+
+            {nicknameMessage && (
+              <span className={nicknameError ? styles.errorText : styles.successText}>
+                {nicknameMessage}
+              </span>
+            )}
           </div>
         </div>
 
