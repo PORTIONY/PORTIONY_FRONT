@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './ChatListItem.module.css';
-import isReadIcon from '../../assets/is_read.svg'; //읽음 표시 아이콘
+import isReadIcon from '../../../assets/is_read.svg'; //읽음 표시 아이콘
 
 function ChatListItem({
   postImage,       // 게시글 이미지

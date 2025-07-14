@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import boxImage from '../../assets/chat_logo.png';
 import styles from './Chats.module.css';
 import Dropdown from '../../components/DropDown/DropDown';
-import ChatListItem from '../../components/ChatListItem/ChatListItem';
+import ChatListItem from '../../components/Chat/ChatListItem/ChatListItem';
+import ChatHeader from '../../components/Chat/ChatHeader/ChatHeader';
+
 import profileImg from '../../assets/profile.png';
 import postImage from '../../assets/product.png'; //상품 이미지
 
@@ -15,9 +17,9 @@ function Chat() {
     partnerName: '이현승',
     lastMessage: '언제쯤 WWWWWWWWWWASAWWWSASWWWWWWWWWASASAWWWWWWWWWWWWWWWAAASAASASWW받을 수 있나요?',
     time: '오전 11:34',
-    title: '치약 10개입 공동구매선착순 참여...',
+    title: '치약 10개a입 참여...할게요요요요 123432455253aaaaa',
     price: '6,000',
-    ddayText: '마감 D-2',
+    ddayText: '공구마감',
     postImage: postImage, // 게시글 이미지 테스트용
     profileImg: profileImg, // 프로필 이미지 테스트용
     messages: [
@@ -429,42 +431,49 @@ function Chat() {
       <div className={styles.right}>
         {selectedRoom ? (
           <div className={styles.chatDetail}>
-            <div className={styles.productInfo}>
-              <p className={styles.productTitle}>{selectedRoom.title}</p>
-              <p className={styles.productPrice}>{selectedRoom.price}원</p>
-              <span className={styles.dday}>{selectedRoom.ddayText}</span>
-            </div>
+      
+          {/* ✅ 헤더 컴포넌트 추가 */}
+          <ChatHeader
+            partnerName={selectedRoom.partnerName}
+            postImage={selectedRoom.postImage}
+            title={selectedRoom.title}
+            price={selectedRoom.price}
+            ddayText={selectedRoom.ddayText}
+          />
 
-            <div className={styles.chatMessages}>
-              {selectedRoom.messages.map((msg, idx) => (
-                <div
-                  key={idx}
-                  className={msg.isMine ? styles.myMsg : styles.theirMsg}
-                >
-                  <p>{msg.content}</p>
-                  <span>{msg.time}</span>
-                </div>
-              ))}
-            </div>
-
-            <div className={styles.inputBox}>
-              <input
-                type="text"
-                className={styles.chatInput}
-                placeholder="메시지를 입력하세요"
-              />
-              <button className={styles.sendButton}>전송</button>
-              <div className={styles.icons}>
-                <button>📷</button>
-                <button>📍</button>
-                <button>💬</button>
-              </div>
-            </div>
+          {/* 💬 메시지 목록 */}
+          <div className={styles.chatMessages}>
+            {selectedRoom.messages.map((msg, idx) => (
+            <div
+              key={idx}
+              className={msg.isMine ? styles.myMsg : styles.theirMsg}
+            >
+              <p>{msg.content}</p>
+              <span>{msg.time}</span>
           </div>
-        ) : (
-          <img src={boxImage} alt="박스" className={styles.image} />
-        )}
+        ))}
       </div>
+
+      {/* ✏️ 메시지 입력창 */}
+      <div className={styles.inputBox}>
+        <input
+          type="text"
+          className={styles.chatInput}
+          placeholder="메시지를 입력하세요"
+        />
+        <button className={styles.sendButton}>전송</button>
+        <div className={styles.icons}>
+          <button>📷</button>
+          <button>📍</button>
+          <button>💬</button>
+        </div>
+      </div>
+    </div>
+  ) : (
+    <img src={boxImage} alt="박스" className={styles.image} />
+  )}
+</div>
+
     </div>
   );
 }
