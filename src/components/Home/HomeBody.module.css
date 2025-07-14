@@ -135,3 +135,19 @@
     background: #FECD24;
     cursor: pointer;
 }
+
+.emptyContainer {
+    margin: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.empty {
+    color: #9C9C9C;
+    font-family: Inter;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 40px; 
+    letter-spacing: -0.32px;
+  }

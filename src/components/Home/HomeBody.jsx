@@ -138,14 +138,14 @@ function HomeBody({ selectedAddress, selectedCategory, searchKeyword }) {
               >판매 등록</button>
           </div>
         </div>
-        <div>
+        <div className={pagedProducts.length === 0 ? styles.emptyContainer : ''}>
           {pagedProducts.length > 0 ? (
             <ProductList
               products = {pagedProducts}
               context = "home"
             />
           ) : (
-            <p className={styles.empty}>구매 내역이 없습니다.</p>
+            <p className={styles.empty}>등록된 상품이 없습니다.</p>
           )}
         </div>
       </div>
