@@ -23,7 +23,7 @@ function HomeBody({ selectedAddress, selectedCategory, searchKeyword }) {
   const navigate = useNavigate();
 
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [dateSort, setDateSort] = useState('');
+  const [dateSort, setDateSort] = useState("날짜");
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 12; // 페이지당 상품 개수
   const [showClosed, setShowClosed] = useState(false); //공구 마감된 상품 보기 여부
