@@ -3,8 +3,8 @@ import styles from './ReviewsModal.module.css';
 import x from '../../../assets/x.svg';
 import arrowIcon from '../../../assets/chevron-down-outline.svg';
 import clearIcon from '../../../assets/x.svg';
-import starOn from '../../../assets/portiony-star-on.svg';   // ⭐ 클릭된 별
-import starOff from '../../../assets/portiony-star-off.svg'; // ☆ 클릭 전 별
+import starOn from '../../../assets/portiony-star-on.svg';   
+import starOff from '../../../assets/portiony-star-off.svg'; 
 
 const options = [
   '연락이 빨라요',
