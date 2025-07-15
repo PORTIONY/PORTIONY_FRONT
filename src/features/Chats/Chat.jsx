@@ -4,6 +4,7 @@ import styles from './Chats.module.css';
 import Dropdown from '../../components/DropDown/DropDown';
 import ChatListItem from '../../components/Chat/ChatListItem/ChatListItem';
 import ChatHeader from '../../components/Chat/ChatHeader/ChatHeader';
+import ChatBottom from '../../components/Chat/ChatBottom/ChatBottom';
 
 import profileImg from '../../assets/profile.png';
 import postImage from '../../assets/product.png'; //상품 이미지
@@ -17,8 +18,8 @@ function Chat() {
     partnerName: '이현승',
     lastMessage: '언제쯤 WWWWWWWWWWASAWWWSASWWWWWWWWWASASAWWWWWWWWWWWWWWWAAASAASASWW받을 수 있나요?',
     time: '오전 11:34',
-    title: '치약 10개a입 참여...할게요요요요 123432455253aaaaa',
-    price: '6,000',
+    title: '치약 10개a입 참여...할게요요요요 12432455253aaaaa',
+    price: '100,000000000000',
     ddayText: '공구마감',
     postImage: postImage, // 게시글 이미지 테스트용
     profileImg: profileImg, // 프로필 이미지 테스트용
@@ -454,20 +455,22 @@ function Chat() {
         ))}
       </div>
 
-      {/* ✏️ 메시지 입력창 */}
-      <div className={styles.inputBox}>
-        <input
-          type="text"
-          className={styles.chatInput}
-          placeholder="메시지를 입력하세요"
-        />
-        <button className={styles.sendButton}>전송</button>
-        <div className={styles.icons}>
-          <button>📷</button>
-          <button>📍</button>
-          <button>💬</button>
-        </div>
-      </div>
+      <ChatBottom
+        isSeller={true} // TODO: 실제 로그인 유저 role로 바꿔줘!
+        chatStatus={'active'} // TODO: 상태값에 따라 변경 가능
+        onSendMessage={(msg) => {
+          console.log('보낸 메시지:', msg);
+          // 원하는 로직으로 메시지 리스트에 push해도 됨
+        }}
+        onClickHandlers={{
+          camera: () => console.log('📷 사진'),
+          location: () => console.log('📍 위치'),
+          memo: () => console.log('💬 메모'),
+          payment: () => console.log('💸 송금'),
+          shipping: () => console.log('🚚 배송'),
+          complete: () => console.log('✅ 거래 완료'),
+        }}
+      />
     </div>
   ) : (
     <img src={boxImage} alt="박스" className={styles.image} />

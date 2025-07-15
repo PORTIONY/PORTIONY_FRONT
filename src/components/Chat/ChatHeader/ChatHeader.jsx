@@ -20,7 +20,9 @@ function ChatHeader({ partnerName, postImage, title, price, ddayText }) {
         <div className={styles.leftSection}>
           <img src={postImage} alt="상품" className={styles.productImage} />
           <div className={styles.textSection}>
-            <div className={styles.title}>{title}</div>
+            <div className={styles.title}>
+              {title.length > 34 ? `${title.slice(0, 36)}...` : title}
+            </div>
             <div className={styles.price}>{price}원</div>
           </div>
         </div>

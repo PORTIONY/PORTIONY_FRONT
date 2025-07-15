@@ -169,11 +169,3 @@
   flex-direction: column;
   gap: 12px;
 }
-
-.inputBox {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 16px;
-  border-top: 1px solid #ccc;
-}
