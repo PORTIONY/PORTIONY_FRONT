@@ -15,10 +15,10 @@ import './App.css';
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // 테스트용 로그인 강제 true
-  //useEffect(() => {
-  //  setIsLoggedIn(true);
-  //}, []);
+  //테스트용 로그인 강제 true
+  useEffect(() => {
+   setIsLoggedIn(true);
+  }, []);
 
   return (
     <div className="web-wrapper">
@@ -33,6 +33,7 @@ function App() {
               {/* 로그인 안 하면 메인 못 들어감 */}
               <Route path="/" element={isLoggedIn ? <Home /> : <Navigate to="/login" />} />
               <Route path="/mypage" element={isLoggedIn ? <MyPage /> : <Navigate to="/login" />} />
+              <Route path="/chat" element={isLoggedIn ? <Chat /> : <Navigate to="/login" />} />
 
               {/* 공구 상세/생성/채팅(로그인 여부 무관) */}
               <Route path="/chat" element={<Chat />} />
