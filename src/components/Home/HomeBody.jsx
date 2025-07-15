@@ -26,6 +26,7 @@ function HomeBody({ selectedAddress, selectedCategory, searchKeyword }) {
   const [dateSort, setDateSort] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 12; // 페이지당 상품 개수
+  const [showClosed, setShowClosed] = useState(false); //공구 마감된 상품 보기 여부
 
   // 슬라이더 이미지 변경을 위한 타이머 설정
   useEffect(() => {
@@ -71,14 +72,19 @@ function HomeBody({ selectedAddress, selectedCategory, searchKeyword }) {
       details: `공구 인원 ${item.people}명 · 거래 완료 ${transactions[item.id] || 0}명`
     }));
 
+  // 필터링: 공구 마감된 상품 보기 여부
+  let filtered = products.filter((item) => {
+    const today = new Date();
+    const endDate = new Date(item.endDate.replace(/\./g, '-'));
+    const isNotClosed = endDate >= today;
+    return showClosed || isNotClosed;
+  });
   
-  // 날짜 정렬
-  // dateSort가 '최신 순'이면 최신 날짜부터, '오래된 순'이면 오래된 날짜부터 정렬
-  let filtered = [...products];
+  // 필터링: 날짜 정렬
   if (dateSort === '최신 순') {
-    filtered = filtered.sort((a, b) => b.endDate.localeCompare(a.deadline));
+    filtered = filtered.sort((a, b) => b.endDate.localeCompare(a.endDate));
   } else if (dateSort === '오래된 순') {
-    filtered = filtered.sort((a, b) => a.endDate.localeCompare(b.deadline));
+    filtered = filtered.sort((a, b) => a.endDate.localeCompare(b.endDate));
   }
 
   const totalPages = Math.ceil(filtered.length / productsPerPage);
@@ -122,7 +128,14 @@ function HomeBody({ selectedAddress, selectedCategory, searchKeyword }) {
             />
             <div className={styles.checkbox}>
               <label className={styles.customCheckbox}>
-                <input type="checkbox" />
+                <input 
+                  type="checkbox"
+                  checked={showClosed}
+                  onChange={(e)=>{
+                    const checked = e.target.checked;
+                    setShowClosed(checked)}
+                  }
+                />
                 <span className={styles.customBox}></span>
               </label>
               <span className={typography.body1}>
@@ -138,14 +151,14 @@ function HomeBody({ selectedAddress, selectedCategory, searchKeyword }) {
               >판매 등록</button>
           </div>
         </div>
-        <div>
+        <div className={pagedProducts.length === 0 ? styles.emptyContainer : ''}>
           {pagedProducts.length > 0 ? (
             <ProductList
               products = {pagedProducts}
               context = "home"
             />
           ) : (
-            <p className={styles.empty}>구매 내역이 없습니다.</p>
+            <p className={styles.empty}>등록된 상품이 없습니다.</p>
           )}
         </div>
       </div>
