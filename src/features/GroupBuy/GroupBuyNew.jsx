@@ -8,6 +8,8 @@ import checkedIcon from '../../assets/checkbox-checked.svg';
 import uncheckedIcon from '../../assets/checkbox-unchecked.svg';
 import styles from './GroupBuyNew.module.css';
 import GroupBuyModal from '../../components/GroupBuy/GroupBuyModal';
+import Dropdown from '../../components/DropDown/DropDown';
+
 
 function GroupBuyNew({ mode = 'create', initialData = null, productId = null }) {
 
@@ -58,21 +60,33 @@ function GroupBuyNew({ mode = 'create', initialData = null, productId = null }) 
       const number = parseInt(value);
       if (isNaN(number) || number < 1 || number > 99) return;
     }
+
     if (name === 'title' && value.length > 50) return;
     if (name === 'description' && value.length > 500) return;
+
     if (name === 'price') {
-      const formatted = formatPrice(value);
+      // 숫자만 걸러내기
+      const numericStr = value.replace(/[^0-9]/g, '');
+      if (numericStr === '') {
+        setForm(prev => ({ ...prev, [name]: '' }));
+        return;
+      }
+      let numericValue = Number(numericStr);
+      if (numericValue > 1000000) {
+        numericValue = 1000000;
+      }
+      // 숫자를 다시 문자열로 바꾸고 formatPrice에 넘김
+      const formatted = formatPrice(String(numericValue));
       setForm(prev => ({ ...prev, [name]: formatted }));
       return;
     }
     setForm(prev => ({ ...prev, [name]: value }));
   };
 
-
   // 가격 1000단위 콤마 포맷터
   const formatPrice = (value) => {
     const numericValue = value.replace(/[^\d]/g, '');
-    if (!numericValue) return '';
+    if (numericValue === '') return '';
     return parseInt(numericValue, 10).toLocaleString();
   };
 
@@ -146,6 +160,20 @@ function GroupBuyNew({ mode = 'create', initialData = null, productId = null }) 
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    if (!isFormComplete()) {
+        setShowWarning(true);
+        return;
+    }
+
+    setShowWarning(false); // 제출 가능 상태면 경고 숨김
+
+    // 로컬스토리지에 저장 (form + image previewUrls)
+      const groupBuyData = {
+        form,
+        imagePreviews: previewUrls, // base64 이미지
+      };
+      localStorage.setItem('groupBuyDraft', JSON.stringify(groupBuyData));
+
     if (mode === 'edit') {
       // 수정 모드: 현재 productId로 이동
       navigate(`/group-buy/${productId}`);
@@ -156,12 +184,37 @@ function GroupBuyNew({ mode = 'create', initialData = null, productId = null }) 
     }
   };
 
+  const categoryOptions = ['생활용품', '반려동물', '의류', '문구류', '육아용품', '화장품/뷰티', '잡화/기타'];
+  const unitOptions = ['개', 'kg', 'g', 'cm', '봉지', '장', '직접 입력'];
+  const methodOptions = ['직거래', '택배 배송', '직거래 및 택배 배송'];
+  const [showWarning, setShowWarning] = useState(false);
+
+
   // ------------------------------ 수정 모드일 경우, 초기 데이터로 form 채우기
   useEffect(() => {
     if (mode === 'edit' && initialData) {
       setForm(initialData);
     }
   }, [initialData, mode]);
+
+  useEffect(() => {
+    if (isFormComplete()) {
+      setShowWarning(false);
+    }
+  }, [form, images, isChecked]);
+
+  // 저장된 값 불러오기
+  useEffect(() => {
+    const savedForm = localStorage.getItem('groupBuyForm');
+    if (savedForm) {
+      setForm(JSON.parse(savedForm));
+    }
+  }, []);
+
+  // 폼 상태 변경 시 저장하기
+  useEffect(() => {
+    localStorage.setItem('groupBuyForm', JSON.stringify(form));
+  }, [form]);
 
   return (
     <div className={styles['page-wrapper']}>
@@ -180,31 +233,25 @@ function GroupBuyNew({ mode = 'create', initialData = null, productId = null }) 
           {/* 카테고리 */}
           <div className={styles['form-group']}>
             <label>카테고리</label>
-            <select
-              name="category"
-              value={form.category}
-              onChange={handleChange}
-              className={styles.selectCustom}
-              style={{
-                backgroundImage: `url(${dropdownIcon})`,
-                color: form.category ? 'black' : 'gray',
-              }}
-            >
-              <option value="" hidden>카테고리를 선택해주세요.</option>
-              <option value="생활용품">생활용품</option>
-              <option value="반려동물">반려동물</option>
-              <option value="의류">의류</option>
-              <option value="문구류">문구류</option>
-              <option value="육아용품">육아용품</option>
-              <option value="화장품/뷰티">화장품/뷰티</option>
-              <option value="잡화/기타">잡화/기타</option>
-            </select>
+            <Dropdown
+              options={categoryOptions}
+              selected={form.category || '카테고리를 선택해주세요.'}
+              setSelected={(val) => setForm(prev => ({ ...prev, category: val === '카테고리를 선택해주세요.' ? '' : val }))}
+              placeholder="카테고리를 선택해주세요."
+              variant="minimal"
+            />
           </div>
 
           {/* 상품명 */}
           <div className={styles['form-group']}>
             <label>상품명</label>
-            <input type="text" name="title" placeholder="50자 이내로 입력해주세요." value={form.title} onChange={handleChange} />
+            <input
+                type="text"
+                name="title"
+                placeholder="50자 이내로 입력해주세요."
+                value={form.title}
+                onChange={handleChange}
+            />
           </div>
 
           {/* 상품 설명 */}
@@ -269,37 +316,28 @@ function GroupBuyNew({ mode = 'create', initialData = null, productId = null }) 
                 value={form.amount}
                 onChange={handleChange}
               />
-              <select
-                name="unit"
-                value={form.unit}
-                onChange={handleChange}
-                className={styles.selectCustom}
-                style={{
-                  backgroundImage: `url(${dropdownIcon})`,
-                  color: form.unit ? 'black' : 'gray',
-                }}
-              >
-                <option value="" hidden>소분 단위를 선택해주세요.</option>
-                <option value="개">개</option>
-                <option value="kg">kg</option>
-                <option value="g">g</option>
-                <option value="cm">cm</option>
-                <option value="봉지">봉지</option>
-                <option value="장">장</option>
-                <option value="직접 입력">직접 입력</option>
-              </select>
               <input
-                type="text"
-                name="unitCustom"
-                placeholder="직접 입력"
-                value={form.unitCustom}
-                onChange={handleChange}
-                disabled={form.unit !== '직접 입력'}
-                style={{
-                  backgroundColor: form.unit !== '직접 입력' ? '#d9d9d9' : 'white',
-                  cursor: form.unit !== '직접 입력' ? 'not-allowed' : 'text',
-                }}
+                  type="text"
+                  name="unitCustom"
+                  placeholder="직접 입력"
+                  value={form.unitCustom}
+                  onChange={handleChange}
+                  disabled={form.unit !== '직접 입력'}
+                  style={{
+                    backgroundColor: form.unit !== '직접 입력' ? '#d9d9d9' : 'white',
+                    cursor: form.unit !== '직접 입력' ? 'not-allowed' : 'text',
+                  }}
               />
+              <div className={styles.dropdownWrapper}>
+                <Dropdown
+                  options={unitOptions}
+                  selected={form.unit || '소분 단위를 선택해주세요.'}
+                  setSelected={(val) => setForm(prev => ({ ...prev, unit: val === '소분 단위를 선택해주세요.' ? '' : val }))}
+                  placeholder="소분 단위를 선택해주세요."
+                  variant="minimal"
+                />
+              </div>
+
             </div>
           </div>
 
@@ -319,11 +357,12 @@ function GroupBuyNew({ mode = 'create', initialData = null, productId = null }) 
           <div className={styles['form-group']}>
             <label>소분당 가격</label>
             <input
-                type="text"
-                name="price"
-                placeholder="최대 100만원까지 입력할 수 있습니다."
-                value={form.price}
-                onChange={handleChange}
+              type="text"
+              name="price"
+              placeholder="최대 100만원까지 입력할 수 있습니다."
+              value={form.price}
+              onChange={handleChange}
+              max={1000000} // 최대 100만원 제한
             />
           </div>
 
@@ -352,21 +391,13 @@ function GroupBuyNew({ mode = 'create', initialData = null, productId = null }) 
           {/* 거래 방법 */}
           <div className={styles['form-group']}>
             <label>거래 방법</label>
-            <select
-              name="method"
-              value={form.method}
-              onChange={handleChange}
-              className={styles.selectCustom}
-              style={{
-                backgroundImage: `url(${dropdownIcon})`,
-                color: form.method ? 'black' : 'gray',
-              }}
-            >
-              <option value="" disabled hidden>거래 방법을 선택해주세요.</option>
-              <option value="직거래">직거래</option>
-              <option value="택배 배송">택배 배송</option>
-              <option value="직거래 및 택배 배송">직거래 및 택배 배송</option>
-            </select>
+            <Dropdown
+                options={methodOptions}
+                selected={form.method || '거래 방법을 선택해주세요.'}
+                setSelected={(val) => setForm(prev => ({ ...prev, method: val === '거래 방법을 선택해주세요.' ? '' : val }))}
+                placeholder="거래 방법을 선택해주세요."
+                variant="minimal"
+            />
           </div>
 
           <div className={styles['info-text']}>
@@ -394,6 +425,23 @@ function GroupBuyNew({ mode = 'create', initialData = null, productId = null }) 
             </label>
           </div>
 
+          {showWarning && (
+            <div
+              style={{
+                color: '#E14942',
+                fontSize: '16px',
+                fontWeight: 'bold',
+                textAlign: 'center',
+                marginBottom: '0px',
+                minHeight: '18px',         // 고정 높이로 공간 유지
+                opacity: showWarning ? 1 : 0,
+                transition: 'opacity 0.2s ease-in-out',
+              }}
+            >
+              입력하지 않은 항목이 있어요.
+            </div>
+          )}
+
           <div className={styles['button-group']}>
             <button
               type="button"
@@ -405,7 +453,6 @@ function GroupBuyNew({ mode = 'create', initialData = null, productId = null }) 
             <button
               type="submit"
               className={`${styles.groupbuynewButton} ${styles.submit}`}
-              disabled={!isFormComplete()}
             >
               {mode === "edit" ? "수정하기" : "등록하기"}
             </button>
@@ -421,6 +468,7 @@ function GroupBuyNew({ mode = 'create', initialData = null, productId = null }) 
               onConfirm={handleConfirmCancel} // 작성 취소 버튼
             />
           )}
+
         </form>
         {selectedImage && (
           <div className={styles['image-modal-overlay']} onClick={handleCloseImgModal}>

@@ -10,6 +10,7 @@ import dummyProducts from '../../data/dummyProduct';
 import sellerProfile from "../../assets/seller-profile.svg";
 import clockIcon from "../../assets/clock-icon.svg";
 import chevronLeft from "../../assets/chevron-left.svg";
+import backIcon from "../../assets/back-icon-white.svg";
 
 
 function GroupBuyDetail() {
@@ -51,6 +52,16 @@ function GroupBuyDetail() {
 
   // 이미지 슬라이드 현재 인덱스
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  // 이미지 클릭된 상태
+  const [selectedImage, setSelectedImage] = useState(null);
+  const handleImageClick = (url) => {
+    setSelectedImage(url);
+  };
+  const handleCloseImgModal = () => {
+    setSelectedImage(null);
+  };
+
 
   // 댓글 상태 (초기 더미 댓글 43개)
   const dummyComments = Array.from({ length: 43 }, (_, i) => ({
@@ -150,7 +161,25 @@ function GroupBuyDetail() {
           <div className={styles['product-wrapper']}>
 
             <div className={styles['product-image']}>
-              <img src={product.images[currentImageIndex]} alt={`상품 이미지 ${currentImageIndex + 1}`} />
+              <button
+                className={styles['arrow-button']}
+                onClick={() => setCurrentImageIndex((prev) => (prev === 0 ? product.images.length - 1 : prev - 1))}
+                aria-label="이전 이미지"
+              >
+                <img src={backIcon} alt="이전" />
+              </button>
+              <img
+                src={product.images[currentImageIndex]}
+                alt={`상품 이미지 ${currentImageIndex + 1}`}
+                onClick={() => handleImageClick(product.images[currentImageIndex])}
+              />
+              <button
+                className={`${styles['arrow-button']} ${styles['right-arrow']}`}
+                onClick={() => setCurrentImageIndex((prev) => (prev === product.images.length - 1 ? 0 : prev + 1))}
+                aria-label="다음 이미지"
+              >
+                <img src={backIcon} alt="다음" />
+              </button>
               {isCompleted && (
                 <div className={styles['overlay']}>
                   <span className={styles['overlay-text']}>공구 마감된 상품입니다.</span>
@@ -309,6 +338,23 @@ function GroupBuyDetail() {
             }}
             onCancel={() => setIsGroupBuyModalOpen(false)}
           />
+        )}
+
+        {selectedImage && (
+          <div className={styles['image-modal-overlay']} onClick={handleCloseImgModal}>
+            <div
+              className={styles['image-modal']}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                className={styles['close-button']}
+                onClick={handleCloseImgModal}
+              >
+                ✕
+              </button>
+              <img src={selectedImage} alt="확대 이미지" />
+            </div>
+          </div>
         )}
 
         {/* 댓글 영역*/}
