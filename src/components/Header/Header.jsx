@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import styles from './Header.module.css';
+import userProfileImage from '../../assets/profile-image.svg';
 
 import logo from '../../assets/logo.svg';
 
-function Header() {
+function Header({isLoggedIn}) {
   const location = useLocation();
 
   return (
@@ -25,7 +26,13 @@ function Header() {
         </Link>
       </nav>
 
-      <Link to="/login" className={styles.loginButton}>로그인</Link>
+      {isLoggedIn ? (
+        <div className={styles.profileWrapper}>
+          <img src={userProfileImage} alt="유저프로필사진" className={styles.profileImage}/>
+        </div>
+      ) : (
+        <Link to="/login" className={styles.loginButton}>로그인</Link>
+      )}
     </header>
   );
 }

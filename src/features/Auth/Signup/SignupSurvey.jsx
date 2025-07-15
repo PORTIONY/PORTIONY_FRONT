@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import styles from './SignupSurvey.module.css';
 import back from '../../../assets/chevron-left.svg';
 import required from '../../../assets/required.svg';
+import arrow from '../../../assets/chevron-down-outline.svg';
+import DropDownSurvey from '../../../components/DropDown/DropDownSurvey';
 
 function SignupSurvey({ onNext, onBack }) {
   const [category, setCategory] = useState('');
@@ -58,13 +60,14 @@ return (
                   <img src={required} className={styles.requiredIcon} alt="필수"/>
               </label>
 
-              <select
-                className={styles.dropdownBox} value={q.value} onChange={(e) => q.setValue(e.target.value)} required>
-                <option value="" disabled hidden>{q.placeholder}</option>
-                {q.options.map((opt, idx) => (
-                  <option key={idx} value={opt}>{opt}</option>
-                ))}
-              </select>
+              <div className={styles.selectWrapper}>
+                <DropDownSurvey
+                  value={q.value}
+                  setValue={q.setValue}
+                  placeholder={q.placeholder}
+                  options={q.options}
+              />
+              </div>
             </div>
           ))}
         </div>

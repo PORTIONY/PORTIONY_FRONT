@@ -17,15 +17,15 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   // 테스트용 로그인 강제 true
-  useEffect(() => {
-    setIsLoggedIn(true);
-  }, []);
+  //useEffect(() => {
+  //  setIsLoggedIn(true);
+  //}, []);
 
   return (
     <div className="web-wrapper">
       <div className="web-container">
         <BrowserRouter>
-          <Header />
+          <Header isLoggedIn={isLoggedIn}/>
           <div className="scrollable-content">
             <Routes>
               {/* 회원/비회원 구분이 필요한 페이지 */}
