@@ -37,10 +37,17 @@
     color: #888;
   }
   
-  .arrow,
-  .clearIcon {
+  .arrow{
     width: 18px;
     height: 18px;
+    transition: transform 0.2s, opacity 0.2s;
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+
+  .clearIcon {
+    width: 10px;
+    height: 10px;
     transition: transform 0.2s, opacity 0.2s;
     flex-shrink: 0;
     cursor: pointer;

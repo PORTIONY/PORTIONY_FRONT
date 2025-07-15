@@ -35,9 +35,9 @@ export default function LikesHistory() {
   } else if (sortOption === '마감 여유순') {
     filtered = filtered.sort((a, b) => b.endDate.localeCompare(a.endDate));
   } else if (sortOption === '최근 찜순') {
-    filtered = filtered.sort((a, b) => b.likedDate.localeCompare(a.likedDate));
+    filtered = filtered.sort((a, b) => a.endDate.localeCompare(b.endDate));
   } else if (sortOption === '오래된 찜순') {
-    filtered = filtered.sort((a, b) => a.likedDate.localeCompare(b.likedDate));
+    filtered = filtered.sort((a, b) => b.endDate.localeCompare(a.endDate));
   }
 
   const totalPages = Math.ceil(filtered.length / productsPerPage);
