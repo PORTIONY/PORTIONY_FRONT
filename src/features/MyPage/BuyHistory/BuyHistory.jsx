@@ -6,7 +6,7 @@ import Pagination from '../../../components/PageNumber/Pagination';
 import dummyProducts from '../../../data/dummyProduct';
 
 export default function BuyHistory() {
-  const [dateSort, setDateSort] = useState('최신 순');
+  const [dateSort, setDateSort] = useState('날짜');
   const [priceSort, setPriceSort] = useState('금액');
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 12;

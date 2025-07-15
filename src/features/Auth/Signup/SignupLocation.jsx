@@ -6,6 +6,7 @@ import search from '../../../assets/search(gray).svg';
 
 function SignupLocation({ onNext, onBack }) {
   const [searchTerm, setSearchTerm] = useState('중앙동');
+  const [lastSearch, setLastSearch] = useState('중앙동');
   const [results, setResults] = useState([]);
   const [selected, setSelected] = useState('');
   const [currentLocation, setCurrentLocation] = useState('');
@@ -81,6 +82,8 @@ function SignupLocation({ onNext, onBack }) {
       ];
 
       setResults(results); // 검색어포함 동네 리스트 저장 (검색결과)
+      setLastSearch(searchTerm);
+      setSearchTerm('');
   };
 
   // 검색안해도 첫화면 '중앙동'검색결과 뜨도록하기
@@ -124,7 +127,7 @@ function SignupLocation({ onNext, onBack }) {
           </div>
 
           <div className={styles.resultBox}>
-            <p className={styles.resultItemLabel}>‘{searchTerm}’ 검색 결과</p>
+            <p className={styles.resultItemLabel}>‘{lastSearch}’ 검색 결과</p>
 
             <hr className={styles.resultBoxDivider}/>
 

@@ -10,21 +10,22 @@ import Chat from './features/Chats/Chat';
 import GroupBuyNew from './features/GroupBuy/GroupBuyNew';
 import GroupBuyDetail from './features/GroupBuy/GroupBuyDetail';
 import GroupBuyEdit from './features/GroupBuy/GroupBuyEdit';
+import Community from './features/Community/Community';
 import './App.css';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   // 테스트용 로그인 강제 true
-  useEffect(() => {
-    setIsLoggedIn(true);
-  }, []);
+  //useEffect(() => {
+  //  setIsLoggedIn(true);
+  //}, []);
 
   return (
     <div className="web-wrapper">
       <div className="web-container">
         <BrowserRouter>
-          <Header />
+          <Header isLoggedIn={isLoggedIn}/>
           <div className="scrollable-content">
             <Routes>
               {/* 회원/비회원 구분이 필요한 페이지 */}
@@ -33,6 +34,9 @@ function App() {
               {/* 로그인 안 하면 메인 못 들어감 */}
               <Route path="/" element={isLoggedIn ? <Home /> : <Navigate to="/login" />} />
               <Route path="/mypage" element={isLoggedIn ? <MyPage /> : <Navigate to="/login" />} />
+              <Route path="/community" element={isLoggedIn ? <Community /> : <Navigate to="/login" />} />
+
+
 
               {/* 공구 상세/생성/채팅(로그인 여부 무관) */}
               <Route path="/chat" element={<Chat />} />

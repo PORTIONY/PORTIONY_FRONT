@@ -5,7 +5,7 @@ import styles from './Login.module.css';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
-function Login() {
+function Login({ setIsLoggedIn }) {
   const [status, setStatus] = useState('init'); 
   const navigate = useNavigate();
   const [userEmail, setUserEmail] = useState('');
@@ -22,6 +22,7 @@ function Login() {
 
   const goToMain = () => {
     // 메인 홈으로 이동
+    setIsLoggedIn(true);
     navigate('/');
   };
 
