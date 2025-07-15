@@ -6,6 +6,8 @@ import defaultProfileImage from '../../../assets/profile-image.svg'
 import back from '../../../assets/chevron-left.svg';
 import requiredIcon from '../../../assets/required.svg';
 import close from '../../../assets/x.svg';
+import arrow from '../../../assets/chevron-down-outline.svg';
+import DropDownForm from '../../../components/DropDown/DropDownForm';
 
 const domainOptions = ['직접 입력', 'gmail.com', 'naver.com', 
                       'daum.net', 'hanmail.net','test.com(이메일중복문구 확인용 테스트도메인)'];
@@ -201,13 +203,11 @@ function SignupForms({ onNext, onBack }) {
                 )
               }
 
-              <select
-                className={`${styles.inputForm} ${styles.domainInputForm}`}
+              <DropDownForm
                 value={domainType}
-                onChange={(e) => setDomainType(e.target.value)}>
-
-                {domainOptions.map((d) => (<option key={d} value={d}>{d}</option>))}
-              </select>
+                onChange={setDomainType}
+                options={domainOptions}
+              />
 
               <button className={styles.validButton} onClick={handleEmailCheck}> <span>중복 확인</span> </button>
             </div> 

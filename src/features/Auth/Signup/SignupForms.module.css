@@ -233,11 +233,12 @@ width: auto;
   letter-spacing: -0.32px;
   margin-left: 5px;
   display: block; 
-  margin-top: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .successText {
-  color: #FECD24;
+  color: #000;
 
   /* Body/Body1 */
   font-family: Inter;
@@ -248,7 +249,8 @@ width: auto;
   letter-spacing: -0.32px;
   margin-left: 5px;
   display: block; 
-  margin-top: 5px;
+  margin-top:  10px;
+  margin-bottom: 10px;
 }
 
 .errorBorder {
