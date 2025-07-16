@@ -1,8 +1,9 @@
 .container {
   display: flex;
-  width: 1280px;
+  width: 1110px;
   min-height: 800px;
-  padding: 0 55px;
+  margin: 0 auto;
+  padding: 0px;
   justify-content: space-between;
   align-items: flex-start; /* 헤더 포함 높이 맞춤 */
   box-sizing: border-box;
@@ -12,7 +13,7 @@
 .leftWrapper {
   display: flex;
   flex-direction: column;
-  width: 585px;
+  width: 555px;
   height: 653px;
   box-sizing: border-box;
 }
@@ -31,7 +32,7 @@
 /* 채팅 목록 내용 */
 .left {
   flex: 1;
-  padding-top: 141px; 
+  /* padding-top: 141px;  */
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -39,6 +40,24 @@
   background-color: #fff;
   box-sizing: border-box;
   align-items: center;
+
+  /* 스크롤 추가 */
+  overflow-y: auto;
+  max-height: 581px; /* = 전체 653px - 상단(leftTop) 높이 72px */
+}
+
+.left::-webkit-scrollbar {
+  width: 17px;
+}
+
+.left::-webkit-scrollbar-thumb {
+  background: #CDCCCC; /* 스크롤 손잡이 */
+  border-radius: 50px;
+}
+
+.left::-webkit-scrollbar-track {
+  background: #F3F3F3; /* 바탕 띠 색 */
+  border-radius: 50px;
 }
 
 .chatEmptyText {
@@ -50,7 +69,8 @@
   font-weight: 700;
   line-height: 22px;
   letter-spacing: -0.32px;
-  margin: 0;
+  margin-top: 141px;
+  margin-bottom: 0px;
 }
 
 .chatEmptyText1 {
@@ -64,7 +84,7 @@
   line-height: 16px;
   letter-spacing: -0.32px;
   margin-top: 39px;
-  margin-bottom: 59px;
+  margin-bottom: 56px;
 }
 
 /* 왼쪽 상품둘러보기 버튼 */
@@ -99,7 +119,7 @@
 .chatTitle {
   color: #000;
 
-  /* T?itle/Title1 */
+  /* Title/Title1 */
   font-family: Inter;
   font-size: 20px;
   font-style: normal;
@@ -110,9 +130,8 @@
 
 .right {
   display: flex;
-  padding: 55px;
   box-sizing: border-box;
-  width: 585px;
+  width: 555px;
   height: 653px;
   justify-content: center;
   align-items: center; 
@@ -121,7 +140,7 @@
 
 /* 오른쪽 콘텐츠 박스 */
 .contentBox {
-  width: 585px;
+  width: 555px;
   height: auto;
   display: flex;
   flex-direction: column;
@@ -133,4 +152,20 @@
 .image {
   width: 115px;
   height: 108px;
+}
+
+.chatDetail {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+.chatMessages {
+  flex-grow: 1; /* 남은 공간을 모두 차지 */
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }

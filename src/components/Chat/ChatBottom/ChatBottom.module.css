@@ -1,0 +1,67 @@
+.chatBottom {
+  padding: 10px;
+  background-color: #fff;
+}
+
+.inputWrapper {
+  display: flex;
+width: 565px;
+height: 50px;
+padding: 16px 13px;
+justify-content: space-between;
+align-items: center;
+border-radius: 10px;
+border: 1px solid #000;
+background: #FFF;
+
+}
+
+/* + 아이콘 버튼 */
+.plusButton {
+  background: none;
+  border: none;
+  padding: 4px;
+  margin-right: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.plusButton img {
+  width: 25px;
+height: 25px;
+flex-shrink: 0;
+aspect-ratio: 1/1;
+}
+
+/* 입력창 */
+.chatInput {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+
+/* 전송 버튼 */
+.sendButton {
+  background: none;
+  border: none;
+  padding: 4px;
+  margin-left: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.sendButton img {
+  width: 20px;
+height: 20px;
+flex-shrink: 0;
+aspect-ratio: 1/1;
+}

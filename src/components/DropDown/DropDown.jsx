@@ -3,7 +3,9 @@ import styles from './DropDown.module.css';
 import arrowIcon from '../../assets/chevron-down-outline.svg';
 import clearIcon from '../../assets/x.svg';
 
-export default function Dropdown({ options, selected, setSelected, placeholder }) {
+export default function Dropdown({ options, selected, setSelected, placeholder, variant = 'default', // 추가된 부분: 기본값 'default'
+
+}) {
   const [open, setOpen] = useState(false);
   const containerRef = useRef(null);
   const buttonRef = useRef(null);
@@ -42,10 +44,8 @@ export default function Dropdown({ options, selected, setSelected, placeholder }
     measurer.appendChild(titleSpan);
     
     document.body.appendChild(measurer);
-
     const maxTextWidth = Array.from(measurer.children)
       .reduce((max, el) => Math.max(max, el.getBoundingClientRect().width), 0);
-    
     document.body.removeChild(measurer);
 
     const style = window.getComputedStyle(buttonRef.current);
@@ -72,11 +72,11 @@ export default function Dropdown({ options, selected, setSelected, placeholder }
   const display = selected === placeholder ? placeholder : selected;
 
   return (
-    <div ref={containerRef} className={styles.dropdownContainer}>
+    <div ref={containerRef} className={`${styles.dropdownContainer} ${variant === 'minimal' ? styles.minimalContainer : ''}`}>
       <button
         ref={buttonRef}
         type="button"
-        className={`${styles.dropdownButton} ${open ? styles.open : ''}`}
+        className={`${styles.dropdownButton} ${variant === 'minimal' ? styles.minimal : ''} ${open ? styles.open : ''}`}
         onClick={() => setOpen(o => !o)}
       >
         <span className={display === placeholder ? styles.placeholder : ''}>

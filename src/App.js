@@ -10,6 +10,7 @@ import Chat from './features/Chats/Chat';
 import GroupBuyNew from './features/GroupBuy/GroupBuyNew';
 import GroupBuyDetail from './features/GroupBuy/GroupBuyDetail';
 import GroupBuyEdit from './features/GroupBuy/GroupBuyEdit';
+import Community from './features/Community/Community';
 import './App.css';
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
               <Route path="/" element={isLoggedIn ? <Home /> : <Navigate to="/login" />} />
               <Route path="/mypage" element={isLoggedIn ? <MyPage /> : <Navigate to="/login" />} />
               <Route path="/chat" element={isLoggedIn ? <Chat /> : <Navigate to="/login" />} />
+              <Route path="/community" element={isLoggedIn ? <Community /> : <Navigate to="/login" />} />
 
               {/* 공구 상세/생성/채팅(로그인 여부 무관) */}
               <Route path="/chat" element={<Chat />} />

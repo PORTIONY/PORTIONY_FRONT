@@ -1,0 +1,33 @@
+.badge {
+  display: flex;
+padding: 3px 9px;
+justify-content: center;
+align-items: center;
+border-radius: 10px;
+background: #000;
+/* width: 106px; */
+height: 26px;
+}
+
+.icon {
+  width: 20px;
+height: 20px;
+aspect-ratio: 1/1;
+margin-right: 3px;
+}
+
+.text{
+    color: #FFF;
+display: inline-block;
+/* Title/Title2 */
+font-family: Inter;
+font-size: 16px;
+font-style: normal;
+font-weight: 600;
+line-height: 17px; /* 100% */
+letter-spacing: -0.32px;
+}
+
+.badge.closing {
+  background-color: #D9D9D9;
+}
