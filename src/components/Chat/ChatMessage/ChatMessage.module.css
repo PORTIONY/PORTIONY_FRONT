@@ -1,0 +1,91 @@
+.messageWrapper{
+    display: flex;
+  justify-content: flex-start;
+    padding-left: 20px;
+    padding-right: 20px;
+    gap: 10px;
+}
+
+.myMsg {
+  /* align-self: flex-end;
+  background-color: #f0f0f0;
+  border-radius: 15px 15px 0 15px;
+  padding: 10px;
+  max-width: 60%; */
+
+  display: flex;
+padding: 10px 12px;
+justify-content: center;
+align-items: center;
+gap: 10px;
+border-radius: 10px;
+background: #FFF0BB;
+}
+
+.theirMsg {
+  display: flex;
+padding: 10px 12px;
+justify-content: center;
+align-items: center;
+gap: 10px;
+border-radius: 10px;
+background: #E9E9E9;
+
+  /* align-self: flex-start;
+  background-color: #e0e0e0;
+  border-radius: 15px 15px 15px 0;
+  padding: 10px;
+  max-width: 60%; */
+}
+
+/* ChatMessage.module.css */
+
+.myMsg, .theirMsg {
+  max-width: 400px; /* 또는 300px, 원하는 너비 */
+  word-wrap: break-word;  /* 단어 중간이라도 줄바꿈 허용 */
+  white-space: pre-wrap;  /* 줄바꿈 문자도 보존하면서 줄바꿈 */
+}
+
+
+.time{
+  color: #B2B2B2;
+text-align: center;
+
+/* Body/Body3 */
+font-family: Inter;
+font-size: 10px;
+font-style: normal;
+font-weight: 400;
+line-height: 10px; /* 100% */
+letter-spacing: -0.32px;
+align-self: flex-end;
+margin-top: -20px;
+
+}
+
+.messageRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.messageRow p {
+  color: #000;
+
+/* Body/Body1 */
+font-family: Inter;
+font-size: 13px;
+font-style: normal;
+font-weight: 400;
+line-height: 16px; /* 123.077% */
+letter-spacing: -0.32px;
+margin:0;
+}
+
+.row {
+  flex-direction: row;
+}
+
+.rowReverse {
+  flex-direction: row-reverse;
+}

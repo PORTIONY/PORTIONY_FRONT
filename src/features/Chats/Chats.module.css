@@ -164,14 +164,13 @@
 .chatMessages {
   flex-grow: 1; /* 남은 공간을 모두 차지 */
   overflow-y: auto;
-  padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
 .chatMessages::-webkit-scrollbar {
-  width: 17px; /* ✅ 왼쪽 채팅과 동일하게 설정 */
+  width: 17px;
 }
 
 .chatMessages::-webkit-scrollbar-thumb {
@@ -183,4 +182,25 @@
   background: #F3F3F3;
   border-radius: 50px;
   margin-top: 4px;
+}
+
+.dateLine{
+  align-self: stretch;
+  color: #B2B2B2;
+text-align: center;
+
+/* Body/Body1 */
+font-family: Inter;
+font-size: 13px;
+font-style: normal;
+font-weight: 500;
+line-height: 16px; /* 123.077% */
+letter-spacing: -0.32px;
+margin-bottom: 10px;
+}
+
+.messageGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }

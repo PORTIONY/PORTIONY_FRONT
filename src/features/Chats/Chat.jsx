@@ -5,6 +5,7 @@ import Dropdown from '../../components/DropDown/DropDown';
 import ChatListItem from '../../components/Chat/ChatListItem/ChatListItem';
 import ChatHeader from '../../components/Chat/ChatHeader/ChatHeader';
 import ChatBottom from '../../components/Chat/ChatBottom/ChatBottom';
+import ChatMessage from '../../components/Chat/ChatMessage/ChatMessage';
 
 import profileImg from '../../assets/profile.png';
 import postImage from '../../assets/product.png'; //상품 이미지
@@ -26,18 +27,18 @@ function Chat() {
     isSeller: true,
     messages: [
       {
-        content: '안녕하세요! 내일 오후 6시 괜찮으세요?',
-        time: '오전 11:32',
+        content: '안녕하세요! 내일 오후 6시 괜요! 내일 오후 6시 괜요'+'! 내일 오후 6시 괜요! 내일 오후 6시 괜요! 내일 오후 6시 괜요! 내일 오후 6시 괜요! 내일 오후 6시 괜요! 내일 오후 6시 괜요! 내일 오후 6시 괜요! 내일 오후 6시 괜요! 내일 오후 6시 괜요! 내일 오후 6시 괜찮으세요?',
+        time: '2025-06-13T11:32:00',
         isMine: false,
       },
       {
         content: '스타벅스 잠실점 앞에서 뵈어요!',
-        time: '오전 11:33',
+        time: '2025-06-13T11:32:00',
         isMine: false,
       },
       {
         content: '넵 확인했습니다. 감사합니다!',
-        time: '오전 11:35',
+        time: '2025-06-14T11:32:00',
         isMine: true,
       },
       {
@@ -52,7 +53,7 @@ function Chat() {
       },
       {
         content: '넵 확인했습니다. 감사합니다!',
-        time: '오전 11:35',
+        time: '2025-06-13T11:32:00',
         isMine: true,
       },
       {
@@ -506,18 +507,28 @@ function Chat() {
             ddayText={selectedRoom.ddayText}
           />
 
-          {/* 💬 메시지 목록 */}
           <div className={styles.chatMessages}>
-            {selectedRoom.messages.map((msg, idx) => (
-            <div
-              key={idx}
-              className={msg.isMine ? styles.myMsg : styles.theirMsg}
-            >
-              <p>{msg.content}</p>
-              <span>{msg.time}</span>
+            {Object.entries(groupMessagesByDate(selectedRoom.messages)).map(
+              ([date, msgs]) => (
+                <div key={date} className={styles.messageGroup}>
+                  <div className={styles.dateLine}>{date}</div> {/* 스타일명 맞춤 */}
+                  {msgs.map((msg, idx) => (
+                    <ChatMessage
+                      key={idx}
+                      content={msg.content}
+                      time={new Date(msg.time).toLocaleTimeString([], {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                      })}
+                      isMine={msg.isMine}
+                      isSeller={selectedRoom.isSeller}
+                    />
+                  ))}
+                </div>
+              )
+            )}
           </div>
-        ))}
-      </div>
+
 
       <ChatBottom
         isSeller={selectedRoom.isSeller} // TODO: 실제 로그인 유저 role로 바꿔줘!
@@ -538,3 +549,24 @@ function Chat() {
 }
 
 export default Chat;
+
+
+function getFormattedDate(isoString) {
+  const date = new Date(isoString);
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  return `${year}년 ${month}월 ${day}일`;
+}
+
+function groupMessagesByDate(messages) {
+  const grouped = {};
+  messages.forEach((msg) => {
+    const dateKey = getFormattedDate(msg.time);
+    if (!grouped[dateKey]) {
+      grouped[dateKey] = [];
+    }
+    grouped[dateKey].push(msg);
+  });
+  return grouped;
+}
