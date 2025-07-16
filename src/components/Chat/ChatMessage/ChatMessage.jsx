@@ -1,6 +1,6 @@
 import styles from './ChatMessage.module.css';
 
-function ChatMessage({ content, time, isMine, isSeller }) {
+function ChatMessage({ content, image, time, isMine, isSeller }) {
   const bubbleClass = isMine ? styles.myMsg : styles.theirMsg;
   const rowClass = isMine ? styles.rowReverse : styles.row;
 
@@ -10,7 +10,11 @@ function ChatMessage({ content, time, isMine, isSeller }) {
     >
       <div className={`${styles.messageRow} ${rowClass}`}>
         <div className={bubbleClass}>
-          <p className={styles.content}>{content}</p>
+          {/* 텍스트 메시지 */}
+          {content && <p className={styles.content}>{content}</p>}
+
+          {/* 이미지 메시지 */}
+          {image && <img src={image} alt="보낸 이미지" className={styles.messageImage} />}
         </div>
         <span className={styles.time}>{time}</span>
       </div>

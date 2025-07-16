@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import styles from './ChatBottom.module.css';
 import send from '../../../assets/send.svg';
 import add from '../../../assets/add.svg';
@@ -9,10 +9,13 @@ import promiseIcon from '../../../assets/promise.svg';
 import payIcon from '../../../assets/requestpay.svg';
 import addressIcon from '../../../assets/sendinfo.svg';
 import doneIcon from '../../../assets/complete.svg';
+import DeliveryModal from '../Modal/DeliveryModal';
 
 function ChatBottom({ onSendMessage, isSeller }) {
   const [message, setMessage] = useState('');
   const [showOptions, setShowOptions] = useState(false);
+  const [showAddressModal, setShowAddressModal] = useState(false);
+  const fileInputRef = useRef(null);
 
   const handleSend = () => {
     if (message.trim()) {
@@ -26,6 +29,7 @@ function ChatBottom({ onSendMessage, isSeller }) {
   };
 
   return (
+    <>
     <div className={styles.chatBottom}>
       {showOptions && (
         // 아이콘 div
@@ -52,11 +56,21 @@ function ChatBottom({ onSendMessage, isSeller }) {
             </>
           )}
 
-          {/* 배송지/배송정보 */}
-          <button className={styles.optionBtn}>
+          {/* 배송지/배송정보 버튼 */}
+          <button
+            className={styles.optionBtn}
+            onClick={() => {
+              if (!isSeller) setShowAddressModal(true); // 구매자인 경우만 모달 띄움
+              else {
+                // 판매자인 경우는 다른 처리 or 아무것도 안함
+                // 예: setShowDeliveryInfoModal(true) 또는 그냥 return;
+              }
+            }}
+          >
             <img src={addressIcon} alt="배송" />
             <span>{isSeller ? '배송 정보 전송' : '배송지 전송'}</span>
           </button>
+
 
           {/* 공통: 거래완료 */}
           <button className={styles.optionBtn}>
@@ -91,6 +105,17 @@ function ChatBottom({ onSendMessage, isSeller }) {
         </button>
       </div>
     </div>
+
+
+{showAddressModal && (
+      <DeliveryModal
+        onClose={() => setShowAddressModal(false)}
+        onNext={() => setShowAddressModal(false)}
+      />
+    )}
+
+
+    </>
   );
 }
 

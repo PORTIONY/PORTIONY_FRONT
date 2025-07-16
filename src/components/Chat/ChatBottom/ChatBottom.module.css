@@ -14,7 +14,7 @@ width: 565px;
 /* height: 50px; */
 padding: 16px 13px;
 justify-content: space-between;
-align-items: flex-end;
+align-items: center;
 /* align-items: flex-end; */
 border-radius: 10px;
 border: 1px solid #000;
@@ -91,6 +91,7 @@ letter-spacing: -0.32px;
 height: 20px;
 flex-shrink: 0;
 aspect-ratio: 1/1;
+align-items: center;
 }
 
 

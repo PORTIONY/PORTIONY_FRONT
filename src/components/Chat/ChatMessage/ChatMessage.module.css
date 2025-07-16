@@ -89,3 +89,10 @@ margin:0;
 .rowReverse {
   flex-direction: row-reverse;
 }
+
+.messageImage {
+  max-width: 200px;
+  max-height: 200px;
+  border-radius: 10px;
+  object-fit: cover;
+}

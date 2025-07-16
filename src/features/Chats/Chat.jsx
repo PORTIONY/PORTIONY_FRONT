@@ -67,7 +67,7 @@ function Chat() {
         isMine: false,
       },
       {
-        content: '넵 확인했습니다. 감사합니다!',
+        image: postImage,
         time: '오전 11:35',
         isMine: true,
       },
@@ -516,6 +516,7 @@ function Chat() {
                     <ChatMessage
                       key={idx}
                       content={msg.content}
+                      image={msg.image}
                       time={new Date(msg.time).toLocaleTimeString([], {
                         hour: '2-digit',
                         minute: '2-digit',
@@ -533,10 +534,7 @@ function Chat() {
       <ChatBottom
         isSeller={selectedRoom.isSeller} // TODO: 실제 로그인 유저 role로 바꿔줘!
         chatStatus={'active'} // TODO: 상태값에 따라 변경 가능
-        onSendMessage={(msg) => {
-          console.log('보낸 메시지:', msg);
-          // 원하는 로직으로 메시지 리스트에 push해도 됨
-        }}
+        onSendMessage={null}
       />
     </div>
   ) : (
@@ -570,3 +568,4 @@ function groupMessagesByDate(messages) {
   });
   return grouped;
 }
+
