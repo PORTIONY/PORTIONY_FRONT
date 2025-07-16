@@ -10,11 +10,18 @@ import payIcon from '../../../assets/requestpay.svg';
 import addressIcon from '../../../assets/sendinfo.svg';
 import doneIcon from '../../../assets/complete.svg';
 import DeliveryModal from '../Modal/DeliveryModal';
+import PromiseModal from '../Modal/Promise';
+import PayRequestModal from '../Modal/PayRequest';
+import DeliveryInfoModal from '../Modal/DeliveryInfo';
 
 function ChatBottom({ onSendMessage, isSeller }) {
   const [message, setMessage] = useState('');
   const [showOptions, setShowOptions] = useState(false);
   const [showAddressModal, setShowAddressModal] = useState(false);
+  const [showPromiseModal, setShowPromiseModal] = useState(false);
+  const [showPayRequestModal, setShowPayRequestModal] = useState(false);
+  const [showDeliveryInfoModal, setShowDeliveryInfoModal] = useState(false);
+
   const fileInputRef = useRef(null);
 
   const handleSend = () => {
@@ -45,11 +52,11 @@ function ChatBottom({ onSendMessage, isSeller }) {
           {/* 판매자 전용 옵션 */}
           {isSeller && (
             <>
-              <button className={styles.optionBtn}>
+              <button className={styles.optionBtn} onClick={() => setShowPromiseModal(true)}>
                 <img src={promiseIcon} alt="약속 잡기" />
                 <span>약속 잡기</span>
               </button>
-              <button className={styles.optionBtn}>
+              <button className={styles.optionBtn} onClick={() => setShowPayRequestModal(true)}>
                 <img src={payIcon} alt="송금 요청" />
                 <span>송금 요청</span>
               </button>
@@ -62,8 +69,7 @@ function ChatBottom({ onSendMessage, isSeller }) {
             onClick={() => {
               if (!isSeller) setShowAddressModal(true); // 구매자인 경우만 모달 띄움
               else {
-                // 판매자인 경우는 다른 처리 or 아무것도 안함
-                // 예: setShowDeliveryInfoModal(true) 또는 그냥 return;
+                setShowDeliveryInfoModal(true);
               }
             }}
           >
@@ -107,10 +113,36 @@ function ChatBottom({ onSendMessage, isSeller }) {
     </div>
 
 
-{showAddressModal && (
-      <DeliveryModal
-        onClose={() => setShowAddressModal(false)}
-        onNext={() => setShowAddressModal(false)}
+    {showAddressModal && (
+          <DeliveryModal
+            onClose={() => setShowAddressModal(false)}
+            onNext={() => setShowAddressModal(false)}
+          />
+        )}
+    {showPromiseModal && (
+      <PromiseModal
+        onClose={() => setShowPromiseModal(false)}
+        onSubmit={() => {
+          // 약속 정보 전송 처리 로직 여기에 작성
+          setShowPromiseModal(false);
+        }}
+      />
+    )}
+
+    {showPayRequestModal && (
+      <PayRequestModal
+        onClose={() => setShowPayRequestModal(false)}
+        onSubmit={(data) => {
+          // 송금 요청 처리 로직 작성 (예: 메시지로 전송하거나 서버로 보냄)
+          setShowPayRequestModal(false);
+        }}
+      />
+    )}
+
+    {showDeliveryInfoModal && (
+      <DeliveryInfoModal
+        onClose={() => setShowDeliveryInfoModal(false)}
+        onNext={() => setShowDeliveryInfoModal(false)}
       />
     )}
 

@@ -15,21 +15,25 @@
   background: #fff;
   border-radius: 20px;
   width: 400px;
-  height: 452px;
+  height: 555px;
   padding: 24px;
   box-sizing: border-box;
+justify-content: flex-start;
+  display: flex;
+  flex-direction: column;
 
-  
+  /* justify-content: space-between; */
 }
 
+/* 상단 타이틀과 닫기 버튼 */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 0;
   margin-bottom: 35px;
   width: 352px;
   height: 20px;
-  padding: 0;
 }
 
 .title {
@@ -40,7 +44,7 @@
   font-weight: 600;
   line-height: 16px;
   letter-spacing: -0.32px;
-  margin: 0px;
+  margin: 0;
 }
 
 .closeBtn {
@@ -50,11 +54,12 @@
   padding: 0;
 }
 
-.closeBtn img{
-    width: 21.6px;
-    height: 20px;
+.closeBtn img {
+  width: 21.6px;
+  height: 20px;
 }
 
+/* 입력 폼 */
 .form {
   display: flex;
   flex-direction: column;
@@ -80,11 +85,12 @@
 .input {
   width: 352px;
   height: 40px;
-  padding: 12px;
   border-radius: 10px;
   border: 1px solid #000;
   background: #FFF;
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+  padding: 12px;
+
   color: #7E7E7E;
   font-family: Inter;
   font-size: 13px;
@@ -92,6 +98,12 @@
   font-weight: 400;
   line-height: 16px;
   letter-spacing: -0.32px;
+}
+
+/* 다음 버튼 */
+.footer {
+  display: flex;
+  justify-content: center;
 }
 
 .nextButton {
@@ -111,20 +123,7 @@
   font-weight: 600;
   line-height: 16px;
   letter-spacing: -0.32px;
-  cursor: pointer;
-  margin-top: 35px;
   border: none;
-}
-
-.footer {
-  display: flex;
-  justify-content: center; /* 가운데 정렬 */
-}
-
-.input[type="date"],
-.input[type="time"] {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  padding: 12px;
+  margin-top: 35px;
+    cursor: pointer;
 }

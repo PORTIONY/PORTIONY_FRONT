@@ -15,11 +15,12 @@
   background: #fff;
   border-radius: 20px;
   width: 400px;
-  height: 452px;
+  height: 349px;
   padding: 24px;
   box-sizing: border-box;
 
-  
+  display: flex;
+  flex-direction: column;
 }
 
 .header {
@@ -29,7 +30,6 @@
   margin-bottom: 35px;
   width: 352px;
   height: 20px;
-  padding: 0;
 }
 
 .title {
@@ -40,19 +40,19 @@
   font-weight: 600;
   line-height: 16px;
   letter-spacing: -0.32px;
-  margin: 0px;
+  margin: 0;
 }
 
 .closeBtn {
   background: none;
   border: none;
-  cursor: pointer;
   padding: 0;
+  cursor: pointer;
 }
 
-.closeBtn img{
-    width: 21.6px;
-    height: 20px;
+.closeBtn img {
+  width: 21.6px;
+  height: 20px;
 }
 
 .form {
@@ -80,11 +80,12 @@
 .input {
   width: 352px;
   height: 40px;
-  padding: 12px;
   border-radius: 10px;
   border: 1px solid #000;
   background: #FFF;
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+  padding: 12px;
+
   color: #7E7E7E;
   font-family: Inter;
   font-size: 13px;
@@ -92,6 +93,12 @@
   font-weight: 400;
   line-height: 16px;
   letter-spacing: -0.32px;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  margin-top: 35px;
 }
 
 .nextButton {
@@ -111,20 +118,6 @@
   font-weight: 600;
   line-height: 16px;
   letter-spacing: -0.32px;
-  cursor: pointer;
-  margin-top: 35px;
   border: none;
-}
-
-.footer {
-  display: flex;
-  justify-content: center; /* 가운데 정렬 */
-}
-
-.input[type="date"],
-.input[type="time"] {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  padding: 12px;
+    cursor: pointer;
 }
