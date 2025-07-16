@@ -1,6 +1,6 @@
 .container {
   display: flex;
-  width: 1110px;
+  width: 1170px;
   min-height: 800px;
   margin: 0 auto;
   padding: 0px;
@@ -13,7 +13,7 @@
 .leftWrapper {
   display: flex;
   flex-direction: column;
-  width: 555px;
+  width: 585px;
   height: 653px;
   box-sizing: border-box;
 }
@@ -131,7 +131,7 @@
 .right {
   display: flex;
   box-sizing: border-box;
-  width: 555px;
+  width: 585px;
   height: 653px;
   justify-content: center;
   align-items: center; 
@@ -168,4 +168,19 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
+}
+
+.chatMessages::-webkit-scrollbar {
+  width: 17px; /* ✅ 왼쪽 채팅과 동일하게 설정 */
+}
+
+.chatMessages::-webkit-scrollbar-thumb {
+  background: #CDCCCC;
+  border-radius: 50px;
+}
+
+.chatMessages::-webkit-scrollbar-track {
+  background: #F3F3F3;
+  border-radius: 50px;
+  margin-top: 4px;
 }
