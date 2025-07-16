@@ -11,13 +11,15 @@
 .inputWrapper {
   display: flex;
 width: 565px;
-height: 50px;
+/* height: 50px; */
 padding: 16px 13px;
 justify-content: space-between;
-align-items: center;
+align-items: flex-end;
+/* align-items: flex-end; */
 border-radius: 10px;
 border: 1px solid #000;
 background: #FFF;
+min-height: 50px;
 
 }
 
@@ -50,6 +52,26 @@ aspect-ratio: 1/1;
   background: transparent;
   box-shadow: none;
   border-radius: 0;
+  padding-right: 2spx;
+
+
+  resize: none;
+  overflow-y: auto;
+  min-height: 24px;
+  max-height: 120px;
+  line-height: 1.8;
+
+
+
+  color: #000;
+
+/* Body/Body1 */
+font-family: Inter;
+font-size: 13px;
+font-style: normal;
+font-weight: 400;
+/* line-height: 16px; 123.077% */
+letter-spacing: -0.32px;
 }
 
 
@@ -113,4 +135,18 @@ font-style: normal;
 font-weight: 500;
 line-height: 11px; /* 100% */
 letter-spacing: -0.32px;
+}
+
+.chatInput::-webkit-scrollbar {
+  width: 10px;
+}
+
+.chatInput::-webkit-scrollbar-thumb {
+  background: #CDCCCC;
+  border-radius: 50px;
+}
+
+.chatInput::-webkit-scrollbar-track {
+  background: #F3F3F3;
+  border-radius: 50px;
 }

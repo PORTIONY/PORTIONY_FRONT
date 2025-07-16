@@ -73,12 +73,16 @@ function ChatBottom({ onSendMessage, isSeller }) {
         </button>
 
         {/* 인풋창 */}
-        <input
-          type="text"
+        <textarea
           className={styles.chatInput}
           placeholder="메시지를 입력하세요."
           value={message}
-          onChange={(e) => setMessage(e.target.value)}
+          onChange={(e) => {
+            setMessage(e.target.value);
+            e.target.style.height = 'auto'; // 높이 초기화
+            e.target.style.height = `${e.target.scrollHeight}px`; // 내용에 따라 높이 조절
+          }}
+          rows={1}
         />
 
         {/* 전송 버튼 */}
