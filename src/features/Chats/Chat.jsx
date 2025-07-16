@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import boxImage from '../../assets/chat_logo.png';
 import styles from './Chats.module.css';
 import Dropdown from '../../components/DropDown/DropDown';
-import ChatListItem from '../../components/ChatListItem/ChatListItem';
+import ChatListItem from '../../components/Chat/ChatListItem/ChatListItem';
+import ChatHeader from '../../components/Chat/ChatHeader/ChatHeader';
+import ChatBottom from '../../components/Chat/ChatBottom/ChatBottom';
+
 import profileImg from '../../assets/profile.png';
 import postImage from '../../assets/product.png'; //상품 이미지
 
@@ -13,7 +16,35 @@ function Chat() {
   {
     id: 1,
     partnerName: '이현승',
-    lastMessage: '언제쯤 받을 수 있나요?',
+    lastMessage: '언제쯤 WWWWWWWWWWASAWWWSASWWWWWWWWWASASAWWWWWWWWWWWWWWWAAASAASASWW받을 수 있나요?',
+    time: '오전 11:34',
+    title: '치약 10개a입 참여...할게요요요요 12432455253aaaaa',
+    price: '100,000000000000',
+    ddayText: '공구마감',
+    postImage: postImage, // 게시글 이미지 테스트용
+    profileImg: profileImg, // 프로필 이미지 테스트용
+    messages: [
+      {
+        content: '안녕하세요! 내일 오후 6시 괜찮으세요?',
+        time: '오전 11:32',
+        isMine: false,
+      },
+      {
+        content: '스타벅스 잠실점 앞에서 뵈어요!',
+        time: '오전 11:33',
+        isMine: false,
+      },
+      {
+        content: '넵 확인했습니다. 감사합니다!',
+        time: '오전 11:35',
+        isMine: true,
+      },
+    ],
+  },
+  {
+    id: 1,
+    partnerName: '이현승',
+    lastMessage: '언제쯤 WWWWWWWWWWASAWWWSASWWWWWWWWWASASAWWWWWWWWWWWWWWWAAASAASASWW받을 수 있나요?',
     time: '오전 11:34',
     title: '치약 10개입 공동구매선착순 참여...',
     price: '6,000',
@@ -38,6 +69,315 @@ function Chat() {
       },
     ],
   },
+  {
+    id: 1,
+    partnerName: '이현승',
+    lastMessage: '언제쯤 WWWWWWWWWWASAWWWSASWWWWWWWWWASASAWWWWWWWWWWWWWWWAAASAASASWW받을 수 있나요?',
+    time: '오전 11:34',
+    title: '치약 10개입 공동구매선착순 참여...',
+    price: '6,000',
+    ddayText: '마감 D-2',
+    postImage: postImage, // 게시글 이미지 테스트용
+    profileImg: profileImg, // 프로필 이미지 테스트용
+    messages: [
+      {
+        content: '안녕하세요! 내일 오후 6시 괜찮으세요?',
+        time: '오전 11:32',
+        isMine: false,
+      },
+      {
+        content: '스타벅스 잠실점 앞에서 뵈어요!',
+        time: '오전 11:33',
+        isMine: false,
+      },
+      {
+        content: '넵 확인했습니다. 감사합니다!',
+        time: '오전 11:35',
+        isMine: true,
+      },
+    ],
+  },
+  {
+    id: 1,
+    partnerName: '이현승',
+    lastMessage: '언제쯤 WWWWWWWWWWASAWWWSASWWWWWWWWWASASAWWWWWWWWWWWWWWWAAASAASASWW받을 수 있나요?',
+    time: '오전 11:34',
+    title: '치약 10개입 공동구매선착순 참여...',
+    price: '6,000',
+    ddayText: '마감 D-2',
+    postImage: postImage, // 게시글 이미지 테스트용
+    profileImg: profileImg, // 프로필 이미지 테스트용
+    messages: [
+      {
+        content: '안녕하세요! 내일 오후 6시 괜찮으세요?',
+        time: '오전 11:32',
+        isMine: false,
+      },
+      {
+        content: '스타벅스 잠실점 앞에서 뵈어요!',
+        time: '오전 11:33',
+        isMine: false,
+      },
+      {
+        content: '넵 확인했습니다. 감사합니다!',
+        time: '오전 11:35',
+        isMine: true,
+      },
+    ],
+  },
+  {
+    id: 1,
+    partnerName: '이현승',
+    lastMessage: '언제쯤 WWWWWWWWWWASAWWWSASWWWWWWWWWASASAWWWWWWWWWWWWWWWAAASAASASWW받을 수 있나요?',
+    time: '오전 11:34',
+    title: '치약 10개입 공동구매선착순 참여...',
+    price: '6,000',
+    ddayText: '마감 D-2',
+    postImage: postImage, // 게시글 이미지 테스트용
+    profileImg: profileImg, // 프로필 이미지 테스트용
+    messages: [
+      {
+        content: '안녕하세요! 내일 오후 6시 괜찮으세요?',
+        time: '오전 11:32',
+        isMine: false,
+      },
+      {
+        content: '스타벅스 잠실점 앞에서 뵈어요!',
+        time: '오전 11:33',
+        isMine: false,
+      },
+      {
+        content: '넵 확인했습니다. 감사합니다!',
+        time: '오전 11:35',
+        isMine: true,
+      },
+    ],
+  },
+  {
+    id: 1,
+    partnerName: '이현승',
+    lastMessage: '언제쯤 WWWWWWWWWWASAWWWSASWWWWWWWWWASASAWWWWWWWWWWWWWWWAAASAASASWW받을 수 있나요?',
+    time: '오전 11:34',
+    title: '치약 10개입 공동구매선착순 참여...',
+    price: '6,000',
+    ddayText: '마감 D-2',
+    postImage: postImage, // 게시글 이미지 테스트용
+    profileImg: profileImg, // 프로필 이미지 테스트용
+    messages: [
+      {
+        content: '안녕하세요! 내일 오후 6시 괜찮으세요?',
+        time: '오전 11:32',
+        isMine: false,
+      },
+      {
+        content: '스타벅스 잠실점 앞에서 뵈어요!',
+        time: '오전 11:33',
+        isMine: false,
+      },
+      {
+        content: '넵 확인했습니다. 감사합니다!',
+        time: '오전 11:35',
+        isMine: true,
+      },
+    ],
+  },
+  {
+    id: 1,
+    partnerName: '이현승',
+    lastMessage: '언제쯤 WWWWWWWWWWASAWWWSASWWWWWWWWWASASAWWWWWWWWWWWWWWWAAASAASASWW받을 수 있나요?',
+    time: '오전 11:34',
+    title: '치약 10개입 공동구매선착순 참여...',
+    price: '6,000',
+    ddayText: '마감 D-2',
+    postImage: postImage, // 게시글 이미지 테스트용
+    profileImg: profileImg, // 프로필 이미지 테스트용
+    messages: [
+      {
+        content: '안녕하세요! 내일 오후 6시 괜찮으세요?',
+        time: '오전 11:32',
+        isMine: false,
+      },
+      {
+        content: '스타벅스 잠실점 앞에서 뵈어요!',
+        time: '오전 11:33',
+        isMine: false,
+      },
+      {
+        content: '넵 확인했습니다. 감사합니다!',
+        time: '오전 11:35',
+        isMine: true,
+      },
+    ],
+  },
+  {
+    id: 1,
+    partnerName: '이현승',
+    lastMessage: '언제쯤 WWWWWWWWWWASAWWWSASWWWWWWWWWASASAWWWWWWWWWWWWWWWAAASAASASWW받을 수 있나요?',
+    time: '오전 11:34',
+    title: '치약 10개입 공동구매선착순 참여...',
+    price: '6,000',
+    ddayText: '마감 D-2',
+    postImage: postImage, // 게시글 이미지 테스트용
+    profileImg: profileImg, // 프로필 이미지 테스트용
+    messages: [
+      {
+        content: '안녕하세요! 내일 오후 6시 괜찮으세요?',
+        time: '오전 11:32',
+        isMine: false,
+      },
+      {
+        content: '스타벅스 잠실점 앞에서 뵈어요!',
+        time: '오전 11:33',
+        isMine: false,
+      },
+      {
+        content: '넵 확인했습니다. 감사합니다!',
+        time: '오전 11:35',
+        isMine: true,
+      },
+    ],
+  },
+  {
+    id: 1,
+    partnerName: '이현승',
+    lastMessage: '언제쯤 WWWWWWWWWWASAWWWSASWWWWWWWWWASASAWWWWWWWWWWWWWWWAAASAASASWW받을 수 있나요?',
+    time: '오전 11:34',
+    title: '치약 10개입 공동구매선착순 참여...',
+    price: '6,000',
+    ddayText: '마감 D-2',
+    postImage: postImage, // 게시글 이미지 테스트용
+    profileImg: profileImg, // 프로필 이미지 테스트용
+    messages: [
+      {
+        content: '안녕하세요! 내일 오후 6시 괜찮으세요?',
+        time: '오전 11:32',
+        isMine: false,
+      },
+      {
+        content: '스타벅스 잠실점 앞에서 뵈어요!',
+        time: '오전 11:33',
+        isMine: false,
+      },
+      {
+        content: '넵 확인했습니다. 감사합니다!',
+        time: '오전 11:35',
+        isMine: true,
+      },
+    ],
+  },
+  {
+    id: 1,
+    partnerName: '이현승',
+    lastMessage: '언제쯤 WWWWWWWWWWASAWWWSASWWWWWWWWWASASAWWWWWWWWWWWWWWWAAASAASASWW받을 수 있나요?',
+    time: '오전 11:34',
+    title: '치약 10개입 공동구매선착순 참여...',
+    price: '6,000',
+    ddayText: '마감 D-2',
+    postImage: postImage, // 게시글 이미지 테스트용
+    profileImg: profileImg, // 프로필 이미지 테스트용
+    messages: [
+      {
+        content: '안녕하세요! 내일 오후 6시 괜찮으세요?',
+        time: '오전 11:32',
+        isMine: false,
+      },
+      {
+        content: '스타벅스 잠실점 앞에서 뵈어요!',
+        time: '오전 11:33',
+        isMine: false,
+      },
+      {
+        content: '넵 확인했습니다. 감사합니다!',
+        time: '오전 11:35',
+        isMine: true,
+      },
+    ],
+  },
+  {
+    id: 1,
+    partnerName: '이현승',
+    lastMessage: '언제쯤 WWWWWWWWWWASAWWWSASWWWWWWWWWASASAWWWWWWWWWWWWWWWAAASAASASWW받을 수 있나요?',
+    time: '오전 11:34',
+    title: '치약 10개입 공동구매선착순 참여...',
+    price: '6,000',
+    ddayText: '마감 D-2',
+    postImage: postImage, // 게시글 이미지 테스트용
+    profileImg: profileImg, // 프로필 이미지 테스트용
+    messages: [
+      {
+        content: '안녕하세요! 내일 오후 6시 괜찮으세요?',
+        time: '오전 11:32',
+        isMine: false,
+      },
+      {
+        content: '스타벅스 잠실점 앞에서 뵈어요!',
+        time: '오전 11:33',
+        isMine: false,
+      },
+      {
+        content: '넵 확인했습니다. 감사합니다!',
+        time: '오전 11:35',
+        isMine: true,
+      },
+    ],
+  },
+  {
+    id: 1,
+    partnerName: '이현승',
+    lastMessage: '언제쯤 WWWWWWWWWWASAWWWSASWWWWWWWWWASASAWWWWWWWWWWWWWWWAAASAASASWW받을 수 있나요?',
+    time: '오전 11:34',
+    title: '치약 10개입 공동구매선착순 참여...',
+    price: '6,000',
+    ddayText: '마감 D-2',
+    postImage: postImage, // 게시글 이미지 테스트용
+    profileImg: profileImg, // 프로필 이미지 테스트용
+    messages: [
+      {
+        content: '안녕하세요! 내일 오후 6시 괜찮으세요?',
+        time: '오전 11:32',
+        isMine: false,
+      },
+      {
+        content: '스타벅스 잠실점 앞에서 뵈어요!',
+        time: '오전 11:33',
+        isMine: false,
+      },
+      {
+        content: '넵 확인했습니다. 감사합니다!',
+        time: '오전 11:35',
+        isMine: true,
+      },
+    ],
+  },
+  {
+    id: 1,
+    partnerName: '이현승',
+    lastMessage: '언제쯤 WWWWWWWWWWASAWWWSASWWWWWWWWWASASAWWWWWWWWWWWWWWWAAASAASASWW받을 수 있나요?',
+    time: '오전 11:34',
+    title: '치약 10개입 공동구매선착순 참여...',
+    price: '6,000',
+    ddayText: '마감 D-2',
+    postImage: postImage, // 게시글 이미지 테스트용
+    profileImg: profileImg, // 프로필 이미지 테스트용
+    messages: [
+      {
+        content: '안녕하세요! 내일 오후 6시 괜찮으세요?',
+        time: '오전 11:32',
+        isMine: false,
+      },
+      {
+        content: '스타벅스 잠실점 앞에서 뵈어요!',
+        time: '오전 11:33',
+        isMine: false,
+      },
+      {
+        content: '넵 확인했습니다. 감사합니다!',
+        time: '오전 11:35',
+        isMine: true,
+      },
+    ],
+  },
+  
 ]);
 
 
@@ -80,6 +420,7 @@ function Chat() {
                 lastMessageTime={room.time}
                 postImage={room.postImage}
                 profileImg={room.profileImg}
+                hasUnread={true}
                 onClick={() => setSelectedRoom(room)}
               />
             ))
@@ -91,42 +432,51 @@ function Chat() {
       <div className={styles.right}>
         {selectedRoom ? (
           <div className={styles.chatDetail}>
-            <div className={styles.productInfo}>
-              <p className={styles.productTitle}>{selectedRoom.title}</p>
-              <p className={styles.productPrice}>{selectedRoom.price}원</p>
-              <span className={styles.dday}>{selectedRoom.ddayText}</span>
-            </div>
+      
+          {/* ✅ 헤더 컴포넌트 추가 */}
+          <ChatHeader
+            partnerName={selectedRoom.partnerName}
+            postImage={selectedRoom.postImage}
+            title={selectedRoom.title}
+            price={selectedRoom.price}
+            ddayText={selectedRoom.ddayText}
+          />
 
-            <div className={styles.chatMessages}>
-              {selectedRoom.messages.map((msg, idx) => (
-                <div
-                  key={idx}
-                  className={msg.isMine ? styles.myMsg : styles.theirMsg}
-                >
-                  <p>{msg.content}</p>
-                  <span>{msg.time}</span>
-                </div>
-              ))}
-            </div>
-
-            <div className={styles.inputBox}>
-              <input
-                type="text"
-                className={styles.chatInput}
-                placeholder="메시지를 입력하세요"
-              />
-              <button className={styles.sendButton}>전송</button>
-              <div className={styles.icons}>
-                <button>📷</button>
-                <button>📍</button>
-                <button>💬</button>
-              </div>
-            </div>
+          {/* 💬 메시지 목록 */}
+          <div className={styles.chatMessages}>
+            {selectedRoom.messages.map((msg, idx) => (
+            <div
+              key={idx}
+              className={msg.isMine ? styles.myMsg : styles.theirMsg}
+            >
+              <p>{msg.content}</p>
+              <span>{msg.time}</span>
           </div>
-        ) : (
-          <img src={boxImage} alt="박스" className={styles.image} />
-        )}
+        ))}
       </div>
+
+      <ChatBottom
+        isSeller={true} // TODO: 실제 로그인 유저 role로 바꿔줘!
+        chatStatus={'active'} // TODO: 상태값에 따라 변경 가능
+        onSendMessage={(msg) => {
+          console.log('보낸 메시지:', msg);
+          // 원하는 로직으로 메시지 리스트에 push해도 됨
+        }}
+        onClickHandlers={{
+          camera: () => console.log('📷 사진'),
+          location: () => console.log('📍 위치'),
+          memo: () => console.log('💬 메모'),
+          payment: () => console.log('💸 송금'),
+          shipping: () => console.log('🚚 배송'),
+          complete: () => console.log('✅ 거래 완료'),
+        }}
+      />
+    </div>
+  ) : (
+    <img src={boxImage} alt="박스" className={styles.image} />
+  )}
+</div>
+
     </div>
   );
 }
