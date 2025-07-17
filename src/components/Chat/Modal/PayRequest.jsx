@@ -40,7 +40,7 @@ function PayRequestModal({ onClose, onSubmit, data, setData }) {
           </label>
 
           <label className={styles.label}>
-            <span>은행</span>
+            <span>은행명</span>
             <input
               className={styles.input}
               name="phone"

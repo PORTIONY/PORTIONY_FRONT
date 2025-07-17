@@ -1,0 +1,72 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modal {
+  background: white;
+  border-radius: 10px;
+  text-align: center;
+  width: 400px;
+  height: 250px;
+}
+
+.title {
+  margin-bottom: 36px;
+  margin-top: 91px;
+
+
+  color: #000;
+
+/* Title/Title2 */
+font-family: Inter;
+font-size: 16px;
+font-style: normal;
+font-weight: 600;
+line-height: 16px; /* 100% */
+letter-spacing: -0.32px;
+}
+
+.buttonGroup {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.button {
+  /* padding: 12px 24px;
+  background-color: #fecd24;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer; */
+
+
+  padding: 9px 25px;
+  font-weight: 500;
+  font-size: 13px;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+  width: 143px;
+  height: 40px;
+
+
+/* Title/Title2 */
+font-family: Inter;
+font-size: 16px;
+font-style: normal;
+font-weight: 600;
+line-height: 16px; /* 100% */
+letter-spacing: -0.32px;
+background-color: #fecd24;
+}

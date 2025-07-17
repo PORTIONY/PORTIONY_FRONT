@@ -14,6 +14,8 @@ import PromiseModal from '../Modal/Promise';
 import PayRequestModal from '../Modal/PayRequest';
 import DeliveryInfoModal from '../Modal/DeliveryInfo';
 import GroupBuyModal from '../../GroupBuy/GroupBuyModal';
+import CompleteModal from '../Modal/Complete';
+import Complete2Modal from '../Modal/Complete2';
 
 function ChatBottom({ onSendMessage, isSeller }) {
   const [message, setMessage] = useState('');
@@ -24,6 +26,9 @@ function ChatBottom({ onSendMessage, isSeller }) {
   const [showDeliveryInfoModal, setShowDeliveryInfoModal] = useState(false);
   const [showGroupBuyModal, setShowGroupBuyModal] = useState(false);
   const [lastOpenedModal, setLastOpenedModal] = useState(null);
+  const [showCompleteModal, setShowCompleteModal] = useState(false);
+  const [showComplete2Modal, setShowComplete2Modal] = useState(false);
+
 
   const [promiseData, setPromiseData] = useState({
     date: '',
@@ -107,7 +112,7 @@ const [deliveryData, setDeliveryData] = useState({
 
 
           {/* 공통: 거래완료 */}
-          <button className={styles.optionBtn}>
+          <button className={styles.optionBtn} onClick={() => setShowCompleteModal(true)}>
             <img src={doneIcon} alt="거래완료" />
             <span>거래 완료</span>
           </button>
@@ -213,6 +218,30 @@ const [deliveryData, setDeliveryData] = useState({
         }}
       />
     )}
+
+    {showCompleteModal && (
+      <CompleteModal
+        onCancel={() => setShowCompleteModal(false)}
+        onConfirm={() => {
+          setShowCompleteModal(false);
+          setShowComplete2Modal(true);
+          // 거래 완료 처리 로직 여기에 작성 (ex: 메시지 전송 등)
+        }}
+      />
+    )}
+
+    {showComplete2Modal && (
+      <Complete2Modal
+        onClose={() => setShowComplete2Modal(false)}
+        onReview={() => {
+          setShowComplete2Modal(false);
+        }}
+        onHome={() => {
+          setShowComplete2Modal(false);
+        }}
+      />
+    )}
+
 
 
 
