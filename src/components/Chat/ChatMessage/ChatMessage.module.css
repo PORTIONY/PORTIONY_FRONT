@@ -96,3 +96,19 @@ margin:0;
   border-radius: 10px;
   object-fit: cover;
 }
+
+.promiseMsg {
+  background-color: #FECD24;
+}
+
+.payMsg {
+  background-color: #FFD5D5;
+}
+
+.addressMsg, .deliveryMsg {
+  background-color: #DAEFFF;
+}
+
+.completedMsg {
+  background-color: #BCE9B4;
+}

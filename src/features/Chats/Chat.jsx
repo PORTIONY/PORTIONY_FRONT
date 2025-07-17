@@ -11,8 +11,8 @@ import profileImg from '../../assets/profile.png';
 import postImage from '../../assets/product.png'; //상품 이미지
 
 function Chat() {
+  const myName = '남예은';
   const [dateSort, setDateSort] = useState('전체');
-
   const [chatRooms, setChatRooms] = useState([
   {
     id: 1,
@@ -74,8 +74,8 @@ function Chat() {
     ],
   },
   {
-    id: 1,
-    partnerName: '이현승',
+    id: 2,
+    partnerName: '박지현',
     lastMessage: '언제쯤 WWWWWWWWWWASAWWWSASWWWWWWWWWASASAWWWWWWWWWWWWWWWAAASAASASWW받을 수 있나요?',
     time: '오전 11:34',
     title: '치약 10개입 공동구매선착순 참여...',
@@ -112,7 +112,7 @@ function Chat() {
     ddayText: '마감 D-2',
     postImage: postImage, // 게시글 이미지 테스트용
     profileImg: profileImg, // 프로필 이미지 테스트용
-    isSeller: true,
+    isSeller: false,
     messages: [
       {
         content: '안녕하세요! 내일 오후 6시 괜찮으세요?',
@@ -514,6 +514,7 @@ function Chat() {
                   <div className={styles.dateLine}>{date}</div> {/* 스타일명 맞춤 */}
                   {msgs.map((msg, idx) => (
                     <ChatMessage
+                      myName={myName}
                       key={idx}
                       content={msg.content}
                       image={msg.image}
@@ -523,6 +524,8 @@ function Chat() {
                       })}
                       isMine={msg.isMine}
                       isSeller={selectedRoom.isSeller}
+                      isSystem={msg.isSystem}
+                      systemType={msg.systemType}
                     />
                   ))}
                 </div>
@@ -532,9 +535,37 @@ function Chat() {
 
 
       <ChatBottom
+        myName={myName}
         isSeller={selectedRoom.isSeller} // TODO: 실제 로그인 유저 role로 바꿔줘!
+        partnerName={selectedRoom.partnerName}
         chatStatus={'active'} // TODO: 상태값에 따라 변경 가능
-        onSendMessage={null}
+        onSendMessage={(newMessage) => {
+          const messageObj =
+            typeof newMessage === 'string'
+              ? {
+                  content: newMessage,
+                  time: new Date().toISOString(),
+                  isMine: true,
+                }
+              : {
+                  ...newMessage,
+                  time: new Date().toISOString(),
+                };
+
+          const updatedRooms = chatRooms.map((room) => {
+            if (room.id === selectedRoom.id) {
+              return {
+                ...room,
+                messages: [...room.messages, messageObj],
+              };
+            }
+            return room;
+          });
+
+          setChatRooms(updatedRooms);
+          setSelectedRoom(updatedRooms.find((room) => room.id === selectedRoom.id));
+        }}
+
       />
     </div>
   ) : (

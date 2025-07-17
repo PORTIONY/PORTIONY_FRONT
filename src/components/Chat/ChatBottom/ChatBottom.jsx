@@ -17,7 +17,7 @@ import GroupBuyModal from '../../GroupBuy/GroupBuyModal';
 import CompleteModal from '../Modal/Complete';
 import Complete2Modal from '../Modal/Complete2';
 
-function ChatBottom({ onSendMessage, isSeller }) {
+function ChatBottom({ onSendMessage, isSeller, partnerName, myName }) {
   const [message, setMessage] = useState('');
   const [showOptions, setShowOptions] = useState(false);
   const [showAddressModal, setShowAddressModal] = useState(false);
@@ -207,8 +207,39 @@ const [deliveryData, setDeliveryData] = useState({
         cancelText="취소"
         onConfirm={() => {
           setShowGroupBuyModal(false);
-          // 실제 처리 로직 예: 메시지 전송 or 서버 요청 등
+
+          let systemMessage = '';
+          let systemType = '';
+
+          switch (lastOpenedModal) {
+            case 'promise':
+              systemMessage = `📍 ${partnerName}님과의 직거래 약속\n날짜 : ${promiseData.date}\n시간 : ${promiseData.time}\n장소 : ${promiseData.location}`;
+              systemType = 'promise';
+              break;
+            case 'pay':
+              systemMessage = `💸 송금 요청이 도착했어요!\n예금주: ${payData.accountHolder}\n은행명: ${payData.phone}\n계좌번호: ${payData.accountNumber}\n금액: ${payData.amount}`;
+              systemType = 'pay';
+              break;
+            case 'address':
+              systemMessage = `🚚 배송지 입력이 완료되었습니다!\n수령인: ${addressData.name}\n전화번호: ${addressData.phone}\n배송지: ${addressData.address}\n${myName}님은 '+'버튼을 통해 배송 접수 정보를 알려주세요!`;
+              systemType = 'address';
+              break;
+            case 'delivery':
+              systemMessage = `🚚 배송 접수가 완료되었습니다!\n택배사: ${deliveryData.courier}\n운송장 번호: ${deliveryData.tracking}\n${partnerName}님은 택배를 수령하신 후, '+'버튼을 통해 거래를 완료해주세요!`;
+              systemType = 'delivery';
+              break;
+            default:
+              return;
+          }
+
+          onSendMessage({
+            content: systemMessage,
+            isMine: true,
+            isSystem: true,
+            systemType: systemType,
+          });
         }}
+
         onCancel={() => {
           setShowGroupBuyModal(false)
             if (lastOpenedModal === 'promise') setShowPromiseModal(true);
