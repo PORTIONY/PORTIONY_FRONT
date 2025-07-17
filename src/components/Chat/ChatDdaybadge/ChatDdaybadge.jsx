@@ -1,7 +1,7 @@
 // components/Common/DdayBadge.jsx
 import React from 'react';
 import styles from './ChatDdaybadge.module.css';
-import clock from '../../../assets/alarmWhite.svg'; // 경로는 프로젝트 구조에 맞게
+import clock from '../../../assets/alarmWhite.svg';
 
 // function DdayBadge({ text }) {
 //   return (
