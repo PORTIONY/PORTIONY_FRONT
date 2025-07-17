@@ -11,7 +11,7 @@
 | **Frontend** | React                   | 
 | **Backend**  | Spring Boot             | 
 | **통신 방식**    | REST API (JSON)         |
-| **배포**       | Vercel + Render / EC2 등 |
+| **배포**       | CloudType, Netlify |
 <br>
 
 ## 폴더 구조
