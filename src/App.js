@@ -17,9 +17,9 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   // 테스트용 로그인 강제 true
-  //useEffect(() => {
-  //  setIsLoggedIn(true);
-  //}, []);
+  useEffect(() => {
+   setIsLoggedIn(true);
+  }, []);
 
   return (
     <div className="web-wrapper">

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import boxImage from '../../assets/chat_logo.png';
 import styles from './Chats.module.css';
 import Dropdown from '../../components/DropDown/DropDown';
@@ -12,6 +12,8 @@ import postImage from '../../assets/product.png'; //상품 이미지
 
 function Chat() {
   const myName = '남예은';
+  const messagesEndRef = useRef(null);
+  const chatContainerRef = useRef(null);
   const [dateSort, setDateSort] = useState('전체');
   const [chatRooms, setChatRooms] = useState([
   {
@@ -22,6 +24,7 @@ function Chat() {
     title: '치약 10개a입 참여...할게요요요요 12432455253aaaaa',
     price: '100,000000000000',
     ddayText: '공구마감',
+    completionCount: 1,
     postImage: postImage, // 게시글 이미지 테스트용
     profileImg: profileImg, // 프로필 이미지 테스트용
     isSeller: true,
@@ -78,6 +81,7 @@ function Chat() {
     partnerName: '박지현',
     lastMessage: '언제쯤 WWWWWWWWWWASAWWWSASWWWWWWWWWASASAWWWWWWWWWWWWWWWAAASAASASWW받을 수 있나요?',
     time: '오전 11:34',
+    completionCount: 1,
     title: '치약 10개입 공동구매선착순 참여...',
     price: '6,000',
     ddayText: '마감 D-2',
@@ -103,7 +107,7 @@ function Chat() {
     ],
   },
   {
-    id: 1,
+    id: 3,
     partnerName: '이현승',
     lastMessage: '언제쯤 WWWWWWWWWWASAWWWSASWWWWWWWWWASASAWWWWWWWWWWWWWWWAAASAASASWW받을 수 있나요?',
     time: '오전 11:34',
@@ -132,7 +136,7 @@ function Chat() {
     ],
   },
   {
-    id: 1,
+    id: 4,
     partnerName: '이현승',
     lastMessage: '언제쯤 WWWWWWWWWWASAWWWSASWWWWWWWWWASASAWWWWWWWWWWWWWWWAAASAASASWW받을 수 있나요?',
     time: '오전 11:34',
@@ -141,6 +145,7 @@ function Chat() {
     ddayText: '마감 D-2',
     postImage: postImage, // 게시글 이미지 테스트용
     profileImg: profileImg, // 프로필 이미지 테스트용
+    isSeller: true,
     messages: [
       {
         content: '안녕하세요! 내일 오후 6시 괜찮으세요?',
@@ -160,8 +165,8 @@ function Chat() {
     ],
   },
   {
-    id: 1,
-    partnerName: '이현승',
+    id: 5,
+    partnerName: '구매자',
     lastMessage: '언제쯤 WWWWWWWWWWASAWWWSASWWWWWWWWWASASAWWWWWWWWWWWWWWWAAASAASASWW받을 수 있나요?',
     time: '오전 11:34',
     title: '치약 10개입 공동구매선착순 참여...',
@@ -169,6 +174,7 @@ function Chat() {
     ddayText: '마감 D-2',
     postImage: postImage, // 게시글 이미지 테스트용
     profileImg: profileImg, // 프로필 이미지 테스트용
+    isSeller: false,
     messages: [
       {
         content: '안녕하세요! 내일 오후 6시 괜찮으세요?',
@@ -188,8 +194,8 @@ function Chat() {
     ],
   },
   {
-    id: 1,
-    partnerName: '이현승',
+    id: 6,
+    partnerName: '판매자',
     lastMessage: '언제쯤 WWWWWWWWWWASAWWWSASWWWWWWWWWASASAWWWWWWWWWWWWWWWAAASAASASWW받을 수 있나요?',
     time: '오전 11:34',
     title: '치약 10개입 공동구매선착순 참여...',
@@ -197,6 +203,7 @@ function Chat() {
     ddayText: '마감 D-2',
     postImage: postImage, // 게시글 이미지 테스트용
     profileImg: profileImg, // 프로필 이미지 테스트용
+    isSeller: true,
     messages: [
       {
         content: '안녕하세요! 내일 오후 6시 괜찮으세요?',
@@ -216,7 +223,7 @@ function Chat() {
     ],
   },
   {
-    id: 1,
+    id: 7,
     partnerName: '이현승',
     lastMessage: '언제쯤 WWWWWWWWWWASAWWWSASWWWWWWWWWASASAWWWWWWWWWWWWWWWAAASAASASWW받을 수 있나요?',
     time: '오전 11:34',
@@ -225,6 +232,7 @@ function Chat() {
     ddayText: '마감 D-2',
     postImage: postImage, // 게시글 이미지 테스트용
     profileImg: profileImg, // 프로필 이미지 테스트용
+    isSeller: false,
     messages: [
       {
         content: '안녕하세요! 내일 오후 6시 괜찮으세요?',
@@ -244,7 +252,7 @@ function Chat() {
     ],
   },
   {
-    id: 1,
+    id: 8,
     partnerName: '이현승',
     lastMessage: '언제쯤 WWWWWWWWWWASAWWWSASWWWWWWWWWASASAWWWWWWWWWWWWWWWAAASAASASWW받을 수 있나요?',
     time: '오전 11:34',
@@ -253,177 +261,7 @@ function Chat() {
     ddayText: '마감 D-2',
     postImage: postImage, // 게시글 이미지 테스트용
     profileImg: profileImg, // 프로필 이미지 테스트용
-    messages: [
-      {
-        content: '안녕하세요! 내일 오후 6시 괜찮으세요?',
-        time: '오전 11:32',
-        isMine: false,
-      },
-      {
-        content: '스타벅스 잠실점 앞에서 뵈어요!',
-        time: '오전 11:33',
-        isMine: false,
-      },
-      {
-        content: '넵 확인했습니다. 감사합니다!',
-        time: '오전 11:35',
-        isMine: true,
-      },
-    ],
-  },
-  {
-    id: 1,
-    partnerName: '이현승',
-    lastMessage: '언제쯤 WWWWWWWWWWASAWWWSASWWWWWWWWWASASAWWWWWWWWWWWWWWWAAASAASASWW받을 수 있나요?',
-    time: '오전 11:34',
-    title: '치약 10개입 공동구매선착순 참여...',
-    price: '6,000',
-    ddayText: '마감 D-2',
-    postImage: postImage, // 게시글 이미지 테스트용
-    profileImg: profileImg, // 프로필 이미지 테스트용
-    messages: [
-      {
-        content: '안녕하세요! 내일 오후 6시 괜찮으세요?',
-        time: '오전 11:32',
-        isMine: false,
-      },
-      {
-        content: '스타벅스 잠실점 앞에서 뵈어요!',
-        time: '오전 11:33',
-        isMine: false,
-      },
-      {
-        content: '넵 확인했습니다. 감사합니다!',
-        time: '오전 11:35',
-        isMine: true,
-      },
-    ],
-  },
-  {
-    id: 1,
-    partnerName: '이현승',
-    lastMessage: '언제쯤 WWWWWWWWWWASAWWWSASWWWWWWWWWASASAWWWWWWWWWWWWWWWAAASAASASWW받을 수 있나요?',
-    time: '오전 11:34',
-    title: '치약 10개입 공동구매선착순 참여...',
-    price: '6,000',
-    ddayText: '마감 D-2',
-    postImage: postImage, // 게시글 이미지 테스트용
-    profileImg: profileImg, // 프로필 이미지 테스트용
-    messages: [
-      {
-        content: '안녕하세요! 내일 오후 6시 괜찮으세요?',
-        time: '오전 11:32',
-        isMine: false,
-      },
-      {
-        content: '스타벅스 잠실점 앞에서 뵈어요!',
-        time: '오전 11:33',
-        isMine: false,
-      },
-      {
-        content: '넵 확인했습니다. 감사합니다!',
-        time: '오전 11:35',
-        isMine: true,
-      },
-    ],
-  },
-  {
-    id: 1,
-    partnerName: '이현승',
-    lastMessage: '언제쯤 WWWWWWWWWWASAWWWSASWWWWWWWWWASASAWWWWWWWWWWWWWWWAAASAASASWW받을 수 있나요?',
-    time: '오전 11:34',
-    title: '치약 10개입 공동구매선착순 참여...',
-    price: '6,000',
-    ddayText: '마감 D-2',
-    postImage: postImage, // 게시글 이미지 테스트용
-    profileImg: profileImg, // 프로필 이미지 테스트용
-    messages: [
-      {
-        content: '안녕하세요! 내일 오후 6시 괜찮으세요?',
-        time: '오전 11:32',
-        isMine: false,
-      },
-      {
-        content: '스타벅스 잠실점 앞에서 뵈어요!',
-        time: '오전 11:33',
-        isMine: false,
-      },
-      {
-        content: '넵 확인했습니다. 감사합니다!',
-        time: '오전 11:35',
-        isMine: true,
-      },
-    ],
-  },
-  {
-    id: 1,
-    partnerName: '이현승',
-    lastMessage: '언제쯤 WWWWWWWWWWASAWWWSASWWWWWWWWWASASAWWWWWWWWWWWWWWWAAASAASASWW받을 수 있나요?',
-    time: '오전 11:34',
-    title: '치약 10개입 공동구매선착순 참여...',
-    price: '6,000',
-    ddayText: '마감 D-2',
-    postImage: postImage, // 게시글 이미지 테스트용
-    profileImg: profileImg, // 프로필 이미지 테스트용
-    messages: [
-      {
-        content: '안녕하세요! 내일 오후 6시 괜찮으세요?',
-        time: '오전 11:32',
-        isMine: false,
-      },
-      {
-        content: '스타벅스 잠실점 앞에서 뵈어요!',
-        time: '오전 11:33',
-        isMine: false,
-      },
-      {
-        content: '넵 확인했습니다. 감사합니다!',
-        time: '오전 11:35',
-        isMine: true,
-      },
-      {
-        content: '넵 확인했습니다. 감사합니다!',
-        time: '오전 11:35',
-        isMine: true,
-      },
-      {
-        content: '넵 확인했습니다. 감사합니다!',
-        time: '오전 11:35',
-        isMine: true,
-      },
-      {
-        content: '넵 확인했습니다. 감사합니다!',
-        time: '오전 11:35',
-        isMine: true,
-      },
-      {
-        content: '넵 확인했습니다. 감사합니다!',
-        time: '오전 11:35',
-        isMine: true,
-      },
-      {
-        content: '넵 확인했습니다. 감사합니다!',
-        time: '오전 11:35',
-        isMine: true,
-      },
-      {
-        content: '넵 확인했습니다. 감사합니다!',
-        time: '오전 11:35',
-        isMine: true,
-      },
-
-    ],
-  },
-  {
-    id: 1,
-    partnerName: '이현승',
-    lastMessage: '언제쯤 WWWWWWWWWWASAWWWSASWWWWWWWWWASASAWWWWWWWWWWWWWWWAAASAASASWW받을 수 있나요?',
-    time: '오전 11:34',
-    title: '치약 10개입 공동구매선착순 참여...',
-    price: '6,000',
-    ddayText: '마감 D-2',
-    postImage: postImage, // 게시글 이미지 테스트용
-    profileImg: profileImg, // 프로필 이미지 테스트용
+    isSeller: false,
     messages: [
       {
         content: '안녕하세요! 내일 오후 6시 괜찮으세요?',
@@ -448,7 +286,28 @@ function Chat() {
 
   const [selectedRoom, setSelectedRoom] = useState(null);
 
-  const isEmpty = chatRooms.length === 0;
+
+  const filteredRooms = chatRooms.filter((room) => {
+      if (dateSort === '전체') return true;
+      if (dateSort === '구매') return !room.isSeller; // 구매자일 때
+      if (dateSort === '판매') return room.isSeller;  // 판매자일 때
+      return true;
+    });
+
+    const isEmpty = filteredRooms.length === 0;
+
+  const scrollToBottom = () => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
+  };
+
+  //채팅방 클릭했을 때 스크롤 하단으로 고정
+  useEffect(() => {
+    if (selectedRoom) {
+      scrollToBottom();
+    }
+  }, [selectedRoom]);
 
   return (
     <div className={styles.container}>
@@ -457,13 +316,13 @@ function Chat() {
         <div className={styles.leftTop}>
           <h2 className={styles.chatTitle}>채팅 목록</h2>
           <Dropdown
-            options={['구매', '판매']}
+            options={['전체','구매', '판매']}
             selected={dateSort}
             setSelected={setDateSort}
             placeholder="날짜"
           />
         </div>
-
+        
         <div className={styles.left}>
           {isEmpty ? (
             <>
@@ -477,7 +336,7 @@ function Chat() {
               <button className={styles.button}>상품 둘러보기</button>
             </>
           ) : (
-            chatRooms.map((room) => (
+            filteredRooms.map((room) => (
               <ChatListItem
                 key={room.id}
                 partnerName={room.partnerName}
@@ -507,7 +366,7 @@ function Chat() {
             ddayText={selectedRoom.ddayText}
           />
 
-          <div className={styles.chatMessages}>
+          <div className={styles.chatMessages} ref={chatContainerRef}>
             {Object.entries(groupMessagesByDate(selectedRoom.messages)).map(
               ([date, msgs]) => (
                 <div key={date} className={styles.messageGroup}>
@@ -531,6 +390,7 @@ function Chat() {
                 </div>
               )
             )}
+            <div ref={messagesEndRef} />
           </div>
 
 
@@ -538,6 +398,7 @@ function Chat() {
         myName={myName}
         isSeller={selectedRoom.isSeller} // TODO: 실제 로그인 유저 role로 바꿔줘!
         partnerName={selectedRoom.partnerName}
+        completionCount={selectedRoom.completionCount}
         chatStatus={'active'} // TODO: 상태값에 따라 변경 가능
         onSendMessage={(newMessage) => {
           const messageObj =
@@ -564,6 +425,8 @@ function Chat() {
 
           setChatRooms(updatedRooms);
           setSelectedRoom(updatedRooms.find((room) => room.id === selectedRoom.id));
+
+          setTimeout(scrollToBottom, 0);
         }}
 
       />

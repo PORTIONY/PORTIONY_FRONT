@@ -17,7 +17,7 @@ import GroupBuyModal from '../../GroupBuy/GroupBuyModal';
 import CompleteModal from '../Modal/Complete';
 import Complete2Modal from '../Modal/Complete2';
 
-function ChatBottom({ onSendMessage, isSeller, partnerName, myName }) {
+function ChatBottom({ onSendMessage, isSeller, partnerName, myName, completionCount }) {
   const [message, setMessage] = useState('');
   const [showOptions, setShowOptions] = useState(false);
   const [showAddressModal, setShowAddressModal] = useState(false);
@@ -28,7 +28,6 @@ function ChatBottom({ onSendMessage, isSeller, partnerName, myName }) {
   const [lastOpenedModal, setLastOpenedModal] = useState(null);
   const [showCompleteModal, setShowCompleteModal] = useState(false);
   const [showComplete2Modal, setShowComplete2Modal] = useState(false);
-
 
   const [promiseData, setPromiseData] = useState({
     date: '',
@@ -134,6 +133,12 @@ const [deliveryData, setDeliveryData] = useState({
             setMessage(e.target.value);
             e.target.style.height = 'auto'; // 높이 초기화
             e.target.style.height = `${e.target.scrollHeight}px`; // 내용에 따라 높이 조절
+          }}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+              e.preventDefault(); // 줄바꿈 방지
+              handleSend();       // 기존 버튼 클릭과 동일한 전송 함수
+            }
           }}
           rows={1}
         />
@@ -256,10 +261,24 @@ const [deliveryData, setDeliveryData] = useState({
         onConfirm={() => {
           setShowCompleteModal(false);
           setShowComplete2Modal(true);
-          // 거래 완료 처리 로직 여기에 작성 (ex: 메시지 전송 등)
-        }}
-      />
-    )}
+
+          let systemMessage = '';
+          console.log(completionCount);
+          if (completionCount === 0) {
+            systemMessage = `🎉 거래가 완료되었어요!\n판매자/구매자님 모두 [거래완료] 버튼을 눌러주셔야 거래가 ‘최종 완료’됩니다.`;
+          } else if (completionCount === 1) {
+            systemMessage = `🎉 소중한 거래가 최종 완료되었습니다!\n후기는 마이페이지에서 작성가능합니다 :)\n포셔니와 함께 해주셔서 감사합니다.`;
+          }
+
+          onSendMessage({
+            content: systemMessage,
+            isMine: true,
+            isSystem: true,
+            systemType: 'completed',
+          });
+          }}
+        />
+      )}
 
     {showComplete2Modal && (
       <Complete2Modal
