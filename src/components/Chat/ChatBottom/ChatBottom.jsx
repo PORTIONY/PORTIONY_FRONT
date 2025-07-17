@@ -13,6 +13,7 @@ import DeliveryModal from '../Modal/DeliveryModal';
 import PromiseModal from '../Modal/Promise';
 import PayRequestModal from '../Modal/PayRequest';
 import DeliveryInfoModal from '../Modal/DeliveryInfo';
+import GroupBuyModal from '../../GroupBuy/GroupBuyModal';
 
 function ChatBottom({ onSendMessage, isSeller }) {
   const [message, setMessage] = useState('');
@@ -21,6 +22,33 @@ function ChatBottom({ onSendMessage, isSeller }) {
   const [showPromiseModal, setShowPromiseModal] = useState(false);
   const [showPayRequestModal, setShowPayRequestModal] = useState(false);
   const [showDeliveryInfoModal, setShowDeliveryInfoModal] = useState(false);
+  const [showGroupBuyModal, setShowGroupBuyModal] = useState(false);
+  const [lastOpenedModal, setLastOpenedModal] = useState(null);
+
+  const [promiseData, setPromiseData] = useState({
+    date: '',
+    time: '',
+    location: '',
+  });
+
+const [payData, setPayData] = useState({
+  accountHolder: '',
+  phoneNumber: '',
+  accountNumber: '',
+  amount: '',
+});
+
+const [addressData, setAddressData] = useState({
+  name: '',
+  phone: '',
+  address: '',
+});
+
+const [deliveryData, setDeliveryData] = useState({
+  courier: '',
+  tracking: '',
+});
+
 
   const fileInputRef = useRef(null);
 
@@ -116,16 +144,27 @@ function ChatBottom({ onSendMessage, isSeller }) {
     {showAddressModal && (
           <DeliveryModal
             onClose={() => setShowAddressModal(false)}
-            onNext={() => setShowAddressModal(false)}
+            onNext={() => {
+              setShowAddressModal(false);
+              setLastOpenedModal('address');
+              setShowGroupBuyModal(true);
+            }}
+            data={addressData}
+            setData={setAddressData}
           />
         )}
+
     {showPromiseModal && (
       <PromiseModal
         onClose={() => setShowPromiseModal(false)}
         onSubmit={() => {
           // 약속 정보 전송 처리 로직 여기에 작성
           setShowPromiseModal(false);
+          setLastOpenedModal('promise');
+          setShowGroupBuyModal(true);
         }}
+        data={promiseData}
+        setData={setPromiseData}
       />
     )}
 
@@ -135,16 +174,46 @@ function ChatBottom({ onSendMessage, isSeller }) {
         onSubmit={(data) => {
           // 송금 요청 처리 로직 작성 (예: 메시지로 전송하거나 서버로 보냄)
           setShowPayRequestModal(false);
+          setLastOpenedModal('pay');
+          setShowGroupBuyModal(true);
         }}
+        data={payData}
+        setData={setPayData}
       />
     )}
 
     {showDeliveryInfoModal && (
       <DeliveryInfoModal
         onClose={() => setShowDeliveryInfoModal(false)}
-        onNext={() => setShowDeliveryInfoModal(false)}
+        onNext={() => {
+          setShowDeliveryInfoModal(false);
+          setLastOpenedModal('delivery');
+          setShowGroupBuyModal(true);
+        }}
+        data={deliveryData}
+        setData={setDeliveryData}
       />
     )}
+
+    {showGroupBuyModal && (
+      <GroupBuyModal
+        message="작성 내용을 전송하시겠어요?"
+        confirmText="보내기"
+        cancelText="취소"
+        onConfirm={() => {
+          setShowGroupBuyModal(false);
+          // 실제 처리 로직 예: 메시지 전송 or 서버 요청 등
+        }}
+        onCancel={() => {
+          setShowGroupBuyModal(false)
+            if (lastOpenedModal === 'promise') setShowPromiseModal(true);
+            else if (lastOpenedModal === 'pay') setShowPayRequestModal(true);
+            else if (lastOpenedModal === 'address') setShowAddressModal(true);
+            else if (lastOpenedModal === 'delivery') setShowDeliveryInfoModal(true);
+        }}
+      />
+    )}
+
 
 
     </>

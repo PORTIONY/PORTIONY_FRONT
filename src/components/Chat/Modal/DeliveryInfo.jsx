@@ -2,20 +2,17 @@ import React, { useState } from 'react';
 import styles from './DeliveryInfo.module.css';
 import xIcon from '../../../assets/x(black).svg';
 
-function DeliveryInfoModal({ onClose, onNext }) {
-  const [formData, setFormData] = useState({
-    courier: '',
-    trackingNumber: '',
-  });
+function DeliveryInfoModal({ onClose, onNext, data, setData }) {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setData((prev) => ({ ...prev, [name]: value }));
   };
+
 
   const handleSubmit = () => {
     // 여기에 데이터 처리 로직 넣어도 됨 (예: 서버 전송)
-    onNext?.(formData); // 콜백 있으면 넘겨주기
+    onNext?.(data); // 콜백 있으면 넘겨주기
     onClose();
   };
 
@@ -36,7 +33,7 @@ function DeliveryInfoModal({ onClose, onNext }) {
               className={styles.input}
               name="courier"
               placeholder="택배사를 입력해주세요."
-              value={formData.courier}
+              value={data.courier}
               onChange={handleChange}
             />
           </label>
@@ -45,9 +42,9 @@ function DeliveryInfoModal({ onClose, onNext }) {
             <span>운송장번호</span>
             <input
               className={styles.input}
-              name="trackingNumber"
+              name="tracking"
               placeholder="운송장번호를 입력해주세요."
-              value={formData.trackingNumber}
+              value={data.tracking}
               onChange={handleChange}
             />
           </label>

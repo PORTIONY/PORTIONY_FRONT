@@ -32,6 +32,17 @@
   font-weight: 600;
   margin-top: 25px;
   margin-bottom: 40px;
+
+  color: #000;
+text-align: center;
+
+/* Title/Title2 */
+font-family: Inter;
+font-size: 16px;
+font-style: normal;
+font-weight: 600;
+line-height: 16px; /* 100% */
+letter-spacing: -0.32px;
 }
 
 .gbm-button {
@@ -45,6 +56,16 @@
   border-radius: 10px;
   width: 116px;
   height: 40px;
+
+  color: #000;
+
+/* Title/Title2 */
+font-family: Inter;
+font-size: 16px;
+font-style: normal;
+font-weight: 600;
+line-height: 16px; /* 100% */
+letter-spacing: -0.32px;
 }
 
 

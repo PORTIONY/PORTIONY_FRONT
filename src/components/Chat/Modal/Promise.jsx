@@ -4,7 +4,7 @@ import React from 'react';
 import styles from './Promise.module.css';
 import xIxon from '../../../assets/x(black).svg';
 
-function PromiseModal({ onClose, onNext }) {
+function PromiseModal({ onClose, onSubmit }) {
   return (
     <div className={styles.backdrop} onClick={onClose}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
@@ -33,7 +33,7 @@ function PromiseModal({ onClose, onNext }) {
         </div>
 
         <div className={styles.footer}>
-          <button className={styles.nextButton} onClick={onNext}>다음</button>
+          <button className={styles.nextButton} onClick={onSubmit}>다음</button>
         </div>
       </div>
     </div>
