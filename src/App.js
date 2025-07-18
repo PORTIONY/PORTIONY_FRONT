@@ -11,15 +11,17 @@ import GroupBuyNew from './features/GroupBuy/GroupBuyNew';
 import GroupBuyDetail from './features/GroupBuy/GroupBuyDetail';
 import GroupBuyEdit from './features/GroupBuy/GroupBuyEdit';
 import Community from './features/Community/Community';
+import ChatTest from './features/Chats/ChatTest';
+
 import './App.css';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   //테스트용 로그인 강제 true
-  useEffect(() => {
-   setIsLoggedIn(true);
-  }, []);
+  // useEffect(() => {
+  //  setIsLoggedIn(true);
+  // }, []);
 
   return (
     <div className="web-wrapper">
@@ -42,6 +44,9 @@ function App() {
               <Route path="/group-buy/new" element={<GroupBuyNew />} />
               <Route path="/group-buy/:id" element={<GroupBuyDetail />} />
               <Route path="/group-buy/:id/edit" element={<GroupBuyEdit />} />
+
+              {/* ✅ 테스트용 채팅 라우트 */}
+              <Route path="/chat-test" element={<ChatTest />} />
 
               {/* 기타 잘못된 경로 */}
               <Route path="*" element={<Navigate to="/" />} />
